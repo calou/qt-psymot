@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from PyQt4 import QtCore
+from PyQt5 import QtCore, QtWidgets
 
 from app.gui.MyWidgets import *
 from app.gui.base import Window
@@ -8,7 +8,7 @@ from app.model.Person import *
 from app.db.PersonRepository import PersonRepository
 
 
-class ApplicationHome(QtGui.QWidget):
+class ApplicationHome(QtWidgets.QWidget):
     def __init__(self):
         super(ApplicationHome, self).__init__()
         self.initUI()
@@ -17,20 +17,20 @@ class ApplicationHome(QtGui.QWidget):
         self.drawHome()
 
     def drawHome(self):
-        self.homeLayout = QtGui.QHBoxLayout()
-        leftBox = QtGui.QGridLayout()
-        startTestButton = QtGui.QPushButton(u"Démarrer un test")
-        managePatientsButton = QtGui.QPushButton(u"Gérer les patients")
+        self.homeLayout = QtWidgets.QHBoxLayout()
+        leftBox = QtWidgets.QGridLayout()
+        startTestButton = QtWidgets.QPushButton(u"Démarrer un test")
+        managePatientsButton = QtWidgets.QPushButton(u"Gérer les patients")
         managePatientsButton.clicked.connect(self.managePatientsButtonClicked)
 
         leftBox.addWidget(startTestButton, 0, 0)
         leftBox.addWidget(managePatientsButton, 1, 0)
 
         self.homeLayout.addLayout(leftBox)
-        personFormLayout = QtGui.QFormLayout()
-        self.firstNameWidget = QtGui.QLineEdit()
-        self.lastNameWidget = QtGui.QLineEdit()
-        self.birthDateWidget = QtGui.QDateEdit()
+        personFormLayout = QtWidgets.QFormLayout()
+        self.firstNameWidget = QtWidgets.QLineEdit()
+        self.lastNameWidget = QtWidgets.QLineEdit()
+        self.birthDateWidget = QtWidgets.QDateEdit()
         personFormLayout.addRow(u"Prénom", self.firstNameWidget)
         personFormLayout.addRow(u"Nom", self.lastNameWidget)
         personFormLayout.addRow(u"Date de naissance", self.birthDateWidget)
@@ -44,13 +44,13 @@ class ApplicationHome(QtGui.QWidget):
         self.show()
 
 
-class PersonListWidgetItem(QtGui.QWidget):
+class PersonListWidgetItem(QtWidgets.QWidget):
     def __init__(self, parent=None):
-        super(QtGui.QWidget, self).__init__(parent)
+        super(QtWidgets.QWidget, self).__init__(parent)
         self.person = None
-        self.item_name_label = QtGui.QLabel("Name:")
+        self.item_name_label = QtWidgets.QLabel("Name:")
 
-        vert = QtGui.QVBoxLayout()
+        vert = QtWidgets.QVBoxLayout()
         vert.addWidget(self.item_name_label)
         self.setLayout(vert)
 
@@ -67,12 +67,12 @@ class ManagePatientWindow(Window):
         super(ManagePatientWindow, self).__init__()
         self.patients = []
 
-        self.manage_patients_layout = QtGui.QVBoxLayout()
-        self.search_input = QtGui.QLineEdit()
+        self.manage_patients_layout = QtWidgets.QVBoxLayout()
+        self.search_input = QtWidgets.QLineEdit()
         self.patient_list_widget = MyListWidget()
-        self.first_name_widget = QtGui.QLineEdit()
-        self.last_name_widget = QtGui.QLineEdit()
-        self.birth_date_widget = QtGui.QDateEdit()
+        self.first_name_widget = QtWidgets.QLineEdit()
+        self.last_name_widget = QtWidgets.QLineEdit()
+        self.birth_date_widget = QtWidgets.QDateEdit()
 
         self.person_repository = PersonRepository()
         self.refresh_patients()
@@ -88,9 +88,9 @@ class ManagePatientWindow(Window):
         self.manage_patients_layout.addWidget(title)
 
         self.patient_list_widget.itemClicked.connect(self.item_click)
-        person_form_layout = QtGui.QFormLayout()
+        person_form_layout = QtWidgets.QFormLayout()
         self.redraw_person_list()
-        hbox = QtGui.QHBoxLayout()
+        hbox = QtWidgets.QHBoxLayout()
 
         self.search_input.setPlaceholderText(u"Rechercher")
         self.search_input.setFixedWidth(200)
@@ -105,16 +105,16 @@ class ManagePatientWindow(Window):
         person_form_layout.addRow(u"Nom", self.last_name_widget)
         person_form_layout.addRow(u"Date de naissance", self.birth_date_widget)
 
-        save_button = QtGui.QPushButton(u"Enregistrer")
+        save_button = QtWidgets.QPushButton(u"Enregistrer")
         save_button.clicked.connect(self.save_patient)
-        new_patient_button = QtGui.QPushButton(u"Nouveau patient")
+        new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
         new_patient_button.clicked.connect(self.new_patient)
 
-        button_layout = QtGui.QHBoxLayout()
+        button_layout = QtWidgets.QHBoxLayout()
         button_layout.addWidget(save_button)
         button_layout.addWidget(new_patient_button)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(person_form_layout)
         vbox.addLayout(button_layout)
 
@@ -132,7 +132,7 @@ class ManagePatientWindow(Window):
     def redraw_person_list(self):
         self.patient_list_widget.clear()
         for patient in self.patients:
-            item = QtGui.QListWidgetItem(self.patient_list_widget)
+            item = QtWidgets.QListWidgetItem(self.patient_list_widget)
             item_widget = PersonListWidgetItem()
             item_widget.set_person(patient)
             item.setSizeHint(item_widget.sizeHint())
@@ -164,7 +164,7 @@ class ManagePatientWindow(Window):
 
     def search_patients(self):
         search_value = self.search_input.text()
-        print search_value
+        print(search_value)
         if(search_value == ''):
             self.refresh_patients()
         else:

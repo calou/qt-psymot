@@ -1,10 +1,12 @@
-from PyQt4 import QtGui
+from PyQt5 import QtWidgets
 
-class MyListWidget(QtGui.QListWidget):
+class MyListWidget(QtWidgets.QListWidget):
     def __init__(self):
-        QtGui.QListWidget.__init__(self)
+        QtWidgets.QListWidget.__init__(self)
 
     def removeSelection(self):
         for i in range(self.count()):
             item = self.item(i)
-            self.setItemSelected(item, False)
+            item.setSelected(False)
+            #self.setItemSelected(item, False)
+            #self.

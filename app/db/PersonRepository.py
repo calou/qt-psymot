@@ -23,7 +23,7 @@ class PersonRepository():
 
     def search(self, search_value):
         value = "'%" + search_value + "%'"
-        query = unicode("SELECT id, first_name, last_name, birth_date from people WHERE first_name LIKE "+value+" OR last_name LIKE " + value)
+        query = "SELECT id, first_name, last_name, birth_date from people WHERE first_name LIKE "+value+" OR last_name LIKE " + value
         return self.select_many(query)
 
 
