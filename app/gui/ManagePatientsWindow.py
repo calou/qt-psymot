@@ -52,7 +52,7 @@ class ManagePatientWindow(Window):
         self.manage_patients_layout.addWidget(title)
 
         self.patient_list_widget.itemClicked.connect(self.item_click)
-        person_form_layout = QtWidgets.QFormLayout()
+        form_layout = QtWidgets.QFormLayout()
         self.redraw_person_list()
         hbox = QtWidgets.QHBoxLayout()
 
@@ -67,24 +67,27 @@ class ManagePatientWindow(Window):
 
         form_title = QtWidgets.QLabel(u"Informations sur le patients")
         form_title.setStyleSheet("font-size:18px;margin-bottom:10px;")
-        person_form_layout.addRow(form_title)
-        person_form_layout.addRow(u"Prénom", self.first_name_widget)
-        person_form_layout.addRow(u"Nom", self.last_name_widget)
-        person_form_layout.addRow(u"Date de naissance", self.birth_date_widget)
+        form_layout.addRow(form_title)
+        form_layout.addRow(u"Prénom", self.first_name_widget)
+        form_layout.addRow(u"Nom", self.last_name_widget)
+        form_layout.addRow(u"Date de naissance", self.birth_date_widget)
 
         save_button = QtWidgets.QPushButton(u"Enregistrer")
         save_button.setFixedWidth(120)
         save_button.clicked.connect(self.save_patient)
+
+        form_layout.addWidget(save_button)
         new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
-        new_patient_button.setFixedWidth(120)
         new_patient_button.clicked.connect(self.new_patient)
 
-        button_layout = QtWidgets.QHBoxLayout()
-        button_layout.addWidget(save_button)
+
+        button_layout = QtWidgets.QBoxLayout(QtWidgets.QBoxLayout.LeftToRight)
+        button_layout.addStretch(0)
+        #button_layout.addWidget(save_button)
         button_layout.addWidget(new_patient_button)
 
         vbox = QtWidgets.QVBoxLayout()
-        vbox.addLayout(person_form_layout)
+        vbox.addLayout(form_layout)
         vbox.addLayout(button_layout)
 
         hbox.addLayout(vbox)
