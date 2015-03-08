@@ -13,14 +13,19 @@ class PersonListWidgetItem(QtWidgets.QWidget):
         super(QtWidgets.QWidget, self).__init__(parent)
         self.person = None
         self.item_name_label = QtWidgets.QLabel("Name:")
-
-        vert = QtWidgets.QVBoxLayout()
-        vert.addWidget(self.item_name_label)
-        self.setLayout(vert)
+        self.delete_button = QtWidgets.QPushButton(u"Supprimer")
+        self.delete_button.setFixedWidth(80)
+        self.delete_button.setToolTip(u"Supprimer le patient")
+        self.delete_button.hide()
+        self.hbox = QtWidgets.QHBoxLayout()
+        self.hbox.addWidget(self.item_name_label)
+        self.hbox.addWidget(self.delete_button)
+        self.setLayout(self.hbox)
 
     def set_person(self, person):
         self.person = person
         self.item_name_label.setText(person.fullname())
+
 
 
 class ManagePatientWindow(Window):
@@ -33,25 +38,29 @@ class ManagePatientWindow(Window):
 
         self.manage_patients_layout = QtWidgets.QVBoxLayout()
         self.search_input = QtWidgets.QLineEdit()
-        self.patient_list_widget = MyListWidget()
+        self.list_widget = MyListWidget()
+
         self.first_name_widget = QtWidgets.QLineEdit()
         self.last_name_widget = QtWidgets.QLineEdit()
         self.birth_date_widget = QtWidgets.QDateEdit()
 
         self.person_repository = PersonRepository()
         self.refresh_patients()
-        self.initUI()
+        self.init_ui()
 
-    def item_click(self, item):
-        personWidget = self.patient_list_widget.itemWidget(item)
+    def item_clicked(self, item):
+        for it in range(self.list_widget.count()):
+            self.list_widget.itemWidget(self.list_widget.item(it)).delete_button.hide()
+        personWidget = self.list_widget.itemWidget(item)
+        personWidget.delete_button.show()
         self.set_patient(personWidget.person)
 
-    def initUI(self):
+    def init_ui(self):
         title = self.setTitle(u"Gestion des patients")
 
         self.manage_patients_layout.addWidget(title)
 
-        self.patient_list_widget.itemClicked.connect(self.item_click)
+        self.list_widget.itemClicked.connect(self.item_clicked)
         form_layout = QtWidgets.QFormLayout()
         self.redraw_person_list()
         hbox = QtWidgets.QHBoxLayout()
@@ -61,7 +70,7 @@ class ManagePatientWindow(Window):
         self.manage_patients_layout.addWidget(self.search_input)
         self.search_input.textChanged.connect(self.search_patients)
 
-        hbox.addWidget(self.patient_list_widget)
+        hbox.addWidget(self.list_widget)
 
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
 
@@ -83,7 +92,6 @@ class ManagePatientWindow(Window):
 
         button_layout = QtWidgets.QBoxLayout(QtWidgets.QBoxLayout.LeftToRight)
         button_layout.addStretch(0)
-        #button_layout.addWidget(save_button)
         button_layout.addWidget(new_patient_button)
 
         vbox = QtWidgets.QVBoxLayout()
@@ -102,14 +110,15 @@ class ManagePatientWindow(Window):
         self.show()
 
     def redraw_person_list(self):
-        self.patient_list_widget.clear()
+        self.list_widget.clear()
         for patient in self.patients:
-            item = QtWidgets.QListWidgetItem(self.patient_list_widget)
+            item = QtWidgets.QListWidgetItem(self.list_widget)
             item_widget = PersonListWidgetItem()
+            item_widget.delete_button.clicked.connect(self.delete_patient)
             item_widget.set_person(patient)
             item.setSizeHint(item_widget.sizeHint())
-            self.patient_list_widget.addItem(item)
-            self.patient_list_widget.setItemWidget(item, item_widget)
+            self.list_widget.addItem(item)
+            self.list_widget.setItemWidget(item, item_widget)
 
     def set_patient(self, patient):
         self.current_patient = patient
@@ -129,8 +138,13 @@ class ManagePatientWindow(Window):
         self.refresh_patients()
         self.redraw_person_list()
 
+    def delete_patient(self):
+        self.person_repository.delete(self.current_patient)
+        self.refresh_patients()
+        self.redraw_person_list()
+
     def new_patient(self):
-        self.patient_list_widget.removeSelection()
+        self.list_widget.removeSelection()
         patient = Person()
         self.set_patient(patient)
 

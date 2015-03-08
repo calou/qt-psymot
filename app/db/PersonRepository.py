@@ -37,3 +37,7 @@ class PersonRepository():
         query = "UPDATE people set first_name='%s', last_name='%s', birth_date='%s' WHERE id=%s " % (
             person.first_name, person.last_name, person.birth_date, person.id)
         self.database_connector.executeUpdate(query)
+
+    def delete(self, person):
+        query = "DELETE FROM people WHERE id=%s " % (person.id)
+        self.database_connector.executeUpdate(query)
