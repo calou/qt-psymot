@@ -7,7 +7,7 @@ from app.gui.gui import *
 def main():
     
     app = QtGui.QApplication(sys.argv)
-    widget = ManagePatientWidget()
+    widget = ManagePatientWindow()
     sys.exit(app.exec_())
 
 

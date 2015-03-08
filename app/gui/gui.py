@@ -3,6 +3,7 @@
 from PyQt4 import QtCore
 
 from app.gui.MyWidgets import *
+from app.gui.base import Window
 from app.model.Person import *
 from app.db.PersonRepository import PersonRepository
 
@@ -58,12 +59,12 @@ class PersonListWidgetItem(QtGui.QWidget):
         self.item_name_label.setText(person.fullname())
 
 
-class ManagePatientWidget(QtGui.QWidget):
+class ManagePatientWindow(Window):
     def __init__(self):
-        super(ManagePatientWidget, self).__init__()
+        super(ManagePatientWindow, self).__init__()
         self.patients = []
 
-        self.manage_patients_layout = QtGui.QHBoxLayout()
+        self.manage_patients_layout = QtGui.QVBoxLayout()
         self.patient_list_widget = MyListWidget()
         self.first_name_widget = QtGui.QLineEdit()
         self.last_name_widget = QtGui.QLineEdit()
@@ -78,8 +79,11 @@ class ManagePatientWidget(QtGui.QWidget):
         self.set_patient(personWidget.person)
 
     def initUI(self):
-        self.patient_list_widget.itemClicked.connect(self.item_click)
+        title = self.setTitle(u"Gestion des patients")
 
+        self.manage_patients_layout.addWidget(title)
+
+        self.patient_list_widget.itemClicked.connect(self.item_click)
         person_form_layout = QtGui.QFormLayout()
         self.redraw_person_list()
         hbox = QtGui.QHBoxLayout()
