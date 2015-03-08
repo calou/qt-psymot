@@ -20,7 +20,8 @@ class PersonRepository():
 
     def save(self, person):
         query = "INSERT INTO people (first_name, last_name, birth_date) VALUES ('%s', '%s', '%s')" % (person.first_name, person.last_name, person.birth_date)
-        self.database_connector.executeUpdate(query)
+        cursor = self.database_connector.execute(query)
+        person.id = cursor.lastrowid
 
     def update(self, person):
         query = "UPDATE people set first_name='%s', last_name='%s', birth_date='%s' WHERE id=%s " % (person.first_name, person.last_name, person.birth_date, person.id)
