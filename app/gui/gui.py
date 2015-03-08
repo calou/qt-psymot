@@ -60,18 +60,22 @@ class PersonListWidgetItem(QtGui.QWidget):
 
 
 class ManagePatientWindow(Window):
+    def refresh_patients(self):
+        self.patients = self.person_repository.list()
+
     def __init__(self):
         super(ManagePatientWindow, self).__init__()
         self.patients = []
 
         self.manage_patients_layout = QtGui.QVBoxLayout()
+        self.search_input = QtGui.QLineEdit()
         self.patient_list_widget = MyListWidget()
         self.first_name_widget = QtGui.QLineEdit()
         self.last_name_widget = QtGui.QLineEdit()
         self.birth_date_widget = QtGui.QDateEdit()
 
         self.person_repository = PersonRepository()
-
+        self.refresh_patients()
         self.initUI()
 
     def item_click(self, item):
@@ -87,6 +91,11 @@ class ManagePatientWindow(Window):
         person_form_layout = QtGui.QFormLayout()
         self.redraw_person_list()
         hbox = QtGui.QHBoxLayout()
+
+        self.search_input.setPlaceholderText(u"Rechercher")
+        self.search_input.setFixedWidth(200)
+        self.manage_patients_layout.addWidget(self.search_input)
+        self.search_input.textChanged.connect(self.search_patients)
 
         hbox.addWidget(self.patient_list_widget)
 
@@ -122,7 +131,6 @@ class ManagePatientWindow(Window):
 
     def redraw_person_list(self):
         self.patient_list_widget.clear()
-        self.patients = self.person_repository.list()
         for patient in self.patients:
             item = QtGui.QListWidgetItem(self.patient_list_widget)
             item_widget = PersonListWidgetItem()
@@ -146,6 +154,7 @@ class ManagePatientWindow(Window):
             self.person_repository.update(self.current_patient)
         else:
             self.person_repository.save(self.current_patient)
+        self.refresh_patients()
         self.redraw_person_list()
 
     def new_patient(self):
@@ -153,3 +162,11 @@ class ManagePatientWindow(Window):
         patient = Person()
         self.set_patient(patient)
 
+    def search_patients(self):
+        search_value = self.search_input.text()
+        print search_value
+        if(search_value == ''):
+            self.refresh_patients()
+        else:
+            self.patients = self.person_repository.search(search_value)
+        self.redraw_person_list()

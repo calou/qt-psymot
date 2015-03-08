@@ -24,7 +24,7 @@ class DatabaseConnector():
 
     def execute(self, script):
         with sqlite3.connect(self.db_filename) as conn:
-            print("DB : %s" % script)
+            print "DB: %s" % script
             cursor = conn.cursor()
             cursor.execute(script)
             return cursor
