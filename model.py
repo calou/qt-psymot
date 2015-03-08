@@ -3,10 +3,10 @@ from datetime import datetime
 
 class Person():
     def __init__(self):
-        self.id = 0
-        self.firstName = ""
-        self.lastName = ""
-        self.birthDate = datetime(1990, 1, 1)
+        self.id = -1
+        self.first_name = ""
+        self.last_name = ""
+        self.birth_date = datetime(1990, 1, 1)
 
     def fullname(self):
-        return self.firstName + " " + self.lastName
+        return self.last_name.upper() + ", " +self.first_name

@@ -3,6 +3,7 @@
 from PyQt4 import QtGui, QtCore
 from MyWidgets import *
 from model import *
+from dao import PersonRepository
 
 
 class ApplicationHome(QtGui.QWidget):
@@ -56,7 +57,6 @@ class PersonListWidgetItem(QtGui.QWidget):
         self.item_name_label.setText(person.fullname())
 
 
-
 class ManagePatientWidget(QtGui.QWidget):
     def __init__(self):
         super(ManagePatientWidget, self).__init__()
@@ -68,17 +68,9 @@ class ManagePatientWidget(QtGui.QWidget):
         self.last_name_widget = QtGui.QLineEdit()
         self.birth_date_widget = QtGui.QDateEdit()
 
+        self.person_repository = PersonRepository()
+
         self.initUI()
-
-
-    def fakeData(self):
-        for f, l, d in [("Marie", "Dubois", datetime(1990, 12, 24)), ("Jacques", "Martin", datetime(1952, 7, 3)),
-                        ("Patrick", "Lahaye", datetime(1980, 4, 9))]:
-            person = Person()
-            person.firstName = f
-            person.lastName = l
-            person.birthDate = d
-            self.patients.append(person)
 
     def item_click(self, item):
         personWidget = self.patient_list_widget.itemWidget(item)
@@ -91,7 +83,6 @@ class ManagePatientWidget(QtGui.QWidget):
         self.redraw_person_list()
         hbox = QtGui.QHBoxLayout()
 
-        self.fakeData()
         hbox.addWidget(self.patient_list_widget)
 
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
@@ -121,10 +112,12 @@ class ManagePatientWidget(QtGui.QWidget):
         self.setWindowTitle('Psychomotriciel')
 
         self.redraw_person_list()
+        self.new_patient()
         self.show()
 
     def redraw_person_list(self):
         self.patient_list_widget.clear()
+        self.patients = self.person_repository.list()
         for patient in self.patients:
             item = QtGui.QListWidgetItem(self.patient_list_widget)
             item_widget = PersonListWidgetItem()
@@ -134,20 +127,23 @@ class ManagePatientWidget(QtGui.QWidget):
             self.patient_list_widget.setItemWidget(item, item_widget)
 
     def set_patient(self, patient):
-        self.first_name_widget.setText(patient.firstName)
-        self.last_name_widget.setText(patient.lastName)
-        self.birth_date_widget.setDate(patient.birthDate)
+        self.current_patient = patient
+        self.first_name_widget.setText(patient.first_name)
+        self.last_name_widget.setText(patient.last_name)
+        self.birth_date_widget.setDate(QtCore.QDate(patient.birth_date.year, patient.birth_date.month, patient.birth_date.day))
 
     def save_patient(self):
-        patient = Person()
-        patient.firstName = self.first_name_widget.text()
-        patient.lastName = self.last_name_widget.text()
-        patient.birthDate = self.birth_date_widget.date()
-        self.patients.append(patient)
+        self.current_patient.first_name = self.first_name_widget.text()
+        self.current_patient.last_name = self.last_name_widget.text()
+        self.current_patient.birth_date = self.birth_date_widget.date().toPyDate()
+        if (self.current_patient.id >= 0):
+            self.person_repository.update(self.current_patient)
+        else:
+            self.person_repository.save(self.current_patient)
         self.redraw_person_list()
 
     def new_patient(self):
-        self.patient_list_widget.removeSelection();
+        self.patient_list_widget.removeSelection()
         patient = Person()
         self.set_patient(patient)
 
