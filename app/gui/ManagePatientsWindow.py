@@ -65,13 +65,18 @@ class ManagePatientWindow(Window):
 
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
 
+        form_title = QtWidgets.QLabel(u"Informations sur le patients")
+        form_title.setStyleSheet("font-size:18px;margin-bottom:10px;")
+        person_form_layout.addRow(form_title)
         person_form_layout.addRow(u"Prénom", self.first_name_widget)
         person_form_layout.addRow(u"Nom", self.last_name_widget)
         person_form_layout.addRow(u"Date de naissance", self.birth_date_widget)
 
         save_button = QtWidgets.QPushButton(u"Enregistrer")
+        save_button.setFixedWidth(120)
         save_button.clicked.connect(self.save_patient)
         new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
+        new_patient_button.setFixedWidth(120)
         new_patient_button.clicked.connect(self.new_patient)
 
         button_layout = QtWidgets.QHBoxLayout()
