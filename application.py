@@ -2,7 +2,7 @@
 import sys
 
 from PyQt5 import QtWidgets
-from app.gui.gui import *
+from app.gui.ManagePatientsWindow import *
 
 
 def main():

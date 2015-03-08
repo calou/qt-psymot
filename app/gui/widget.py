@@ -8,5 +8,3 @@ class MyListWidget(QtWidgets.QListWidget):
         for i in range(self.count()):
             item = self.item(i)
             item.setSelected(False)
-            #self.setItemSelected(item, False)
-            #self.
