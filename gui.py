@@ -64,6 +64,10 @@ class PersonListWidget(QtGui.QListWidget):
         personWidget = self.itemWidget(item)
         self.parent().set_patient(personWidget.person)
 
+    def removeSelection(self):
+        for i in range(self.count()):
+            item = self.item(i)
+            self.setItemSelected(item, False)
 
 class ManagePatientWidget(QtGui.QWidget):
     def __init__(self):
@@ -97,15 +101,25 @@ class ManagePatientWidget(QtGui.QWidget):
         hbox.addWidget(self.patient_list_widget)
 
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
+
         person_form_layout.addRow(u"Prénom", self.first_name_widget)
         person_form_layout.addRow(u"Nom", self.last_name_widget)
         person_form_layout.addRow(u"Date de naissance", self.birth_date_widget)
 
         save_button = QtGui.QPushButton(u"Enregistrer")
         save_button.clicked.connect(self.save_patient)
-        person_form_layout.addWidget(save_button)
+        new_patient_button = QtGui.QPushButton(u"Nouveau patient")
+        new_patient_button.clicked.connect(self.new_patient)
 
-        hbox.addLayout(person_form_layout)
+        button_layout = QtGui.QHBoxLayout()
+        button_layout.addWidget(save_button)
+        button_layout.addWidget(new_patient_button)
+
+        vbox = QtGui.QVBoxLayout()
+        vbox.addLayout(person_form_layout)
+        vbox.addLayout(button_layout)
+
+        hbox.addLayout(vbox)
         self.manage_patients_layout.addLayout(hbox)
 
         self.setLayout(self.manage_patients_layout)
@@ -130,7 +144,6 @@ class ManagePatientWidget(QtGui.QWidget):
         self.last_name_widget.setText(patient.lastName)
         self.birth_date_widget.setDate(patient.birthDate)
 
-
     def save_patient(self):
         patient = Person()
         patient.firstName = self.first_name_widget.text()
@@ -138,4 +151,9 @@ class ManagePatientWidget(QtGui.QWidget):
         patient.birthDate = self.birth_date_widget.date()
         self.patients.append(patient)
         self.redraw_person_list()
+
+    def new_patient(self):
+        self.patient_list_widget.removeSelection();
+        patient = Person()
+        self.set_patient(patient)
 
