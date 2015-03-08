@@ -5,7 +5,6 @@ from model import *
 
 
 class ApplicationHome(QtGui.QWidget):
-
     def __init__(self):
         super(ApplicationHome, self).__init__()
         self.initUI()
@@ -32,8 +31,6 @@ class ApplicationHome(QtGui.QWidget):
         personFormLayout.addRow(u"Nom", self.lastNameWidget)
         personFormLayout.addRow(u"Date de naissance", self.birthDateWidget)
 
-
-
         self.homeLayout.addLayout(personFormLayout)
 
         self.setLayout(self.homeLayout)
@@ -42,32 +39,54 @@ class ApplicationHome(QtGui.QWidget):
         self.setWindowTitle('Psychomotriciel')
         self.show()
 
+
 class PersonListWidgetItem(QtGui.QWidget):
     def __init__(self, parent=None):
         super(QtGui.QWidget, self).__init__(parent)
+        self.person = None
         self.item_name_label = QtGui.QLabel("Name:")
 
         vert = QtGui.QVBoxLayout()
         vert.addWidget(self.item_name_label)
         self.setLayout(vert)
 
-    def setPerson(self, person):
+    def set_person(self, person):
         self.person = person
         self.item_name_label.setText(person.fullname())
 
 
+class PersonListWidget(QtGui.QListWidget):
+    def __init__(self):
+        QtGui.QListWidget.__init__(self)
+        self.itemClicked.connect(self.item_click)
+
+    def item_click(self, item):
+        personWidget = self.itemWidget(item)
+        person = personWidget.person
+        print self.parent()
+        self.parent().first_name_widget.setText(person.firstName)
+        self.parent().last_name_widget.setText(person.lastName)
+        self.parent().birth_date_widget.setDate(person.birthDate)
+
+
 
 class ManagePatientWidget(QtGui.QWidget):
-
     def __init__(self):
         super(ManagePatientWidget, self).__init__()
         self.patients = []
+
+        self.manage_patients_layout = QtGui.QHBoxLayout()
+        self.patient_list_widget = PersonListWidget()
+        self.first_name_widget = QtGui.QLineEdit()
+        self.last_name_widget = QtGui.QLineEdit()
+        self.birth_date_widget = QtGui.QDateEdit()
 
         self.initUI()
 
 
     def fakeData(self):
-        for f,l,d in [("Marie", "Dubois", datetime(1990,12,24)), ("Jacques", "Martin", datetime(1952,7,3)),("Patrick", "Lahaye", datetime(1980,4,9))]:
+        for f, l, d in [("Marie", "Dubois", datetime(1990, 12, 24)), ("Jacques", "Martin", datetime(1952, 7, 3)),
+                        ("Patrick", "Lahaye", datetime(1980, 4, 9))]:
             person = Person()
             person.firstName = f
             person.lastName = l
@@ -75,56 +94,48 @@ class ManagePatientWidget(QtGui.QWidget):
             self.patients.append(person)
 
     def initUI(self):
-        self.managePatientsLayout = QtGui.QHBoxLayout()
-
-        personFormLayout = QtGui.QFormLayout()
-        self.redrawPersonList()
+        person_form_layout = QtGui.QFormLayout()
+        self.redraw_person_list()
         hbox = QtGui.QHBoxLayout()
-        self.patientListWidget = QtGui.QListWidget()
-        self.patientListWidget.setUpdatesEnabled(True)
 
         self.fakeData()
-        hbox.addWidget(self.patientListWidget)
+        hbox.addWidget(self.patient_list_widget)
 
-        self.firstNameWidget = QtGui.QLineEdit()
-        self.lastNameWidget = QtGui.QLineEdit()
-        self.birthDateWidget = QtGui.QDateEdit()
-        self.birthDateWidget.setDisplayFormat("dd/MM/yyyy")
-        personFormLayout.addRow(u"Prénom", self.firstNameWidget)
-        personFormLayout.addRow(u"Nom", self.lastNameWidget)
-        personFormLayout.addRow(u"Date de naissance", self.birthDateWidget)
+        self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
+        person_form_layout.addRow(u"Prénom", self.first_name_widget)
+        person_form_layout.addRow(u"Nom", self.last_name_widget)
+        person_form_layout.addRow(u"Date de naissance", self.birth_date_widget)
 
-        saveButton = QtGui.QPushButton(u"Enregistrer")
-        saveButton.clicked.connect(self.savePatient)
-        personFormLayout.addWidget(saveButton)
+        save_button = QtGui.QPushButton(u"Enregistrer")
+        save_button.clicked.connect(self.save_patient)
+        person_form_layout.addWidget(save_button)
 
-        hbox.addLayout(personFormLayout)
-        self.managePatientsLayout.addLayout(hbox)
+        hbox.addLayout(person_form_layout)
+        self.manage_patients_layout.addLayout(hbox)
 
-        self.redrawPersonList()
-
-        self.setLayout(self.managePatientsLayout)
+        self.setLayout(self.manage_patients_layout)
         self.setGeometry(100, 100, 900, 600)
         self.setWindowTitle('Psychomotriciel')
+
+        self.redraw_person_list()
         self.show()
 
-    def redrawPersonList(self):
-
+    def redraw_person_list(self):
+        self.patient_list_widget.clear()
         for patient in self.patients:
-            item = QtGui.QListWidgetItem(self.patientListWidget)
+            item = QtGui.QListWidgetItem(self.patient_list_widget)
             item_widget = PersonListWidgetItem()
-            item_widget.setPerson(patient)
+            item_widget.set_person(patient)
             item.setSizeHint(item_widget.sizeHint())
-            self.patientListWidget.addItem(item)
-            self.patientListWidget.setItemWidget(item, item_widget)
+            self.patient_list_widget.addItem(item)
+            self.patient_list_widget.setItemWidget(item, item_widget)
 
 
-
-    def savePatient(self):
+    def save_patient(self):
         patient = Person()
-        patient.firstName = self.firstNameWidget.text()
-        patient.lastName = self.lastNameWidget.text()
-        patient.birthDate = self.birthDateWidget.date()
+        patient.firstName = self.first_name_widget.text()
+        patient.lastName = self.last_name_widget.text()
+        patient.birthDate = self.birth_date_widget.date()
         self.patients.append(patient)
-        self.redrawPersonList()
-        print(self.patients)
+        self.redraw_person_list()
+
