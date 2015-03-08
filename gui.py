@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 
 from PyQt4 import QtGui, QtCore
+from MyWidgets import *
 from model import *
 
 
@@ -55,19 +56,6 @@ class PersonListWidgetItem(QtGui.QWidget):
         self.item_name_label.setText(person.fullname())
 
 
-class PersonListWidget(QtGui.QListWidget):
-    def __init__(self):
-        QtGui.QListWidget.__init__(self)
-        self.itemClicked.connect(self.item_click)
-
-    def item_click(self, item):
-        personWidget = self.itemWidget(item)
-        self.parent().set_patient(personWidget.person)
-
-    def removeSelection(self):
-        for i in range(self.count()):
-            item = self.item(i)
-            self.setItemSelected(item, False)
 
 class ManagePatientWidget(QtGui.QWidget):
     def __init__(self):
@@ -75,7 +63,7 @@ class ManagePatientWidget(QtGui.QWidget):
         self.patients = []
 
         self.manage_patients_layout = QtGui.QHBoxLayout()
-        self.patient_list_widget = PersonListWidget()
+        self.patient_list_widget = MyListWidget()
         self.first_name_widget = QtGui.QLineEdit()
         self.last_name_widget = QtGui.QLineEdit()
         self.birth_date_widget = QtGui.QDateEdit()
@@ -92,7 +80,13 @@ class ManagePatientWidget(QtGui.QWidget):
             person.birthDate = d
             self.patients.append(person)
 
+    def item_click(self, item):
+        personWidget = self.patient_list_widget.itemWidget(item)
+        self.set_patient(personWidget.person)
+
     def initUI(self):
+        self.patient_list_widget.itemClicked.connect(self.item_click)
+
         person_form_layout = QtGui.QFormLayout()
         self.redraw_person_list()
         hbox = QtGui.QHBoxLayout()
