@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtCore
+from PyQt5 import QtWidgets,QtCore
 
 from app.gui.widget import *
 from app.gui.base import Window
@@ -13,8 +13,8 @@ class PersonListWidgetItem(QtWidgets.QWidget):
         super(QtWidgets.QWidget, self).__init__(parent)
         self.person = None
         self.item_name_label = QtWidgets.QLabel("Name:")
-        self.delete_button = QtWidgets.QPushButton(u"Supprimer")
-        self.delete_button.setFixedWidth(80)
+        self.delete_button = DeleteImageButton()
+        self.delete_button.setFixedWidth(16)
         self.delete_button.setToolTip(u"Supprimer le patient")
         self.delete_button.hide()
         self.hbox = QtWidgets.QHBoxLayout()

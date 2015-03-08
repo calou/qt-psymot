@@ -1,7 +1,5 @@
 # -*- coding: utf8 -*-
 import sys
-
-from PyQt5 import QtWidgets
 from app.gui.ManagePatientsWindow import *
 
 
