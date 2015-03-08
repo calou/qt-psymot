@@ -1,11 +1,13 @@
 import os
 import sqlite3
-from model import *
+
+from app.model import *
+
 
 class DatabaseConnector():
     def __init__(self):
-        self.db_filename = 'database.db'
-        schema_filename = 'schema.sql'
+        self.db_filename = 'app/db/database.db'
+        schema_filename = 'app/db/schema.sql'
 
         db_is_new = not os.path.exists(self.db_filename)
 

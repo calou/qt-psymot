@@ -1,9 +1,10 @@
 # -*- coding: utf8 -*-
 
-from PyQt4 import QtGui, QtCore
-from MyWidgets import *
+from PyQt4 import QtCore
+
+from app.MyWidgets import *
 from model import *
-from dao import PersonRepository
+from app.db.dao import PersonRepository
 
 
 class ApplicationHome(QtGui.QWidget):
@@ -130,7 +131,8 @@ class ManagePatientWidget(QtGui.QWidget):
         self.current_patient = patient
         self.first_name_widget.setText(patient.first_name)
         self.last_name_widget.setText(patient.last_name)
-        self.birth_date_widget.setDate(QtCore.QDate(patient.birth_date.year, patient.birth_date.month, patient.birth_date.day))
+        self.birth_date_widget.setDate(
+            QtCore.QDate(patient.birth_date.year, patient.birth_date.month, patient.birth_date.day))
 
     def save_patient(self):
         self.current_patient.first_name = self.first_name_widget.text()

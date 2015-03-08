@@ -1,6 +1,8 @@
 # -*- coding: utf8 -*-
 import sys
-from gui import *
+from PyQt4 import QtGui
+from app.gui import *
+
 
 def main():
     
