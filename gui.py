@@ -62,12 +62,7 @@ class PersonListWidget(QtGui.QListWidget):
 
     def item_click(self, item):
         personWidget = self.itemWidget(item)
-        person = personWidget.person
-        print self.parent()
-        self.parent().first_name_widget.setText(person.firstName)
-        self.parent().last_name_widget.setText(person.lastName)
-        self.parent().birth_date_widget.setDate(person.birthDate)
-
+        self.parent().set_patient(personWidget.person)
 
 
 class ManagePatientWidget(QtGui.QWidget):
@@ -129,6 +124,11 @@ class ManagePatientWidget(QtGui.QWidget):
             item.setSizeHint(item_widget.sizeHint())
             self.patient_list_widget.addItem(item)
             self.patient_list_widget.setItemWidget(item, item_widget)
+
+    def set_patient(self, patient):
+        self.first_name_widget.setText(patient.firstName)
+        self.last_name_widget.setText(patient.lastName)
+        self.birth_date_widget.setDate(patient.birthDate)
 
 
     def save_patient(self):
