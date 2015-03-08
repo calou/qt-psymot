@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 import sys
-from PyQt4 import QtGui
-from app.gui import *
+
+from app.gui.gui import *
 
 
 def main():

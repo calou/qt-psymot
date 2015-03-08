@@ -2,8 +2,8 @@
 
 from PyQt4 import QtCore
 
-from app.MyWidgets import *
-from model import *
+from app.gui.MyWidgets import *
+from app.model.Person import *
 from app.db.dao import PersonRepository
 
 

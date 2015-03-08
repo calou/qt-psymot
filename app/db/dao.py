@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-from app.model import *
+from app.model.Person import *
 
 
 class DatabaseConnector():
