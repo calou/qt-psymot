@@ -4,7 +4,7 @@ from PyQt4 import QtCore
 
 from app.gui.MyWidgets import *
 from app.model.Person import *
-from app.db.dao import PersonRepository
+from app.db.PersonRepository import PersonRepository
 
 
 class ApplicationHome(QtGui.QWidget):
