@@ -1,27 +1,23 @@
 from PyQt5 import QtWidgets
-
-__author__ = 'calou'
-
+from app.gui.ManagePatientsWindow import *
 
 class HomeWindow(QtWidgets.QWidget):
     def __init__(self):
         super(HomeWindow, self).__init__()
-        self.initUI()
 
-    def initUI(self):
-        self.drawHome()
+        self.start_test_button = QtWidgets.QPushButton(u"Démarrer un test")
+        self.manage_patients_button = QtWidgets.QPushButton(u"Gérer les patients")
+        self.init_ui()
 
-    def drawHome(self):
-        self.homeLayout = QtWidgets.QHBoxLayout()
-        leftBox = QtWidgets.QGridLayout()
-        startTestButton = QtWidgets.QPushButton(u"Démarrer un test")
-        managePatientsButton = QtWidgets.QPushButton(u"Gérer les patients")
-        managePatientsButton.clicked.connect(self.managePatientsButtonClicked)
 
-        leftBox.addWidget(startTestButton, 0, 0)
-        leftBox.addWidget(managePatientsButton, 1, 0)
+    def init_ui(self):
+        home_layout = QtWidgets.QHBoxLayout()
+        menu_box = QtWidgets.QGridLayout()
 
-        self.homeLayout.addLayout(leftBox)
+        menu_box.addWidget(self.start_test_button, 0, 0)
+        menu_box.addWidget(self.manage_patients_button, 1, 0)
+
+        home_layout.addLayout(menu_box)
         personFormLayout = QtWidgets.QFormLayout()
         self.firstNameWidget = QtWidgets.QLineEdit()
         self.lastNameWidget = QtWidgets.QLineEdit()
@@ -30,10 +26,5 @@ class HomeWindow(QtWidgets.QWidget):
         personFormLayout.addRow(u"Nom", self.lastNameWidget)
         personFormLayout.addRow(u"Date de naissance", self.birthDateWidget)
 
-        self.homeLayout.addLayout(personFormLayout)
-
-        self.setLayout(self.homeLayout)
-
-        self.setGeometry(100, 100, 900, 600)
-        self.setWindowTitle('Psychomotriciel')
-        self.show()
+        home_layout.addLayout(personFormLayout)
+        self.setLayout(home_layout)

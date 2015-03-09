@@ -29,13 +29,11 @@ class PersonListWidgetItem(QtWidgets.QWidget):
 
 
 class ManagePatientWindow(Window):
-    def refresh_patients(self):
-        self.patients = self.person_repository.list()
-
     def __init__(self):
         super(ManagePatientWindow, self).__init__()
-        self.patients = []
+        self.back_button = QtWidgets.QPushButton(u"Retour")
 
+        self.patients = []
         self.manage_patients_layout = QtWidgets.QVBoxLayout()
         self.search_input = QtWidgets.QLineEdit()
         self.list_widget = MyListWidget()
@@ -47,13 +45,6 @@ class ManagePatientWindow(Window):
         self.person_repository = PersonRepository()
         self.refresh_patients()
         self.init_ui()
-
-    def item_clicked(self, item):
-        for it in range(self.list_widget.count()):
-            self.list_widget.itemWidget(self.list_widget.item(it)).delete_button.hide()
-        personWidget = self.list_widget.itemWidget(item)
-        personWidget.delete_button.show()
-        self.set_patient(personWidget.person)
 
     def init_ui(self):
         title = self.setTitle(u"Gestion des patients")
@@ -86,13 +77,14 @@ class ManagePatientWindow(Window):
         save_button.clicked.connect(self.save_patient)
 
         form_layout.addWidget(save_button)
+
         new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
         new_patient_button.clicked.connect(self.new_patient)
-
 
         button_layout = QtWidgets.QBoxLayout(QtWidgets.QBoxLayout.LeftToRight)
         button_layout.addStretch(0)
         button_layout.addWidget(new_patient_button)
+        button_layout.addWidget(self.back_button)
 
         vbox = QtWidgets.QVBoxLayout()
         vbox.addLayout(form_layout)
@@ -108,6 +100,16 @@ class ManagePatientWindow(Window):
         self.redraw_person_list()
         self.new_patient()
         self.show()
+
+    def item_clicked(self, item):
+        for it in range(self.list_widget.count()):
+            self.list_widget.itemWidget(self.list_widget.item(it)).delete_button.hide()
+        personWidget = self.list_widget.itemWidget(item)
+        personWidget.delete_button.show()
+        self.set_patient(personWidget.person)
+
+    def refresh_patients(self):
+        self.patients = self.person_repository.list()
 
     def redraw_person_list(self):
         self.list_widget.clear()

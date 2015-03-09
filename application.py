@@ -1,12 +1,13 @@
 # -*- coding: utf8 -*-
 import sys
-from app.gui.ManagePatientsWindow import *
+from app.gui.WindowManager import *
 
 
 def main():
     
     app = QtWidgets.QApplication(sys.argv)
-    widget = ManagePatientWindow()
+    widget = WindowManager()
+    widget.show()
     sys.exit(app.exec_())
 
 
