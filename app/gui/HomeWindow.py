@@ -1,5 +1,6 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from app.gui.ManagePatientsWindow import *
+
 
 class HomeWindow(QtWidgets.QWidget):
     def __init__(self):
@@ -12,19 +13,14 @@ class HomeWindow(QtWidgets.QWidget):
 
     def init_ui(self):
         home_layout = QtWidgets.QHBoxLayout()
-        menu_box = QtWidgets.QGridLayout()
 
-        menu_box.addWidget(self.start_test_button, 0, 0)
-        menu_box.addWidget(self.manage_patients_button, 1, 0)
+        menu_box_widget = QtWidgets.QWidget(self)
+        menu_box_widget.setGeometry(QtCore.QRect(10, 10, 130, 60))
+        menu_box = QtWidgets.QVBoxLayout(menu_box_widget)
+        menu_box.setContentsMargins(0, 0, 0, 0)
+
+        menu_box.addWidget(self.start_test_button)
+        menu_box.addWidget(self.manage_patients_button)
 
         home_layout.addLayout(menu_box)
-        personFormLayout = QtWidgets.QFormLayout()
-        self.firstNameWidget = QtWidgets.QLineEdit()
-        self.lastNameWidget = QtWidgets.QLineEdit()
-        self.birthDateWidget = QtWidgets.QDateEdit()
-        personFormLayout.addRow(u"Prénom", self.firstNameWidget)
-        personFormLayout.addRow(u"Nom", self.lastNameWidget)
-        personFormLayout.addRow(u"Date de naissance", self.birthDateWidget)
-
-        home_layout.addLayout(personFormLayout)
         self.setLayout(home_layout)

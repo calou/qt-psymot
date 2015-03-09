@@ -34,9 +34,9 @@ class ManagePatientWindow(Window):
         self.back_button = QtWidgets.QPushButton(u"Retour")
 
         self.patients = []
-        self.manage_patients_layout = QtWidgets.QVBoxLayout()
+        self.layout = QtWidgets.QVBoxLayout()
         self.search_input = QtWidgets.QLineEdit()
-        self.list_widget = MyListWidget()
+        self.list_widget = QtWidgets.QListWidget()
 
         self.first_name_widget = QtWidgets.QLineEdit()
         self.last_name_widget = QtWidgets.QLineEdit()
@@ -48,23 +48,21 @@ class ManagePatientWindow(Window):
 
     def init_ui(self):
         title = self.setTitle(u"Gestion des patients")
-
-        self.manage_patients_layout.addWidget(title)
-
+        self.layout.addWidget(title)
         self.list_widget.itemClicked.connect(self.item_clicked)
-        form_layout = QtWidgets.QFormLayout()
-        self.redraw_person_list()
-        hbox = QtWidgets.QHBoxLayout()
+        self.list_widget.setFixedWidth(300)
 
+        self.redraw_person_list()
         self.search_input.setPlaceholderText(u"Rechercher")
         self.search_input.setFixedWidth(200)
-        self.manage_patients_layout.addWidget(self.search_input)
+        self.layout.addWidget(self.search_input)
         self.search_input.textChanged.connect(self.search_patients)
 
+        hbox = QtWidgets.QHBoxLayout()
         hbox.addWidget(self.list_widget)
-
+        form_layout = QtWidgets.QFormLayout()
+        form_layout.setContentsMargins(20, 10, 20, 0)
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
-
         form_title = QtWidgets.QLabel(u"Informations sur le patients")
         form_title.setStyleSheet("font-size:18px;margin-bottom:10px;")
         form_layout.addRow(form_title)
@@ -86,14 +84,15 @@ class ManagePatientWindow(Window):
         button_layout.addWidget(new_patient_button)
         button_layout.addWidget(self.back_button)
 
-        vbox = QtWidgets.QVBoxLayout()
-        vbox.addLayout(form_layout)
-        vbox.addLayout(button_layout)
+        #vbox = QtWidgets.QVBoxLayout()
+        #vbox.addLayout(form_layout)
+        #vbox.addLayout(button_layout)
 
-        hbox.addLayout(vbox)
-        self.manage_patients_layout.addLayout(hbox)
+        hbox.addLayout(form_layout)
+        self.layout.addLayout(hbox)
+        self.layout.addLayout(button_layout)
 
-        self.setLayout(self.manage_patients_layout)
+        self.setLayout(self.layout)
         self.setGeometry(100, 100, 900, 600)
         self.setWindowTitle('Psychomotriciel')
 
@@ -101,9 +100,12 @@ class ManagePatientWindow(Window):
         self.new_patient()
         self.show()
 
-    def item_clicked(self, item):
+    def hide_all_delete_buttons(self):
         for it in range(self.list_widget.count()):
             self.list_widget.itemWidget(self.list_widget.item(it)).delete_button.hide()
+
+    def item_clicked(self, item):
+        self.hide_all_delete_buttons()
         personWidget = self.list_widget.itemWidget(item)
         personWidget.delete_button.show()
         self.set_patient(personWidget.person)
@@ -150,9 +152,9 @@ class ManagePatientWindow(Window):
             self.refresh_patients()
             self.redraw_person_list()
 
-
     def new_patient(self):
-        self.list_widget.removeSelection()
+        self.hide_all_delete_buttons()
+        self.list_widget.clearSelection()
         patient = Person()
         self.set_patient(patient)
 
