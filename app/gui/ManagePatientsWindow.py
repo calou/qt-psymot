@@ -139,9 +139,15 @@ class ManagePatientWindow(Window):
         self.redraw_person_list()
 
     def delete_patient(self):
-        self.person_repository.delete(self.current_patient)
-        self.refresh_patients()
-        self.redraw_person_list()
+        reply = QtWidgets.QMessageBox.question(self, 'Supprimer',
+            "Etes-vous sûr de vouloir supprimer ce patient", QtWidgets.QMessageBox.Yes |
+            QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+
+        if reply == QtGui.QMessageBox.Yes:
+            self.person_repository.delete(self.current_patient)
+            self.refresh_patients()
+            self.redraw_person_list()
+
 
     def new_patient(self):
         self.list_widget.removeSelection()
