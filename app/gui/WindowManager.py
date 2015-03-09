@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets
 from app.gui.ManagePatientsWindow import *
 from app.gui.HomeWindow import *
+from app.gui.base import FontManager
 
 class WindowManager(QtWidgets.QMainWindow):
     def __init__(self):
