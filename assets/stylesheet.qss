@@ -3,7 +3,8 @@ QMainWindow, QDialog {
     padding: 10px 35px;
 }
 
-QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget {
+
+QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QDialog {
     font-family: "Source Sans Pro";
     font-weight: 200;
     font-size: 16px;
@@ -14,7 +15,7 @@ QLineEdit, QDateEdit, QDateTimeEdit {
 	padding:5px 8px;
 }
 
-QLineEdit, QDateEdit, QDateTimeEdit, QPushButton {
+QLineEdit, QDateEdit, QDateTimeEdit, QPushButton, QDialog {
 	border-radius: 0px;
     border-width: 1px;
     border-style: solid;

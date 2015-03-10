@@ -151,6 +151,7 @@ class ManagePatientWindow(Window):
         message_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Supprimer',
             "Etes-vous sûr de vouloir supprimer le patient %s\u00A0?" % patient.fullname(), QtWidgets.QMessageBox.Yes |
             QtWidgets.QMessageBox.No,self, QtCore.Qt.FramelessWindowHint)
+        message_box.setInformativeText("Cette opération est irréversible.")
         message_box.show()
         if message_box.exec() == QMessageBox.Yes:
             self.person_repository.delete(patient)
