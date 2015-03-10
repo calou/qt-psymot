@@ -1,26 +1,46 @@
 QMainWindow, QDialog {
     background-color: #3c3f41;
+    padding: 10px 35px;
 }
 
-QLineEdit, QDateEdit, QLabel, QPushButton, QListWidget {
+QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget {
     font-family: "Source Sans Pro";
     font-weight: 200;
     font-size: 16px;
 	color: #DDDDDD;
 }
 
-QLineEdit, QDateEdit {
+QLineEdit, QDateEdit, QDateTimeEdit {
 	padding:5px 8px;
 }
 
-QLineEdit, QDateEdit, QPushButton, QListWidget {
+QLineEdit, QDateEdit, QDateTimeEdit, QPushButton {
 	border-radius: 0px;
     border-width: 1px;
-    border-color: #333333;
+    border-style: solid;
+    border-color: #606161;
     background-color: #45494a;
+}
+
+QListWidget {
+    background-color: #45494a;
+}
+QListWidget::item:selected {
+    background-color: #555a5a;
 }
 
 QPushButton {
     padding: 5px 15px;
 }
 
+QLineEdit:hover, QLineEdit:focus, QDateEdit:hover, QDateEdit:focus, QPushButton:hover {
+    background-color: #555a5a;
+}
+
+QPushButton:pressed {
+    border-color: #5869a0;
+}
+
+QLabel {
+    font-weight: 100;
+}

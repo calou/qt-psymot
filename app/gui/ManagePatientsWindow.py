@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtCore
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import pyqtSlot
 
 from app.gui.widget import *
 from app.gui.base import *
@@ -9,29 +10,34 @@ from app.db.PersonRepository import PersonRepository
 
 
 class PersonListWidgetItem(QtWidgets.QWidget):
+    delete_clicked = QtCore.pyqtSignal(Person, name='deleteClicked')
+
     def __init__(self, parent=None):
         super(QtWidgets.QWidget, self).__init__(parent)
         self.person = None
-        self.item_name_label = QtWidgets.QLabel("Name:")
+        self.item_name_label = QtWidgets.QLabel("")
         self.delete_button = DeleteImageButton()
         self.delete_button.setFixedWidth(16)
         self.delete_button.setToolTip(u"Supprimer le patient")
-        self.delete_button.hide()
         self.hbox = QtWidgets.QHBoxLayout()
         self.hbox.addWidget(self.item_name_label)
         self.hbox.addWidget(self.delete_button)
         self.setLayout(self.hbox)
 
+        self.delete_button.clicked.connect(self.handle_delete_button_clicked)
+
+
     def set_person(self, person):
         self.person = person
         self.item_name_label.setText(person.fullname())
 
+    def handle_delete_button_clicked(self):
+        self.delete_clicked.emit(self.person)
 
 class ManagePatientWindow(Window):
     def __init__(self):
         super(ManagePatientWindow, self).__init__()
         self.back_button = QtWidgets.QPushButton(u"Retour")
-        self.setContentsMargins(15, 10, 15, 10)
 
         self.layout = QtWidgets.QVBoxLayout()
         self.search_input = QtWidgets.QLineEdit()
@@ -72,7 +78,7 @@ class ManagePatientWindow(Window):
         form_layout.setContentsMargins(20, 10, 0, 0)
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
         form_title = QtWidgets.QLabel(u"Informations sur le patients")
-        form_title.setStyleSheet("margin-bottom:10px;")
+        form_title.setStyleSheet("font-weight: 100; color: #CCCCCC; font-size: 22px; margin-bottom:10px; padding-left: 0px;")
         form_layout.addRow(form_title)
         form_layout.addRow(u"Prénom", self.first_name_widget)
         form_layout.addRow(u"Nom", self.last_name_widget)
@@ -102,15 +108,10 @@ class ManagePatientWindow(Window):
         self.init_button_layout()
         self.setLayout(self.layout)
 
-    def hide_all_delete_buttons(self):
-        for it in range(self.list_widget.count()):
-            self.list_widget.itemWidget(self.list_widget.item(it)).delete_button.hide()
-
     def item_clicked(self, item):
-        self.hide_all_delete_buttons()
-        personWidget = self.list_widget.itemWidget(item)
-        personWidget.delete_button.show()
-        self.set_patient(personWidget.person)
+        person_widget = self.list_widget.itemWidget(item)
+        person_widget.delete_button.show()
+        self.set_patient(person_widget.person)
 
     def refresh_patients(self):
         self.patients = self.person_repository.list()
@@ -121,7 +122,7 @@ class ManagePatientWindow(Window):
         for patient in self.patients:
             item = QtWidgets.QListWidgetItem(self.list_widget)
             item_widget = PersonListWidgetItem()
-            item_widget.delete_button.clicked.connect(self.delete_patient)
+            item_widget.delete_clicked.connect(self.delete_patient)
             item_widget.set_person(patient)
             item.setSizeHint(item_widget.sizeHint())
             self.list_widget.addItem(item)
@@ -145,13 +146,14 @@ class ManagePatientWindow(Window):
         self.refresh_patients()
         self.redraw_person_list()
 
-    def delete_patient(self):
-        reply = QtWidgets.QMessageBox.question(self, 'Supprimer',
-            "Etes-vous sûr de vouloir supprimer ce patient", QtWidgets.QMessageBox.Yes |
-            QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
-
-        if reply == QMessageBox.Yes:
-            self.person_repository.delete(self.current_patient)
+    @pyqtSlot(Person)
+    def delete_patient(self, patient):
+        message_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Supprimer',
+            "Etes-vous sûr de vouloir supprimer le patient %s\u00A0?" % patient.fullname(), QtWidgets.QMessageBox.Yes |
+            QtWidgets.QMessageBox.No,self, QtCore.Qt.FramelessWindowHint)
+        message_box.show()
+        if message_box.exec() == QMessageBox.Yes:
+            self.person_repository.delete(patient)
             self.refresh_patients()
             self.redraw_person_list()
 
