@@ -1,7 +1,7 @@
-from PyQt5 import QtWidgets
+from PyQt5 import uic
 from app.gui.ManagePatientsWindow import *
 from app.gui.HomeWindow import *
-from app.gui.base import FontManager
+
 
 class WindowManager(QtWidgets.QMainWindow):
     def __init__(self):
@@ -9,7 +9,7 @@ class WindowManager(QtWidgets.QMainWindow):
         self.stacked_widget = QtWidgets.QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
-        self.home_window = HomeWindow()
+        self.home_window = uic.loadUi("app/gui/home.ui")
         self.manage_patients_window = ManagePatientWindow()
 
         self.init_ui()
