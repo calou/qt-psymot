@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets,QtCore
+from PyQt5 import QtCore
 
 from app.gui.widget import *
 from app.gui.base import *
@@ -63,7 +63,7 @@ class ManagePatientWindow(Window):
 
     def init_search_input(self):
         self.search_input.setPlaceholderText(u"Rechercher")
-        self.search_input.setFixedWidth(200)
+        self.search_input.setFixedWidth(300)
         self.layout.addWidget(self.search_input)
         self.search_input.textChanged.connect(self.search_patients)
 
@@ -72,8 +72,7 @@ class ManagePatientWindow(Window):
         form_layout.setContentsMargins(20, 10, 0, 0)
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
         form_title = QtWidgets.QLabel(u"Informations sur le patients")
-        form_title.setFont(FontManager.get_title_font())
-        form_title.setStyleSheet("font-size:25px;margin-bottom:10px;")
+        form_title.setStyleSheet("margin-bottom:10px;")
         form_layout.addRow(form_title)
         form_layout.addRow(u"Prénom", self.first_name_widget)
         form_layout.addRow(u"Nom", self.last_name_widget)
@@ -151,7 +150,7 @@ class ManagePatientWindow(Window):
             "Etes-vous sûr de vouloir supprimer ce patient", QtWidgets.QMessageBox.Yes |
             QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
 
-        if reply == QtGui.QMessageBox.Yes:
+        if reply == QMessageBox.Yes:
             self.person_repository.delete(self.current_patient)
             self.refresh_patients()
             self.redraw_person_list()

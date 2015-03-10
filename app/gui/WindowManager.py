@@ -1,11 +1,11 @@
 from PyQt5 import uic
 from app.gui.ManagePatientsWindow import *
-from app.gui.HomeWindow import *
-
+from app.gui.font import FontManager
 
 class WindowManager(QtWidgets.QMainWindow):
     def __init__(self):
         super(WindowManager, self).__init__()
+        FontManager.install_fonts()
         self.stacked_widget = QtWidgets.QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
@@ -13,6 +13,9 @@ class WindowManager(QtWidgets.QMainWindow):
         self.manage_patients_window = ManagePatientWindow()
 
         self.init_ui()
+
+        with open("assets/stylesheet.qss") as stylesheet_file:
+            self.setStyleSheet(stylesheet_file.read())
 
     def init_ui(self):
         self.setGeometry(100, 100, 900, 600)

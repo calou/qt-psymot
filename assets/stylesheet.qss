@@ -1,0 +1,26 @@
+QMainWindow, QDialog {
+    background-color: #3c3f41;
+}
+
+QLineEdit, QDateEdit, QLabel, QPushButton, QListWidget {
+    font-family: "Source Sans Pro";
+    font-weight: 200;
+    font-size: 16px;
+	color: #DDDDDD;
+}
+
+QLineEdit, QDateEdit {
+	padding:5px 8px;
+}
+
+QLineEdit, QDateEdit, QPushButton, QListWidget {
+	border-radius: 0px;
+    border-width: 1px;
+    border-color: #333333;
+    background-color: #45494a;
+}
+
+QPushButton {
+    padding: 5px 15px;
+}
+
