@@ -1,6 +1,6 @@
 from PyQt5 import uic
 from app.gui.ManagePatientsWindow import *
-from app.gui.StimuliTestSessionWidget import *
+from app.gui.StimuliTestingSessionWidget import *
 from app.gui.font import FontManager
 
 class WindowManager(QtWidgets.QMainWindow):

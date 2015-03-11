@@ -20,7 +20,7 @@ class Stimulus():
         self.effective_time = None
 
 
-class StimuliTestSession():
+class StimuliTestingSession():
     def __init__(self):
         self.id = -1
         self.stimuli = []
@@ -28,7 +28,7 @@ class StimuliTestSession():
         self.start_time = None
 
 
-class StimuliTestConfiguration():
+class StimuliTestingConfiguration():
     def __init__(self):
         self.id = -1
         self.number_of_stimuli = 50
@@ -50,7 +50,7 @@ class StimuliTestConfiguration():
         return self.display_duration
 
     def generate_test_session(self):
-        test_session = StimuliTestSession()
+        testing_session = StimuliTestingSession()
         current_time = 0
         min = self.min_interval_time()
         max = self.max_interval_time()
@@ -59,5 +59,5 @@ class StimuliTestConfiguration():
             stimulus_value = random.choice(self.stimuli_values)
             duration = self.get_duration()
             stimulus = Stimulus(stimulus_value, current_time, duration)
-            test_session.stimuli.append(stimulus)
-        return test_session
+            testing_session.stimuli.append(stimulus)
+        return testing_session
