@@ -10,6 +10,8 @@ from app.gui.TextStimuliTestingDesignWidget import Ui_TextStimuliTestingDesignWi
 
 
 class StimuliTestSessionWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
+    testing_session_completed = QtCore.pyqtSignal(StimuliTestingSession, name='testingSessionCompleted')
+
     def __init__(self):
         super(StimuliTestSessionWidget, self).__init__()
         self.setupUi(self)
@@ -35,7 +37,7 @@ class StimuliTestSessionWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWid
     def init_ui(self):
         self.text_widget.setText("")
         self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;")
-
+        self.display_result_button.hide()
 
     def start(self):
         for stimulus in self.testing_session.stimuli:
@@ -67,4 +69,6 @@ class StimuliTestSessionWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWid
         QtCore.qDebug("%f - click" % (time.time()))
 
     def display_testing_end(self):
-        self.testing_session.compute_results()
+        #self.testing_session.compute_results()
+        self.display_result_button.show()
+        self.testing_session_completed.emit(self.testing_session)

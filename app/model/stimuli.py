@@ -59,6 +59,9 @@ class StimuliTestingSession():
         self.correct_responses = []
         self.correct_invalid_responses = []
         self.correct_valid_responses = []
+        self.min_response_time = 99999
+        self.max_response_time = 0
+        self.average_response_time = 0
 
     def get_number_of_valid_stimuli(self):
         count = 0
@@ -73,7 +76,6 @@ class StimuliTestingSession():
             if not stiumulus.valid:
                 count += 1
         return count
-
 
     def get_correct_responses_percentage(self):
         return PercentageCalculator.calculate(len(self.correct_responses), len(self.stimuli))
@@ -95,6 +97,8 @@ class StimuliTestingSession():
                                               self.get_number_of_valid_stimuli())
 
     def compute_results(self):
+        response_time_sum = 0
+
         for stimulus in self.stimuli:
             valid = stimulus.is_correct()
             ts = stimulus.get_response_time_in_ms()
@@ -107,9 +111,22 @@ class StimuliTestingSession():
             if stimulus.is_correct():
                 self.correct_responses.append(stimulus)
                 if stimulus.valid:
+                    rt = stimulus.get_response_time_in_ms()
+                    response_time_sum += rt
+                    if rt < self.min_response_time:
+                        self.min_response_time = rt
+
+                    if rt > self.max_response_time:
+                        self.max_response_time = rt
                     self.correct_valid_responses.append(stimulus)
+
                 else:
                     self.correct_invalid_responses.append(stimulus)
+
+        if not self.correct_valid_responses:
+            self.average_response_time = -1
+        else:
+            self.average_response_time = response_time_sum / len(self.correct_valid_responses)
 
         QtCore.qDebug("Pourcentage de reponses correctes %f" % self.get_correct_responses_percentage())
         QtCore.qDebug("Pourcentage de reponses valides correctes %f" % self.get_correct_valid_responses_percentage())
