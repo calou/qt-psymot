@@ -12,7 +12,6 @@ from app.db.PersonRepository import PersonRepository
 class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
     testing_session_started = QtCore.pyqtSignal(StimuliTestingConfiguration)
 
-
     def __init__(self):
         super(ConfigurationWidget, self).__init__()
         self.setupUi(self)
@@ -39,13 +38,12 @@ class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
         self.patient_select.clear()
         for p in self.patients:
             self.patient_select.addItem(p.full_name())
-        self.patient_select.setCurrentIndex(0)
-        self.patient_select.activated['QString'].connect(self.on_patient_changed)
+        self.on_patient_changed()
 
         self.testing_select.clear()
         for c in self.configurations:
             self.testing_select.addItem(c.name)
-        self.testing_select.setCurrentIndex(0)
+        self.on_conf_changed()
         self.testing_select.activated['QString'].connect(self.on_conf_changed)
 
 
