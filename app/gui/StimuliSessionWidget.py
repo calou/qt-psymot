@@ -6,7 +6,7 @@ from app.model.stimuli import *
 from app.gui.widget import *
 from threading import *
 import time
-from app.gui.TextStimuliTestingDesignWidget import Ui_TextStimuliTestingDesignWidget
+from app.gui.StimuliTestingDesign import Ui_TextStimuliTestingDesignWidget
 
 
 class StimuliTestSessionWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'TextStimuliTestingDesignWidget.ui'
+# Form implementation generated from reading ui file 'StimuliTestingDesign.ui'
 #
 # Created: Wed Mar 11 21:22:52 2015
 #      by: PyQt5 UI code generator 5.3.2

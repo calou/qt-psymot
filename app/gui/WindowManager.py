@@ -11,7 +11,7 @@ class WindowManager(QtWidgets.QMainWindow):
         self.stacked_widget = QtWidgets.QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
-        self.home_window = uic.loadUi("app/gui/home.ui")
+        self.home_window = uic.loadUi("app/gui/design/window/home.ui")
         self.manage_patients_window = ManagePatientWindow()
         self.stimuli_testing_widget = StimuliTestSessionWidget()
         self.stimuli_results_widget = DisplayStimuliSessionResultsDesignWidget()

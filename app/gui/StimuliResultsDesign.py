@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'DisplayStimuliSessionResultsDesignWidget.ui'
+# Form implementation generated from reading ui file 'StimuliResultsDesign.ui'
 #
 # Created: Thu Mar 12 07:03:22 2015
 #      by: PyQt5 UI code generator 5.3.2

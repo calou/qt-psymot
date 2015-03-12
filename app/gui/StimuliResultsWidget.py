@@ -5,7 +5,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
 from app.model.stimuli import *
 from app.gui.widget import *
-from app.gui.DisplayStimuliSessionResultsDesignWidget import Ui_ResultWidget
+from app.gui.StimuliResultsDesign import Ui_ResultWidget
 
 BIG_TEXT_STYLESHEET = "font-size:48px;"
 MEDIUM_TEXT_STYLESHEET = "font-size:32px;"
