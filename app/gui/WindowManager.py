@@ -38,6 +38,7 @@ class WindowManager(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.stimuli_results_widget)
         self.stimuli_testing_widget.testing_session_completed.connect(self.stimuli_results_widget.set_testing_session)
         self.stimuli_testing_widget.display_result_button.clicked.connect(self.go_to_stimuli_result_widget)
+        self.stimuli_results_widget.back_button.clicked.connect(self.go_to_home)
 
     def go_to_home(self):
         self.stacked_widget.setCurrentIndex(0)

@@ -57,8 +57,8 @@ class StimuliTestingSession():
         self.patient = None
         self.start_time = None
         self.correct_responses = []
-        self.correct_invalid_responses = []
-        self.correct_valid_responses = []
+        self.correct_forbidden_responses = []
+        self.correct_authorized_responses = []
         self.min_response_time = 99999
         self.max_response_time = 0
         self.average_response_time = 0
@@ -70,7 +70,7 @@ class StimuliTestingSession():
                 count += 1
         return count
 
-    def get_number_of_invalid_stimuli(self):
+    def get_number_of_forbidden_stimuli(self):
         count = 0
         for stiumulus in self.stimuli:
             if not stiumulus.valid:
@@ -80,20 +80,20 @@ class StimuliTestingSession():
     def get_correct_responses_percentage(self):
         return PercentageCalculator.calculate(len(self.correct_responses), len(self.stimuli))
 
-    def get_correct_invalid_responses_percentage(self):
-        return PercentageCalculator.calculate(len(self.correct_invalid_responses),
-                                              self.get_number_of_invalid_stimuli())
+    def get_correct_forbidden_responses_percentage(self):
+        return PercentageCalculator.calculate(len(self.correct_forbidden_responses),
+                                              self.get_number_of_forbidden_stimuli())
 
-    def get_invalid_responses_clicked_percentage(self):
-        return PercentageCalculator.calculate(self.get_number_of_invalid_stimuli() - len(self.correct_invalid_responses),
-                                              self.get_number_of_invalid_stimuli())
+    def get_forbidden_responses_clicked_percentage(self):
+        return PercentageCalculator.calculate(self.get_number_of_forbidden_stimuli() - len(self.correct_forbidden_responses),
+                                              self.get_number_of_forbidden_stimuli())
 
-    def get_correct_valid_responses_percentage(self):
-        return PercentageCalculator.calculate(len(self.correct_valid_responses),
+    def get_correct_authorized_responses_percentage(self):
+        return PercentageCalculator.calculate(len(self.correct_authorized_responses),
                                               self.get_number_of_valid_stimuli())
 
-    def get_valid_responses_not_clicked_percentage(self):
-        return PercentageCalculator.calculate(self.get_number_of_valid_stimuli() - len(self.correct_valid_responses),
+    def get_authorized_responses_not_clicked_percentage(self):
+        return PercentageCalculator.calculate(self.get_number_of_valid_stimuli() - len(self.correct_authorized_responses),
                                               self.get_number_of_valid_stimuli())
 
     def compute_results(self):
@@ -118,19 +118,19 @@ class StimuliTestingSession():
 
                     if rt > self.max_response_time:
                         self.max_response_time = rt
-                    self.correct_valid_responses.append(stimulus)
+                    self.correct_authorized_responses.append(stimulus)
 
                 else:
-                    self.correct_invalid_responses.append(stimulus)
+                    self.correct_forbidden_responses.append(stimulus)
 
-        if not self.correct_valid_responses:
+        if not self.correct_authorized_responses:
             self.average_response_time = -1
         else:
-            self.average_response_time = response_time_sum / len(self.correct_valid_responses)
+            self.average_response_time = response_time_sum / len(self.correct_authorized_responses)
 
         QtCore.qDebug("Pourcentage de reponses correctes %f" % self.get_correct_responses_percentage())
-        QtCore.qDebug("Pourcentage de reponses valides correctes %f" % self.get_correct_valid_responses_percentage())
-        QtCore.qDebug("Pourcentage de reponses invalides correctes %f" % self.get_correct_invalid_responses_percentage())
+        QtCore.qDebug("Pourcentage de reponses valides correctes %f" % self.get_correct_authorized_responses_percentage())
+        QtCore.qDebug("Pourcentage de reponses invalides correctes %f" % self.get_correct_forbidden_responses_percentage())
 
 class StimuliTestingConfiguration():
     def __init__(self):

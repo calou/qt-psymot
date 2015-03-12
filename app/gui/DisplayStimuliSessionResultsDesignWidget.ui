@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>ResultWidget</class>
+ <widget class="QWidget" name="ResultWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>40</y>
+     <y>20</y>
      <width>271</width>
      <height>61</height>
     </rect>
@@ -42,8 +42,8 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>90</y>
-     <width>251</width>
+     <y>70</y>
+     <width>521</width>
      <height>161</height>
     </rect>
    </property>
@@ -63,11 +63,11 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
   </widget>
-  <widget class="QLabel" name="correct_valid_response_percentage">
+  <widget class="QLabel" name="correct_authorized_response_percentage">
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>70</y>
+     <y>50</y>
      <width>161</width>
      <height>81</height>
     </rect>
@@ -88,11 +88,11 @@
     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
    </property>
   </widget>
-  <widget class="QLabel" name="correct_valid_responses_percentage_text">
+  <widget class="QLabel" name="correct_authorized_responses_percentage_text">
    <property name="geometry">
     <rect>
      <x>570</x>
-     <y>40</y>
+     <y>20</y>
      <width>261</width>
      <height>51</height>
     </rect>
@@ -113,11 +113,11 @@
     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
    </property>
   </widget>
-  <widget class="QLabel" name="correct_invalid_response_percentage">
+  <widget class="QLabel" name="correct_forbidden_response_percentage">
    <property name="geometry">
     <rect>
      <x>670</x>
-     <y>190</y>
+     <y>170</y>
      <width>161</width>
      <height>81</height>
     </rect>
@@ -138,11 +138,11 @@
     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
    </property>
   </widget>
-  <widget class="QLabel" name="correct_invalid_responses_percentage_text">
+  <widget class="QLabel" name="correct_forbidden_responses_percentage_text">
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>160</y>
+     <y>140</y>
      <width>251</width>
      <height>51</height>
     </rect>
@@ -167,7 +167,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>340</y>
+     <y>270</y>
      <width>511</width>
      <height>61</height>
     </rect>
@@ -192,7 +192,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>390</y>
+     <y>320</y>
      <width>431</width>
      <height>201</height>
     </rect>
@@ -217,7 +217,7 @@
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>460</y>
+     <y>390</y>
      <width>251</width>
      <height>51</height>
     </rect>
@@ -242,7 +242,7 @@
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>490</y>
+     <y>420</y>
      <width>281</width>
      <height>81</height>
     </rect>
@@ -267,7 +267,7 @@
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>370</y>
+     <y>300</y>
      <width>281</width>
      <height>81</height>
     </rect>
@@ -292,7 +292,7 @@
    <property name="geometry">
     <rect>
      <x>570</x>
-     <y>340</y>
+     <y>270</y>
      <width>261</width>
      <height>51</height>
     </rect>
@@ -311,6 +311,19 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="back_button">
+   <property name="geometry">
+    <rect>
+     <x>720</x>
+     <y>550</y>
+     <width>160</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Retour à l'accueil</string>
    </property>
   </widget>
  </widget>
