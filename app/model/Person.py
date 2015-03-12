@@ -10,3 +10,6 @@ class Person():
 
     def fullname(self):
         return self.last_name.upper() + ", " +self.first_name
+
+    def full_name(self):
+        return self.fullname()
