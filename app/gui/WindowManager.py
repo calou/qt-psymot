@@ -6,6 +6,9 @@ from app.gui.stimuli.ResultsWidget import *
 from app.gui.font import FontManager
 
 
+from app.db.StimuliTestingConfigurationRepository import *
+
+
 class WindowManager(QtWidgets.QMainWindow):
     def __init__(self):
         super(WindowManager, self).__init__()
@@ -36,11 +39,18 @@ class WindowManager(QtWidgets.QMainWindow):
         self.stacked_widget.addWidget(self.stimuli_testing_widget)
         self.home_window.start_test_button.clicked.connect(self.go_to_stimuli_test_widget)
 
-
         self.stacked_widget.addWidget(self.stimuli_results_widget)
         self.stimuli_testing_widget.testing_session_completed.connect(self.stimuli_results_widget.set_testing_session)
         self.stimuli_testing_widget.display_result_button.clicked.connect(self.go_to_stimuli_result_widget)
         self.stimuli_results_widget.back_button.clicked.connect(self.go_to_home)
+
+
+
+        repo = StimuliTestingConfigurationRepository()
+        confs = repo.list()
+        c = confs[0]
+        repo.fetch_stimuli_values(c)
+        print(c)
 
     def go_to_home(self):
         self.stacked_widget.setCurrentIndex(0)

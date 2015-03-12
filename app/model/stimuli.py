@@ -135,6 +135,7 @@ class StimuliTestingSession():
 class StimuliTestingConfiguration():
     def __init__(self):
         self.id = -1
+        self.name = ""
         self.number_of_stimuli = 50
         self.average_interval_time = 5.0
         self.random_interval_time_delta = 2.0
