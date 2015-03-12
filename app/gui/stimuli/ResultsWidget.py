@@ -1,11 +1,11 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets
-from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
+
 from app.model.stimuli import *
 from app.gui.widget import *
-from app.gui.StimuliResultsDesign import Ui_ResultWidget
+from app.gui.stimuli.design.ResultsDesign import Ui_ResultWidget
+
 
 BIG_TEXT_STYLESHEET = "font-size:48px;"
 MEDIUM_TEXT_STYLESHEET = "font-size:32px;"
@@ -13,9 +13,9 @@ BIG_RESULT_STYLESHEET = "font-size:120px; font-weight:500;"
 MEDIUM_RESULT_STYLESHEET = "font-size:64px; font-weight:500;"
 
 
-class DisplayStimuliSessionResultsDesignWidget(QtWidgets.QWidget, Ui_ResultWidget):
+class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
     def __init__(self):
-        super(DisplayStimuliSessionResultsDesignWidget, self).__init__()
+        super(ResultsWidget, self).__init__()
         self.setupUi(self)
         self.init_ui()
 

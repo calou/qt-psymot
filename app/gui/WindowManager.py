@@ -1,8 +1,10 @@
 from PyQt5 import uic
-from app.gui.ManagePatientsWindow import *
-from app.gui.StimuliSessionWidget import *
-from app.gui.StimuliResultsWidget import *
+
+from app.gui.patients.ManageWindow import *
+from app.gui.stimuli.TestingWidget import *
+from app.gui.stimuli.ResultsWidget import *
 from app.gui.font import FontManager
+
 
 class WindowManager(QtWidgets.QMainWindow):
     def __init__(self):
@@ -13,8 +15,8 @@ class WindowManager(QtWidgets.QMainWindow):
 
         self.home_window = uic.loadUi("app/gui/design/window/home.ui")
         self.manage_patients_window = ManagePatientWindow()
-        self.stimuli_testing_widget = StimuliTestSessionWidget()
-        self.stimuli_results_widget = DisplayStimuliSessionResultsDesignWidget()
+        self.stimuli_testing_widget = TestingWidget()
+        self.stimuli_results_widget = ResultsWidget()
 
         self.init_ui()
 

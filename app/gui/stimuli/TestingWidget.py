@@ -1,19 +1,18 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets
-from PyQt5 import QtCore
-from app.model.stimuli import *
-from app.gui.widget import *
 from threading import *
 import time
-from app.gui.StimuliTestingDesign import Ui_TextStimuliTestingDesignWidget
+
+from app.model.stimuli import *
+from app.gui.widget import *
+from app.gui.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
 
 
-class StimuliTestSessionWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
+class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
     testing_session_completed = QtCore.pyqtSignal(StimuliTestingSession, name='testingSessionCompleted')
 
     def __init__(self):
-        super(StimuliTestSessionWidget, self).__init__()
+        super(TestingWidget, self).__init__()
         self.setupUi(self)
 
         self.testing_configuration = None
