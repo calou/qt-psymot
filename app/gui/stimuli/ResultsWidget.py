@@ -7,8 +7,8 @@ from app.gui.widget import *
 from app.gui.stimuli.design.ResultsDesign import Ui_ResultWidget
 
 
-BIG_TEXT_STYLESHEET = "font-size:48px;"
-MEDIUM_TEXT_STYLESHEET = "font-size:32px;"
+BIG_TEXT_STYLESHEET = "font-size:48px;color:#555a5a;"
+MEDIUM_TEXT_STYLESHEET = "font-size:32px;color:#555a5a;"
 BIG_RESULT_STYLESHEET = "font-size:120px; font-weight:500;"
 MEDIUM_RESULT_STYLESHEET = "font-size:64px; font-weight:500;"
 
