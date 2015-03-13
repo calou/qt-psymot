@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'app/gui/design/window/StimuliResultsDesign.ui'
 #
-# Created: Fri Mar 13 21:42:38 2015
+# Created: Fri Mar 13 21:49:14 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -149,7 +149,7 @@ class Ui_ResultWidget(object):
         self.back_button.setGeometry(QtCore.QRect(10, 560, 160, 32))
         self.back_button.setObjectName("back_button")
         self.correct_authorized_response_number = QtWidgets.QLabel(ResultWidget)
-        self.correct_authorized_response_number.setGeometry(QtCore.QRect(525, 70, 161, 51))
+        self.correct_authorized_response_number.setGeometry(QtCore.QRect(515, 77, 161, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(18)
@@ -160,7 +160,7 @@ class Ui_ResultWidget(object):
         self.correct_authorized_response_number.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_authorized_response_number.setObjectName("correct_authorized_response_number")
         self.correct_forbidden_response_number = QtWidgets.QLabel(ResultWidget)
-        self.correct_forbidden_response_number.setGeometry(QtCore.QRect(525, 190, 161, 51))
+        self.correct_forbidden_response_number.setGeometry(QtCore.QRect(515, 197, 161, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(18)
