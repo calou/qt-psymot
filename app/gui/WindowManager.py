@@ -4,6 +4,7 @@ from app.gui.patients.ManageWindow import *
 from app.gui.stimuli.TestingWidget import *
 from app.gui.stimuli.ResultsWidget import *
 from app.gui.stimuli.ConfigurationWidget import *
+from app.gui.window.Home import Home
 from app.model.stimuli import StimuliTestingConfiguration
 from app.gui.font import FontManager
 
@@ -18,7 +19,7 @@ class WindowManager(QtWidgets.QMainWindow):
         self.stacked_widget = QtWidgets.QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
-        self.home_window = uic.loadUi("app/gui/design/window/home.ui")
+        self.home_window = Home()
         self.manage_patients_window = ManagePatientWindow()
         self.stimuli_testing_widget = TestingWidget()
         self.stimuli_results_widget = ResultsWidget()
@@ -34,7 +35,8 @@ class WindowManager(QtWidgets.QMainWindow):
         self.setWindowTitle('Psychomotriciel')
 
         self.stacked_widget.addWidget(self.home_window)
-        self.home_window.manage_patients_button.clicked.connect(self.go_to_manage_patients)
+        self.home_window.go_to_patients.connect(self.go_to_manage_patients)
+        self.home_window.go_to_testing.connect(self.go_to_stimuli_conf_widget)
 
         self.stacked_widget.addWidget(self.manage_patients_window)
         self.manage_patients_window.back_button.clicked.connect(self.go_to_home)
@@ -48,7 +50,7 @@ class WindowManager(QtWidgets.QMainWindow):
         self.stimuli_results_widget.back_button.clicked.connect(self.go_to_home)
 
         self.stacked_widget.addWidget(self.stimuli_conf_widget)
-        self.home_window.start_test_button.clicked.connect(self.go_to_stimuli_conf_widget)
+        self.stimuli_conf_widget.back_button.clicked.connect(self.go_to_home)
         self.stimuli_conf_widget.testing_session_started.connect(self.go_to_stimuli_test_widget)
 
         repo = StimuliTestingConfigurationRepository()
