@@ -1,0 +1,7 @@
+BIG_TEXT_STYLESHEET = "font-size:48px;color:#555a5a;"
+MEDIUM_TEXT_STYLESHEET = "font-size:32px;color:#555a5a;"
+BIG_RESULT_STYLESHEET = "font-size:120px; font-weight:500;"
+MEDIUM_RESULT_STYLESHEET = "font-size:64px; font-weight:500;"
+THIN_MEDIUM_RESULT_STYLESHEET = "font-size:64px; font-weight:100;"
+THIN_MEDIUM_2_RESULT_STYLESHEET = "font-size:32px; font-weight:100;"
+DARK_COLOR = "color:#7A7E7E;"

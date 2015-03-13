@@ -68,7 +68,7 @@ class WindowManager(QtWidgets.QMainWindow):
     def go_to_stimuli_test_widget(self, conf):
         print("Clicked Start test")
         self.stacked_widget.setCurrentIndex(2)
-        self.stimuli_testing_widget.start(conf)
+        self.stimuli_testing_widget.set_configuration(conf)
 
     def go_to_stimuli_result_widget(self):
         print("Afficher les résultats")

@@ -1,8 +1,6 @@
 # -*- coding: utf8 -*-
 
-from threading import *
-import time
-
+from PyQt5 import QtWidgets
 from app.model.stimuli import *
 from app.gui.widget import *
 from app.gui.stimuli.design.ConfigurationDesign import Ui_TestingSetupDesign

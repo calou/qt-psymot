@@ -1,11 +1,12 @@
 # -*- coding: utf8 -*-
 
+from PyQt5 import QtWidgets
 from threading import *
 from app.db.StimuliTestingConfigurationRepository import StimuliTestingConfigurationRepository
+from app.gui.design.StylesheetHelper import *
 import time
 
 from app.model.stimuli import *
-from app.gui.widget import *
 from app.gui.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
 
 
@@ -18,16 +19,26 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.testing_session = None
         self.current_stimulus = None
         self.init_ui()
+        self.started = False
+
+
 
     def init_ui(self):
         self.text_widget.setText("")
-        self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;")
+        self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;"+ DARK_COLOR)
         self.display_result_button.hide()
+        self.consigne.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
+        self.consigne.setWordWrap(True)
+        self.begin_text.setStyleSheet(THIN_MEDIUM_2_RESULT_STYLESHEET + DARK_COLOR)
+        self.begin_text.setWordWrap(True)
 
-    def start(self, configuration):
+    def set_configuration(self, configuration):
         repository = StimuliTestingConfigurationRepository()
         repository.fetch_stimuli_values(configuration)
         self.testing_session = configuration.generate_testing_session()
+        self.consigne.setText("Consigne:\n%s" % configuration.consigne)
+
+    def start(self):
         for stimulus in self.testing_session.stimuli:
             Timer(stimulus.time, self.print_value, [stimulus]).start()
             Timer(stimulus.time + stimulus.get_duration(), self.hide_value).start()
@@ -52,8 +63,14 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.on_click()
 
     def on_click(self):
-        self.current_stimulus.stimulus_responses.append(StimulusResponse())
-        QtCore.qDebug("%f - click" % (time.time()))
+        if not self.started:
+            self.started = True
+            self.start()
+            self.consigne.hide()
+            self.begin_text.hide()
+        else:
+            self.current_stimulus.stimulus_responses.append(StimulusResponse())
+            QtCore.qDebug("%f - click" % (time.time()))
 
     def display_testing_end(self):
         #self.testing_session.compute_results()

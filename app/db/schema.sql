@@ -26,8 +26,8 @@ create table stimuli_testing_configurations (
 );
 
 insert into stimuli_testing_configurations (id, name, consigne, number_of_stimuli, average_interval_time, random_interval_time_delta, display_duration, created_at) values
-                                        (1, "Nombres: impairs", "Cliquer lorsqu\'un nombre impair apparait à l\'écran", 50, 5.0, 1.5, 1.0, date('now')),
-                                        (2, "Mots: couleur", "Cliquer lorsqu\'un nom de couleur apparait à l\'écran", 50, 3.0, 0.5, 1.0, date('now'));
+                                        (1, "Nombres: impairs", "Cliquer lorsqu'un nombre impair apparait à l'écran", 50, 5.0, 1.5, 1.0, date('now')),
+                                        (2, "Mots: couleur", "Cliquer lorsqu'un nom de couleur apparait à l'écran", 50, 3.0, 0.5, 1.0, date('now'));
 
 
 create table stimuli_values (
