@@ -33,8 +33,6 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.begin_text.setWordWrap(True)
 
     def set_configuration(self, configuration):
-        repository = StimuliTestingConfigurationRepository()
-        repository.fetch_stimuli_values(configuration)
         self.testing_session = configuration.generate_testing_session()
         self.consigne.setText("Consigne:\n%s" % configuration.consigne)
 
@@ -73,6 +71,5 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
             QtCore.qDebug("%f - click" % (time.time()))
 
     def display_testing_end(self):
-        #self.testing_session.compute_results()
         self.display_result_button.show()
         self.testing_session_completed.emit(self.testing_session)

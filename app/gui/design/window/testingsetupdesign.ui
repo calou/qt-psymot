@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>150</y>
+     <y>140</y>
      <width>300</width>
      <height>32</height>
     </rect>
@@ -27,7 +27,7 @@
    <property name="geometry">
     <rect>
      <x>390</x>
-     <y>150</y>
+     <y>140</y>
      <width>300</width>
      <height>32</height>
     </rect>
@@ -50,7 +50,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>110</y>
+     <y>100</y>
      <width>191</width>
      <height>31</height>
     </rect>
@@ -63,7 +63,7 @@
    <property name="geometry">
     <rect>
      <x>390</x>
-     <y>110</y>
+     <y>100</y>
      <width>191</width>
      <height>31</height>
     </rect>
@@ -75,8 +75,8 @@
   <widget class="QSpinBox" name="spinBox">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>270</y>
+     <x>220</x>
+     <y>250</y>
      <width>71</width>
      <height>32</height>
     </rect>
@@ -86,20 +86,23 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>270</y>
-     <width>191</width>
+     <y>250</y>
+     <width>151</width>
      <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>Nombre de stimuli</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
   </widget>
   <widget class="QPushButton" name="start_button">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>550</y>
+     <x>730</x>
+     <y>560</y>
      <width>160</width>
      <height>32</height>
     </rect>
@@ -112,13 +115,97 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>550</y>
+     <y>560</y>
      <width>160</width>
      <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>Retour</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>300</y>
+     <width>151</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Valeurs</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>200</y>
+     <width>151</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Consigne :</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="consigne">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>200</y>
+     <width>591</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>consigne_text</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>300</y>
+     <width>171</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Valeurs valides</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="all_values">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>290</y>
+     <width>231</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="valid_values">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>290</y>
+     <width>231</width>
+     <height>211</height>
+    </rect>
    </property>
   </widget>
  </widget>

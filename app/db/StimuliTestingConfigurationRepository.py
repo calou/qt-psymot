@@ -23,7 +23,7 @@ class StimuliTestingConfigurationRepository():
         config.stimuli_values = []
         config.valid_stimuli_values = []
 
-        query = "SELECT id, string_value, authorized from stimuli_values where configuration_id = %d" % config.id
+        query = "SELECT id, string_value, authorized FROM stimuli_values where configuration_id = %d ORDER BY string_value ASC" % config.id
         cursor = self.database_connector.execute(query)
         for row in cursor.fetchall():
             sv = StimulusValue()
