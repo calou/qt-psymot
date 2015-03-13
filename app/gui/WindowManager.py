@@ -1,4 +1,4 @@
-from PyQt5 import uic
+from PyQt5 import QtWidgets, uic
 
 from app.gui.patients.ManageWindow import *
 from app.gui.stimuli.TestingWidget import *

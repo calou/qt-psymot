@@ -1,0 +1,47 @@
+QMainWindow, QDialog {
+    background-color: #3c3f41;
+    padding: 10px 35px;
+}
+
+
+QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QDialog, QComboBox, QSpinBox {
+    font-family: "Source Sans Pro";
+    font-weight: 200;
+    font-size: 16px;
+	color: #DDDDDD;
+}
+
+QLineEdit, QDateEdit, QDateTimeEdit {
+	padding:5px 8px;
+}
+
+QLineEdit, QDateEdit, QDateTimeEdit, QPushButton, QDialog, QComboBox,QComboBox:editable, QSpinBox {
+	border-radius: 0px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #606161;
+    background-color: #45494a;
+}
+
+QListWidget {
+    background-color: #45494a;
+}
+QListWidget::item:selected {
+    background-color: #555a5a;
+}
+
+QPushButton, QComboBox, QSpinBox {
+    padding: 5px 15px;
+}
+
+QLineEdit:hover, QLineEdit:focus, QDateEdit:hover, QDateEdit:focus, QPushButton:hover {
+    background-color: #555a5a;
+}
+
+QPushButton:pressed {
+    border-color: #5869a0;
+}
+
+QLabel {
+    font-weight: 100;
+}
