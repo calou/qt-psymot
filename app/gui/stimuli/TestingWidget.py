@@ -27,9 +27,9 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.text_widget.setText("")
         self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;"+ DARK_COLOR)
         self.display_result_button.hide()
-        self.consigne.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
+        self.consigne.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET)
         self.consigne.setWordWrap(True)
-        self.begin_text.setStyleSheet(THIN_MEDIUM_2_RESULT_STYLESHEET + DARK_COLOR)
+        self.begin_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.begin_text.setWordWrap(True)
 
     def set_configuration(self, configuration):

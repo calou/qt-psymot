@@ -1,12 +1,12 @@
 # -*- coding: utf8 -*-
 
 from PyQt5.QtCore import pyqtSlot
+from PyQt5 import QtWidgets
 
 from app.model.stimuli import *
 from app.gui.widget import *
 from app.gui.design.StylesheetHelper import *
 from app.gui.stimuli.design.ResultsDesign import Ui_ResultWidget
-
 
 
 class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
@@ -16,12 +16,14 @@ class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
         self.init_ui()
 
     def init_ui(self):
-        self.correct_responses_percentage_text.setStyleSheet(BIG_TEXT_STYLESHEET)
-        self.response_time_text.setStyleSheet(BIG_TEXT_STYLESHEET)
-        self.correct_forbidden_responses_percentage_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET)
-        self.correct_authorized_responses_percentage_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET)
-        self.min_response_time_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET)
-        self.max_response_time_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET)
+        self.correct_responses_percentage_text.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
+        self.response_time_text.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
+        self.correct_forbidden_responses_percentage_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET + DARK_COLOR)
+        self.correct_authorized_response_number.setStyleSheet(SMALL_TEXT_STYLESHEET)
+        self.correct_authorized_responses_percentage_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET + DARK_COLOR)
+        self.correct_forbidden_response_number.setStyleSheet(SMALL_TEXT_STYLESHEET)
+        self.min_response_time_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET + DARK_COLOR)
+        self.max_response_time_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET + DARK_COLOR)
 
         self.correct_response_percentage.setStyleSheet(BIG_RESULT_STYLESHEET)
         self.response_time.setStyleSheet(BIG_RESULT_STYLESHEET)
@@ -35,7 +37,12 @@ class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
         ts.compute_results()
         self.correct_response_percentage.setText("%d%%" % ts.get_correct_responses_percentage())
         self.correct_authorized_response_percentage.setText("%d%%" % ts.get_correct_authorized_responses_percentage())
+        number_of_authorized = "%d sur %d" % (len(ts.correct_authorized_responses), ts.get_number_of_valid_stimuli())
+        self.correct_authorized_response_number.setText(number_of_authorized)
+
         self.correct_forbidden_response_percentage.setText("%d%%" % ts.get_correct_forbidden_responses_percentage())
+        number_of_forbidden = "%d sur %d" % (len(ts.correct_forbidden_responses), ts.get_number_of_forbidden_stimuli())
+        self.correct_forbidden_response_number.setText(number_of_forbidden)
 
         avg_rt = "%d ms" % ts.average_response_time if ts.average_response_time > 0 else "N.D."
         self.response_time.setText(avg_rt)

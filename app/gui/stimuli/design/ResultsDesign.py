@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'StimuliResultsDesign.ui'
+# Form implementation generated from reading ui file 'app/gui/design/window/StimuliResultsDesign.ui'
 #
-# Created: Thu Mar 12 07:03:22 2015
+# Created: Fri Mar 13 21:42:38 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -36,7 +36,7 @@ class Ui_ResultWidget(object):
         self.correct_response_percentage.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.correct_response_percentage.setObjectName("correct_response_percentage")
         self.correct_authorized_response_percentage = QtWidgets.QLabel(ResultWidget)
-        self.correct_authorized_response_percentage.setGeometry(QtCore.QRect(670, 50, 161, 81))
+        self.correct_authorized_response_percentage.setGeometry(QtCore.QRect(670, 50, 161, 75))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(18)
@@ -58,7 +58,7 @@ class Ui_ResultWidget(object):
         self.correct_authorized_responses_percentage_text.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_authorized_responses_percentage_text.setObjectName("correct_authorized_responses_percentage_text")
         self.correct_forbidden_response_percentage = QtWidgets.QLabel(ResultWidget)
-        self.correct_forbidden_response_percentage.setGeometry(QtCore.QRect(670, 170, 161, 81))
+        self.correct_forbidden_response_percentage.setGeometry(QtCore.QRect(670, 170, 161, 75))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(18)
@@ -69,7 +69,7 @@ class Ui_ResultWidget(object):
         self.correct_forbidden_response_percentage.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_forbidden_response_percentage.setObjectName("correct_forbidden_response_percentage")
         self.correct_forbidden_responses_percentage_text = QtWidgets.QLabel(ResultWidget)
-        self.correct_forbidden_responses_percentage_text.setGeometry(QtCore.QRect(580, 140, 251, 51))
+        self.correct_forbidden_responses_percentage_text.setGeometry(QtCore.QRect(580, 140, 251, 50))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(16)
@@ -146,8 +146,30 @@ class Ui_ResultWidget(object):
         self.min_response_time_text.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.min_response_time_text.setObjectName("min_response_time_text")
         self.back_button = QtWidgets.QPushButton(ResultWidget)
-        self.back_button.setGeometry(QtCore.QRect(720, 550, 160, 32))
+        self.back_button.setGeometry(QtCore.QRect(10, 560, 160, 32))
         self.back_button.setObjectName("back_button")
+        self.correct_authorized_response_number = QtWidgets.QLabel(ResultWidget)
+        self.correct_authorized_response_number.setGeometry(QtCore.QRect(525, 70, 161, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.correct_authorized_response_number.setFont(font)
+        self.correct_authorized_response_number.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
+        self.correct_authorized_response_number.setObjectName("correct_authorized_response_number")
+        self.correct_forbidden_response_number = QtWidgets.QLabel(ResultWidget)
+        self.correct_forbidden_response_number.setGeometry(QtCore.QRect(525, 190, 161, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.correct_forbidden_response_number.setFont(font)
+        self.correct_forbidden_response_number.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
+        self.correct_forbidden_response_number.setObjectName("correct_forbidden_response_number")
 
         self.retranslateUi(ResultWidget)
         QtCore.QMetaObject.connectSlotsByName(ResultWidget)
@@ -168,4 +190,6 @@ class Ui_ResultWidget(object):
         self.min_response_time.setText(_translate("ResultWidget", "Temps de réponse maximum"))
         self.min_response_time_text.setText(_translate("ResultWidget", "minimum"))
         self.back_button.setText(_translate("ResultWidget", "Retour à l\'accueil"))
+        self.correct_authorized_response_number.setText(_translate("ResultWidget", "TextLabel"))
+        self.correct_forbidden_response_number.setText(_translate("ResultWidget", "TextLabel"))
 

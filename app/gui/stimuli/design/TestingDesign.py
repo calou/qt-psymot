@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'app/gui/design/window/StimuliTestingDesign.ui'
 #
-# Created: Fri Mar 13 21:02:52 2015
+# Created: Fri Mar 13 21:11:58 2015
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ class Ui_TextStimuliTestingDesignWidget(object):
         self.text_widget.setAlignment(QtCore.Qt.AlignCenter)
         self.text_widget.setObjectName("text_widget")
         self.display_result_button = QtWidgets.QPushButton(TextStimuliTestingDesignWidget)
-        self.display_result_button.setGeometry(QtCore.QRect(669, 560, 221, 32))
+        self.display_result_button.setGeometry(QtCore.QRect(670, 560, 220, 32))
         self.display_result_button.setObjectName("display_result_button")
         self.consigne = QtWidgets.QLabel(TextStimuliTestingDesignWidget)
         self.consigne.setGeometry(QtCore.QRect(50, 50, 800, 381))
