@@ -1,14 +1,13 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets
 from threading import *
-from app.db.StimuliRepositories import ConfigurationRepository
-from app.gui.stimuli.ResultsWindow import ResultsWidget
-from app.gui.design.StylesheetHelper import *
-import time
 
+from PyQt5 import QtWidgets
+
+from app.gui.window.stimuli.ResultsWindow import ResultsWidget
+from app.gui.design.StylesheetHelper import *
 from app.model.stimuli import *
-from app.gui.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
+from app.gui.window.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
 
 
 class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):

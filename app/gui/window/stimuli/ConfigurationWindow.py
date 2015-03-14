@@ -1,12 +1,9 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets
 from app.gui.design.StylesheetHelper import *
-from app.gui.stimuli.TestingWindow import TestingWidget
-from app.model.stimuli import *
-from app.model.Person import Person
+from app.gui.window.stimuli.TestingWindow import TestingWidget
 from app.gui.button import *
-from app.gui.stimuli.design.ConfigurationDesign import Ui_TestingSetupDesign
+from app.gui.window.stimuli.design.ConfigurationDesign import Ui_TestingSetupDesign
 from app.db.StimuliRepositories import ConfigurationRepository
 from app.db.PersonRepository import PersonRepository
 
