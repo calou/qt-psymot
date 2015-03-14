@@ -44,7 +44,6 @@ class WindowManager(QtWidgets.QMainWindow):
 
         self.stacked_widget.addWidget(self.stimuli_testing_widget)
 
-
         self.stacked_widget.addWidget(self.stimuli_results_widget)
         self.stimuli_testing_widget.testing_session_completed.connect(self.stimuli_results_widget.set_testing_session)
         self.stimuli_testing_widget.display_result_button.clicked.connect(self.go_to_stimuli_result_widget)
@@ -67,11 +66,11 @@ class WindowManager(QtWidgets.QMainWindow):
         print("Manage patients")
         self.stacked_widget.setCurrentIndex(1)
 
-    @pyqtSlot(StimuliTestingConfiguration)
-    def go_to_stimuli_test_widget(self, conf):
+    @pyqtSlot(StimuliTestingConfiguration, Person)
+    def go_to_stimuli_test_widget(self, conf, patient):
         print("Clicked Start test")
         self.stacked_widget.setCurrentIndex(2)
-        self.stimuli_testing_widget.set_configuration(conf)
+        self.stimuli_testing_widget.set_configuration(conf, patient)
 
     def go_to_stimuli_result_widget(self):
         print("Afficher les résultats")

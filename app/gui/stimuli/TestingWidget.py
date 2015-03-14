@@ -21,8 +21,6 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.init_ui()
         self.started = False
 
-
-
     def init_ui(self):
         self.text_widget.setText("")
         self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;"+ DARK_COLOR)
@@ -32,8 +30,9 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.begin_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.begin_text.setWordWrap(True)
 
-    def set_configuration(self, configuration):
+    def set_configuration(self, configuration, patient):
         self.testing_session = configuration.generate_testing_session()
+        self.testing_session.person = patient
         self.consigne.setText("Consigne:\n%s" % configuration.consigne)
 
     def start(self):

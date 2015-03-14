@@ -7,6 +7,7 @@ from app.model.stimuli import *
 from app.gui.widget import *
 from app.gui.design.StylesheetHelper import *
 from app.gui.stimuli.design.ResultsDesign import Ui_ResultWidget
+from app.db.StimuliRepositories import *
 
 
 class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
@@ -44,6 +45,8 @@ class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
     @pyqtSlot(StimuliTestingSession)
     def set_testing_session(self, ts):
         ts.compute_results()
+        repository = SessionRepository()
+        repository.save(ts)
         self.set_percentage(self.correct_response_percentage, ts.get_correct_responses_percentage(),
                             BIG_RESULT_STYLESHEET)
 

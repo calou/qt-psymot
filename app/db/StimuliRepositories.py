@@ -32,3 +32,24 @@ class ConfigurationRepository(Repository):
             config.stimuli_values.append(sv)
             if authorized:
                 config.valid_stimuli_values.append(sv)
+
+
+class SessionRepository(Repository):
+    def __init__(self):
+        Repository.__init__(self)
+
+    def save(self, session):
+        s_query = "INSERT INTO stimuli_testing_sessions (person_id, configuration_name, started_at) VALUES (?, ?, ?)"
+        cursor = self.execute(s_query, (session.person.id, session.configuration_name, session.start_date))
+        sid = cursor.lastrowid
+        session.id = sid
+
+        query = "INSERT INTO stimuli (session_id, string_value, valid, display_time, action_time, action_count) " \
+                "VALUES (?, ?, ?, ?, ?,? )"
+        attrs = []
+        for s in session.stimuli:
+            str_value = s.stimulus_value.value
+            attrs.append((sid, str_value, s.valid, s.effective_time, s.effective_time, len(s.stimulus_responses)))
+
+        self.executeMany(query, attrs)
+

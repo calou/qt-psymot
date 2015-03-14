@@ -53,8 +53,9 @@ class StimulusResponse():
 class StimuliTestingSession():
     def __init__(self):
         self.id = -1
+        self.person = None
         self.configuration_name = ""
-        self.start_time = None
+        self.start_date = None
         self.stimuli = []
         self.patient = None
         self.correct_responses = []
@@ -129,9 +130,6 @@ class StimuliTestingSession():
         else:
             self.average_response_time = response_time_sum / len(self.correct_authorized_responses)
 
-        QtCore.qDebug("Pourcentage de reponses correctes %f" % self.get_correct_responses_percentage())
-        QtCore.qDebug("Pourcentage de reponses valides correctes %f" % self.get_correct_authorized_responses_percentage())
-        QtCore.qDebug("Pourcentage de reponses invalides correctes %f" % self.get_correct_forbidden_responses_percentage())
 
 class StimuliTestingConfiguration():
     def __init__(self):

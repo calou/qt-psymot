@@ -70,7 +70,7 @@ create table stimuli_testing_sessions (
     id                          integer primary key autoincrement not null,
     person_id                   integer,
     configuration_name          text,
-    date                        date,
+    started_at                  date,
     FOREIGN KEY(person_id) REFERENCES people(id)
 );
 

@@ -22,9 +22,16 @@ class Repository():
             print("DB : %s" % script)
             conn.executescript(script)
 
-    def execute(self, script):
+
+    def executeMany(self, script, attrs):
         with sqlite3.connect(self.db_filename) as conn:
-            print("DB: %s" % script)
+            print("DB : %s" % script)
+            conn.executemany(script, attrs)
+
+    def execute(self, script, attrs=()):
+        with sqlite3.connect(self.db_filename) as conn:
+            print("DB : %s" % script)
             cursor = conn.cursor()
-            cursor.execute(script)
+            cursor.execute(script, attrs)
             return cursor
+

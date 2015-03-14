@@ -3,13 +3,14 @@
 from PyQt5 import QtWidgets
 from app.gui.design.StylesheetHelper import *
 from app.model.stimuli import *
+from app.model.Person import Person
 from app.gui.widget import *
 from app.gui.stimuli.design.ConfigurationDesign import Ui_TestingSetupDesign
 from app.db.StimuliRepositories import ConfigurationRepository
 from app.db.PersonRepository import PersonRepository
 
 class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
-    testing_session_started = QtCore.pyqtSignal(StimuliTestingConfiguration)
+    testing_session_started = QtCore.pyqtSignal(StimuliTestingConfiguration, Person)
 
     def __init__(self):
         super(ConfigurationWidget, self).__init__()
@@ -82,5 +83,5 @@ class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
 
     def emit_testing_session_started(self):
         self.current_configuration.number_of_stimuli = self.spinBox.value()
-        self.testing_session_started.emit(self.current_configuration)
+        self.testing_session_started.emit(self.current_configuration, self.current_patient)
 
