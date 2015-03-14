@@ -31,6 +31,7 @@ class WindowManager(QtWidgets.QMainWindow):
             self.setStyleSheet(stylesheet_file.read())
 
     def init_ui(self):
+
         self.setGeometry(100, 100, 900, 600)
         self.setWindowTitle('Psychomotriciel')
 
