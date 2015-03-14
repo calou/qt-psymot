@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets, QtCore, Qt
 from PyQt5.QtCore import pyqtSlot
 from app.gui.design.StylesheetHelper import *
 
-from app.gui.widget import *
+from app.gui.button import *
 from app.gui.base import *
 from app.model.Person import *
 from app.db.PersonRepository import PersonRepository

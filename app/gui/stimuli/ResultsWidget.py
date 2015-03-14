@@ -4,7 +4,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtWidgets
 
 from app.model.stimuli import *
-from app.gui.widget import *
+from app.gui.button import *
 from app.gui.design.StylesheetHelper import *
 from app.gui.stimuli.design.ResultsDesign import Ui_ResultWidget
 from app.db.StimuliRepositories import *
