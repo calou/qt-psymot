@@ -1,9 +1,10 @@
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets
+from PyQt5 import QtCore
 
 from app.gui.patients.ManageWindow import *
-from app.gui.stimuli.TestingWidget import *
-from app.gui.stimuli.ResultsWidget import *
-from app.gui.stimuli.ConfigurationWidget import *
+from app.gui.stimuli.TestingWindow import *
+from app.gui.stimuli.ResultsWindow import *
+from app.gui.stimuli.ConfigurationWindow import *
 from app.gui.window.Home import Home
 from app.model.stimuli import StimuliTestingConfiguration
 from app.gui.font import FontManager
@@ -47,7 +48,6 @@ class WindowManager(QtWidgets.QMainWindow):
         confs = repo.list()
         c = confs[0]
         repo.fetch_stimuli_values(c)
-        print(c)
 
     def display(self):
         self.go_to_home()

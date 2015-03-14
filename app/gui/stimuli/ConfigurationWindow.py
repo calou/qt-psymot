@@ -2,7 +2,7 @@
 
 from PyQt5 import QtWidgets
 from app.gui.design.StylesheetHelper import *
-from app.gui.stimuli.TestingWidget import TestingWidget
+from app.gui.stimuli.TestingWindow import TestingWidget
 from app.model.stimuli import *
 from app.model.Person import Person
 from app.gui.button import *

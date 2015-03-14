@@ -3,7 +3,7 @@
 from PyQt5 import QtWidgets
 from threading import *
 from app.db.StimuliRepositories import ConfigurationRepository
-from app.gui.stimuli.ResultsWidget import ResultsWidget
+from app.gui.stimuli.ResultsWindow import ResultsWidget
 from app.gui.design.StylesheetHelper import *
 import time
 

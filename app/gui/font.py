@@ -12,7 +12,7 @@ class FontManager():
 
     @staticmethod
     def get_font(ttf, family, size):
-        print("Ajout de la police %s" % ttf)
+        QtCore.qDebug("Ajout de la police %s" % ttf)
         QFontDatabase.addApplicationFont(ttf)
         font_database = QFontDatabase()
         return font_database.font(family, "normal", size)
