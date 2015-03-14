@@ -2,6 +2,7 @@
 
 from PyQt5 import QtWidgets
 from app.gui.design.StylesheetHelper import *
+from app.gui.stimuli.TestingWidget import TestingWidget
 from app.model.stimuli import *
 from app.model.Person import Person
 from app.gui.button import *
@@ -10,12 +11,11 @@ from app.db.StimuliRepositories import ConfigurationRepository
 from app.db.PersonRepository import PersonRepository
 
 class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
-    testing_session_started = QtCore.pyqtSignal(StimuliTestingConfiguration, Person)
 
     def __init__(self, parent=None):
         super(ConfigurationWidget, self).__init__(parent)
         self.setupUi(self)
-
+        self.root_widget = parent
         self.configurations = []
         self.patients = []
 
@@ -25,7 +25,7 @@ class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
         self.current_patient = None
         self.current_configuration = None
 
-        self.start_button.clicked.connect(self.emit_testing_session_started)
+        self.start_button.clicked.connect(self.start_testing)
 
         self.init_ui()
 
@@ -81,7 +81,8 @@ class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
         self.valid_values.setText("<html><body>%s</body></html>" % valid_values_html)
 
 
-    def emit_testing_session_started(self):
+    def start_testing(self):
         self.current_configuration.number_of_stimuli = self.spinBox.value()
-        self.testing_session_started.emit(self.current_configuration, self.current_patient)
+        widget = TestingWidget(self.root_widget, self.current_configuration, self.current_patient)
+        self.root_widget.replaceWindow(widget)
 

@@ -13,27 +13,25 @@ from app.gui.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidg
 class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
     testing_session_completed = QtCore.pyqtSignal(StimuliTestingSession, name='testingSessionCompleted')
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, configuration=None, patient=None):
         super(TestingWidget, self).__init__(parent)
         self.setupUi(self)
-        self.testing_session = None
+
+        self.testing_session = configuration.generate_testing_session()
+        self.testing_session.person = patient
+        self.consigne.setText("Consigne:\n%s" % configuration.consigne)
         self.current_stimulus = None
         self.init_ui()
         self.started = False
 
     def init_ui(self):
         self.text_widget.setText("")
-        self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;"+ DARK_COLOR)
+        self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;" + DARK_COLOR)
         self.display_result_button.hide()
         self.consigne.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET)
         self.consigne.setWordWrap(True)
         self.begin_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.begin_text.setWordWrap(True)
-
-    def set_configuration(self, configuration, patient):
-        self.testing_session = configuration.generate_testing_session()
-        self.testing_session.person = patient
-        self.consigne.setText("Consigne:\n%s" % configuration.consigne)
 
     def start(self):
         for stimulus in self.testing_session.stimuli:
