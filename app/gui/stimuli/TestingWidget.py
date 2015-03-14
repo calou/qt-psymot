@@ -13,8 +13,8 @@ from app.gui.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidg
 class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
     testing_session_completed = QtCore.pyqtSignal(StimuliTestingSession, name='testingSessionCompleted')
 
-    def __init__(self):
-        super(TestingWidget, self).__init__()
+    def __init__(self, parent=None):
+        super(TestingWidget, self).__init__(parent)
         self.setupUi(self)
         self.testing_session = None
         self.current_stimulus = None

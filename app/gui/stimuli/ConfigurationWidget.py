@@ -12,8 +12,8 @@ from app.db.PersonRepository import PersonRepository
 class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
     testing_session_started = QtCore.pyqtSignal(StimuliTestingConfiguration, Person)
 
-    def __init__(self):
-        super(ConfigurationWidget, self).__init__()
+    def __init__(self, parent=None):
+        super(ConfigurationWidget, self).__init__(parent)
         self.setupUi(self)
 
         self.configurations = []

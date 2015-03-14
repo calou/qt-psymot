@@ -36,8 +36,8 @@ class PersonListWidgetItem(QtWidgets.QWidget):
         self.delete_clicked.emit(self.person)
 
 class ManagePatientWindow(Window):
-    def __init__(self):
-        super(ManagePatientWindow, self).__init__()
+    def __init__(self, parent=None):
+        super(ManagePatientWindow, self).__init__(None)
         self.back_button = QtWidgets.QPushButton(self)
 
         self.layout = QtWidgets.QVBoxLayout()

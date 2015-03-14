@@ -11,8 +11,8 @@ from app.db.StimuliRepositories import *
 
 
 class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
-    def __init__(self):
-        super(ResultsWidget, self).__init__()
+    def __init__(self, parent=None):
+        super(ResultsWidget, self).__init__(parent)
         self.setupUi(self)
         self.init_ui()
 

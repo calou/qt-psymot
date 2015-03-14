@@ -10,8 +10,8 @@ class Home(QtWidgets.QWidget, Ui_HomeDesign):
     go_to_testing = QtCore.pyqtSignal()
     go_to_patients = QtCore.pyqtSignal()
 
-    def __init__(self):
-        super(Home, self).__init__()
+    def __init__(self, parent=None):
+        super(Home, self).__init__(parent)
         self.setupUi(self)
         self.init_ui()
 
