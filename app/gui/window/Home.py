@@ -16,13 +16,13 @@ class Home(QtWidgets.QWidget, Ui_HomeDesign):
         self.init_ui()
 
     def init_ui(self):
-        testing_section = HomeSection("Démarrer un test", "assets/images/checklist.svg")
-        testing_section.pushButton.clicked.connect(self.emit_go_to_testing)
+        testing_section = HomeSection(["Démarrer un test", "Consulter un test"], "assets/images/checklist.svg")
+        testing_section.push_buttons[0].clicked.connect(self.emit_go_to_testing)
 
         self.gridLayout.addWidget(testing_section, 0, 0)
 
-        patients_section = HomeSection("Gérer les patients", "assets/images/people.svg")
-        patients_section.pushButton.clicked.connect(self.emit_go_to_patients)
+        patients_section = HomeSection(["Gérer les patients"], "assets/images/people.svg")
+        patients_section.push_buttons[0].clicked.connect(self.emit_go_to_patients)
         self.gridLayout.addWidget(patients_section, 0, 1)
 
 
