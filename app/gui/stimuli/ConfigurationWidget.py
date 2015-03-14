@@ -5,7 +5,7 @@ from app.gui.design.StylesheetHelper import *
 from app.model.stimuli import *
 from app.gui.widget import *
 from app.gui.stimuli.design.ConfigurationDesign import Ui_TestingSetupDesign
-from app.db.StimuliTestingConfigurationRepository import StimuliTestingConfigurationRepository
+from app.db.StimuliRepositories import ConfigurationRepository
 from app.db.PersonRepository import PersonRepository
 
 class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
@@ -18,7 +18,7 @@ class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
         self.configurations = []
         self.patients = []
 
-        self.conf_repository = StimuliTestingConfigurationRepository()
+        self.conf_repository = ConfigurationRepository()
         self.person_repository = PersonRepository()
 
         self.current_patient = None

@@ -9,7 +9,7 @@ from app.model.stimuli import StimuliTestingConfiguration
 from app.gui.font import FontManager
 
 
-from app.db.StimuliTestingConfigurationRepository import *
+from app.db.StimuliRepositories import *
 
 
 class WindowManager(QtWidgets.QMainWindow):
@@ -54,7 +54,7 @@ class WindowManager(QtWidgets.QMainWindow):
         self.stimuli_conf_widget.back_button.clicked.connect(self.go_to_home)
         self.stimuli_conf_widget.testing_session_started.connect(self.go_to_stimuli_test_widget)
 
-        repo = StimuliTestingConfigurationRepository()
+        repo = ConfigurationRepository()
         confs = repo.list()
         c = confs[0]
         repo.fetch_stimuli_values(c)

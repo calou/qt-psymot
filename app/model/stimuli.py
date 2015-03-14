@@ -2,7 +2,7 @@ from PyQt5 import QtCore
 from app.utils.PercentageCalculator import PercentageCalculator
 import random
 import time
-
+from datetime import datetime
 
 class StimulusValue():
     def __init__(self, name="", value="", content=""):
@@ -53,9 +53,10 @@ class StimulusResponse():
 class StimuliTestingSession():
     def __init__(self):
         self.id = -1
+        self.configuration_name = ""
+        self.start_time = None
         self.stimuli = []
         self.patient = None
-        self.start_time = None
         self.correct_responses = []
         self.correct_forbidden_responses = []
         self.correct_authorized_responses = []
@@ -156,6 +157,8 @@ class StimuliTestingConfiguration():
 
     def generate_testing_session(self):
         testing_session = StimuliTestingSession()
+        testing_session.configuration_name = self.name
+        testing_session.start_time = datetime.now()
         current_time = 0
         min = self.min_interval_time()
         delta = 2 * self.random_interval_time_delta

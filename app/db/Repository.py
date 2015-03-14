@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-class DatabaseConnector():
+class Repository():
     def __init__(self):
         self.db_filename = 'app/db/database.db'
         schema_filename = 'app/db/schema.sql'
@@ -28,4 +28,3 @@ class DatabaseConnector():
             cursor = conn.cursor()
             cursor.execute(script)
             return cursor
-

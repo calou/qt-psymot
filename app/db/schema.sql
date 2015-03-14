@@ -66,3 +66,21 @@ insert into stimuli_values (id, string_value, configuration_id, authorized) valu
                            (115, "rose", 2, 1),
                            (116, "banc", 2, 0);
 
+create table stimuli_testing_sessions (
+    id                          integer primary key autoincrement not null,
+    person_id                   integer,
+    configuration_name          text,
+    date                        date,
+    FOREIGN KEY(person_id) REFERENCES people(id)
+);
+
+create table stimuli (
+    id                          integer primary key autoincrement not null,
+    session_id                  integer,
+    string_value                text,
+    valid                       boolean,
+    display_time                time,
+    action_time                 time,
+    action_count                integer,
+    FOREIGN KEY(session_id) REFERENCES stimuli_testing_sessions(id)
+);

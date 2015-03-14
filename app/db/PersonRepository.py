@@ -1,14 +1,14 @@
-from app.db.DatabaseConnector import DatabaseConnector
+from app.db.Repository import *
 from app.model.Person import Person
 import datetime
 
 
-class PersonRepository():
+class PersonRepository(Repository):
     def __init__(self):
-        self.database_connector = DatabaseConnector()
+        Repository.__init__(self)
 
     def select_many(self, query):
-        cursor = self.database_connector.execute(query)
+        cursor = self.execute(query)
         people = []
         for row in cursor.fetchall():
             person = Person()
@@ -30,14 +30,14 @@ class PersonRepository():
     def save(self, person):
         query = "INSERT INTO people (first_name, last_name, birth_date) VALUES ('%s', '%s', '%s')" % (
             person.first_name, person.last_name, person.birth_date)
-        cursor = self.database_connector.execute(query)
+        cursor = self.execute(query)
         person.id = cursor.lastrowid
 
     def update(self, person):
         query = "UPDATE people set first_name='%s', last_name='%s', birth_date='%s' WHERE id=%s " % (
             person.first_name, person.last_name, person.birth_date, person.id)
-        self.database_connector.executeUpdate(query)
+        self.executeUpdate(query)
 
     def delete(self, person):
         query = "DELETE FROM people WHERE id=%s " % (person.id)
-        self.database_connector.executeUpdate(query)
+        self.executeUpdate(query)

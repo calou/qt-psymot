@@ -1,13 +1,13 @@
-from app.db.DatabaseConnector import DatabaseConnector
+from app.db.Repository import *
 from app.model.stimuli import StimulusValue, StimuliTestingConfiguration
 
 
-class StimuliTestingConfigurationRepository():
+class ConfigurationRepository(Repository):
     def __init__(self):
-        self.database_connector = DatabaseConnector()
+        Repository.__init__(self)
 
     def select_many(self, query):
-        cursor = self.database_connector.execute(query)
+        cursor = self.execute(query)
         testing_configurations = []
         for row in cursor.fetchall():
             testing_configuration = StimuliTestingConfiguration()
@@ -24,7 +24,7 @@ class StimuliTestingConfigurationRepository():
         config.valid_stimuli_values = []
 
         query = "SELECT id, string_value, authorized FROM stimuli_values where configuration_id = %d ORDER BY string_value ASC" % config.id
-        cursor = self.database_connector.execute(query)
+        cursor = self.execute(query)
         for row in cursor.fetchall():
             sv = StimulusValue()
             sv.id, sv.value, authorized = row
