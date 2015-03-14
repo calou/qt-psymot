@@ -16,7 +16,7 @@ class Home(QtWidgets.QWidget, Ui_HomeDesign):
         self.init_ui()
 
     def init_ui(self):
-        testing_section = HomeSection("Démarrer un test", "assets/images/people.svg")
+        testing_section = HomeSection("Démarrer un test", "assets/images/checklist.svg")
         testing_section.pushButton.clicked.connect(self.emit_go_to_testing)
 
         self.gridLayout.addWidget(testing_section, 0, 0)
