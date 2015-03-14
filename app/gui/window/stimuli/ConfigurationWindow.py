@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 
+from app.gui.base import Window
 from app.gui.design.StylesheetHelper import *
 from app.gui.window.stimuli.TestingWindow import TestingWidget
 from app.gui.button import *

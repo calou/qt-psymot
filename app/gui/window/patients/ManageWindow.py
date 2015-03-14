@@ -74,7 +74,7 @@ class ManagePatientWindow(Window):
 
 
     def init_ui(self):
-        self.setTitle(u"Gestion des patients")
+        self.set_title(u"Gestion des patients")
         new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
         new_patient_button.setGeometry(120, 770, 560, 3)
         new_patient_button.clicked.connect(self.new_patient)

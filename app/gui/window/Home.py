@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets
 from app.gui.design.window.HomeDesign import *
 from app.gui.window.HomeSection import *
 from app.model.stimuli import *
-
+from app.gui.window.stimuli.DetailsWindow import *
 
 class Home(QtWidgets.QWidget, Ui_HomeDesign):
     go_to_testing = QtCore.pyqtSignal()
@@ -12,12 +12,14 @@ class Home(QtWidgets.QWidget, Ui_HomeDesign):
 
     def __init__(self, parent=None):
         super(Home, self).__init__(parent)
+        self.root_widget = parent
         self.setupUi(self)
         self.init_ui()
 
     def init_ui(self):
         testing_section = HomeSection(["Démarrer un test", "Consulter un test"], "assets/images/checklist.svg")
         testing_section.push_buttons[0].clicked.connect(self.emit_go_to_testing)
+        testing_section.push_buttons[1].clicked.connect(self.go_to_testing_details)
 
         self.gridLayout.addWidget(testing_section, 0, 0)
 
@@ -31,3 +33,7 @@ class Home(QtWidgets.QWidget, Ui_HomeDesign):
 
     def emit_go_to_patients(self):
         self.go_to_patients.emit()
+
+    def go_to_testing_details(self):
+        widget = DetailsWindow(self.root_widget)
+        self.root_widget.replaceWindow(widget)
