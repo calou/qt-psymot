@@ -11,12 +11,15 @@ from app.db.StimuliRepositories import *
 
 
 class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent, testing_session):
         super(ResultsWidget, self).__init__(parent)
+        self.root_widget = parent
         self.setupUi(self)
+        self.set_testing_session(testing_session)
         self.init_ui()
 
     def init_ui(self):
+        self.back_button.clicked.connect(self.back_button_clicked)
         self.correct_responses_percentage_text.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
         self.response_time_text.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
         self.correct_forbidden_responses_percentage_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET + DARK_COLOR)
@@ -68,3 +71,6 @@ class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
 
         max_rt = "%d ms" % ts.max_response_time if ts.max_response_time > 0 else "N.D."
         self.max_response_time.setText(max_rt)
+
+    def back_button_clicked(self):
+        self.root_widget.display()

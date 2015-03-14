@@ -3,6 +3,7 @@
 from PyQt5 import QtWidgets
 from threading import *
 from app.db.StimuliRepositories import ConfigurationRepository
+from app.gui.stimuli.ResultsWidget import ResultsWidget
 from app.gui.design.StylesheetHelper import *
 import time
 
@@ -15,6 +16,7 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
 
     def __init__(self, parent=None, configuration=None, patient=None):
         super(TestingWidget, self).__init__(parent)
+        self.root_widget = parent
         self.setupUi(self)
 
         self.testing_session = configuration.generate_testing_session()
@@ -32,6 +34,7 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.consigne.setWordWrap(True)
         self.begin_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.begin_text.setWordWrap(True)
+        self.display_result_button.clicked.connect(self.display_result)
 
     def start(self):
         for stimulus in self.testing_session.stimuli:
@@ -69,4 +72,8 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
 
     def display_testing_end(self):
         self.display_result_button.show()
-        self.testing_session_completed.emit(self.testing_session)
+
+    def display_result(self):
+        widget = ResultsWidget(self.root_widget, self.testing_session)
+        self.root_widget.replaceAndRemoveWindow(widget)
+
