@@ -1,7 +1,8 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, Qt
 from PyQt5.QtCore import pyqtSlot
+from app.gui.design.StylesheetHelper import *
 
 from app.gui.widget import *
 from app.gui.base import *
@@ -37,11 +38,11 @@ class PersonListWidgetItem(QtWidgets.QWidget):
 class ManagePatientWindow(Window):
     def __init__(self):
         super(ManagePatientWindow, self).__init__()
-        self.back_button = QtWidgets.QPushButton(u"Retour")
+        self.back_button = QtWidgets.QPushButton(self)
 
         self.layout = QtWidgets.QVBoxLayout()
-        self.search_input = QtWidgets.QLineEdit()
-        self.list_widget = QtWidgets.QListWidget()
+        self.search_input = QtWidgets.QLineEdit(self)
+        self.list_widget = QtWidgets.QListWidget(self)
 
         self.first_name_widget = QtWidgets.QLineEdit()
         self.last_name_widget = QtWidgets.QLineEdit()
@@ -53,33 +54,12 @@ class ManagePatientWindow(Window):
         self.refresh_patients()
         self.init_ui()
 
-    def init_title(self):
-        title = self.setTitle(u"Gestion des patients")
-        new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
-        new_patient_button.clicked.connect(self.new_patient)
-        title_layout = QtWidgets.QHBoxLayout()
-        title_layout.addWidget(title, 0, QtCore.Qt.AlignLeft)
-        title_layout.addWidget(new_patient_button, 0, QtCore.Qt.AlignRight)
-        self.layout.addLayout(title_layout)
-
-    def init_patients_list(self):
-        self.list_widget.itemClicked.connect(self.item_clicked)
-        self.list_widget.setFixedWidth(300)
-        self.redraw_person_list()
-
-    def init_search_input(self):
-        self.search_input.setPlaceholderText(u"Rechercher")
-        self.search_input.setFixedWidth(300)
-        self.layout.addWidget(self.search_input)
-        self.search_input.textChanged.connect(self.search_patients)
-
     def init_patient_form(self):
         form_layout = QtWidgets.QFormLayout()
+
         form_layout.setContentsMargins(20, 10, 0, 0)
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
-        form_title = QtWidgets.QLabel(u"Informations sur le patients")
-        form_title.setStyleSheet("font-weight: 100; color: #CCCCCC; font-size: 22px; margin-bottom:10px; padding-left: 0px;")
-        form_layout.addRow(form_title)
+        form_layout.setLabelAlignment(QtCore.Qt.AlignRight)
         form_layout.addRow(u"Prénom", self.first_name_widget)
         form_layout.addRow(u"Nom", self.last_name_widget)
         form_layout.addRow(u"Date de naissance", self.birth_date_widget)
@@ -87,26 +67,37 @@ class ManagePatientWindow(Window):
         save_button.setFixedWidth(120)
         save_button.clicked.connect(self.save_patient)
         form_layout.addWidget(save_button)
-        return form_layout
 
-    def init_button_layout(self):
-        button_layout = QtWidgets.QBoxLayout(QtWidgets.QBoxLayout.LeftToRight)
-        button_layout.addStretch(0)
-        button_layout.addWidget(self.back_button)
-        self.layout.addLayout(button_layout)
+        form_widget = DummyWidget(self)
+        form_widget.setLayout(form_layout)
+        form_widget.setGeometry(240, 140, 630, 410)
+
 
     def init_ui(self):
-        self.init_title()
-        self.init_patients_list()
-        self.init_search_input()
+        self.setTitle(u"Gestion des patients")
+        new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
+        new_patient_button.setGeometry(120, 770, 560, 3)
+        new_patient_button.clicked.connect(self.new_patient)
 
-        form_layout = self.init_patient_form()
-        hbox = QtWidgets.QHBoxLayout()
-        hbox.addWidget(self.list_widget)
-        hbox.addLayout(form_layout)
-        self.layout.addLayout(hbox)
-        self.init_button_layout()
-        self.setLayout(self.layout)
+        self.list_widget.itemClicked.connect(self.item_clicked)
+        self.list_widget.setGeometry(30, 130, 200, 350)
+        self.redraw_person_list()
+
+        self.search_input.setPlaceholderText(u"Rechercher")
+        self.search_input.setGeometry(30, 90, 200, 32)
+        self.search_input.textChanged.connect(self.search_patients)
+
+        self.back_button.setText(u"Retour")
+        self.back_button.setGeometry(10, 560, 120, 32)
+
+
+        form_title = QtWidgets.QLabel(self)
+        form_title.setText(u"Informations sur le patients")
+        form_title.setGeometry(240, 90, 630, 41)
+        form_title.setStyleSheet(MEDIUM_TEXT_STYLESHEET+DARK_COLOR)
+
+        self.init_patient_form()
+
 
     def item_clicked(self, item):
         person_widget = self.list_widget.itemWidget(item)
