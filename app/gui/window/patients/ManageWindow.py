@@ -7,7 +7,7 @@ from app.gui.design.StylesheetHelper import *
 
 from app.gui.button import *
 from app.gui.base import *
-from app.model.Person import *
+from app.model.base_model import *
 from app.db.PersonRepository import PersonRepository
 
 

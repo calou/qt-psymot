@@ -18,12 +18,6 @@ class Repository():
             else:
                 QtCore.qDebug("Database exists, assume schema does, too.")
 
-    def executeUpdate(self, script):
-        with sqlite3.connect(self.db_filename) as conn:
-            QtCore.qDebug("DB : %s" % script)
-            conn.executescript(script)
-
-
     def executeMany(self, script, attrs):
         with sqlite3.connect(self.db_filename) as conn:
             QtCore.qDebug("DB : %s" % script)
