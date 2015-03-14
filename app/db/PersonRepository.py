@@ -7,13 +7,12 @@ class PersonRepository(Repository):
     def __init__(self):
         Repository.__init__(self)
 
-    def select_many(self, query):
-        cursor = self.execute(query)
+    def select_many(self, query, attrs=()):
+        cursor = self.execute(query, attrs)
         people = []
         for row in cursor.fetchall():
             person = Person()
-            person.id, person.first_name, person.last_name, birth_date = row
-            person.birth_date = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
+            person.id, person.first_name, person.last_name, person.birth_date = row
             people.append(person)
         return people
 
@@ -22,9 +21,9 @@ class PersonRepository(Repository):
         return self.select_many(query)
 
     def search(self, search_value):
-        value = "'%" + search_value + "%'"
-        query = "SELECT id, first_name, last_name, birth_date from people WHERE first_name LIKE " + value + " OR last_name LIKE " + value
-        return self.select_many(query)
+        value = "%" + search_value + "%"
+        query = "SELECT id, first_name, last_name, birth_date from people WHERE first_name LIKE ? OR last_name LIKE ?"
+        return self.select_many(query, (value, value))
 
 
     def save(self, person):

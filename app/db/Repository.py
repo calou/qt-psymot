@@ -19,12 +19,12 @@ class Repository():
                 QtCore.qDebug("Database exists, assume schema does, too.")
 
     def executeMany(self, script, attrs):
-        with sqlite3.connect(self.db_filename) as conn:
+        with sqlite3.connect(self.db_filename, detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES) as conn:
             QtCore.qDebug("DB : %s" % script)
             conn.executemany(script, attrs)
 
     def execute(self, script, attrs=()):
-        with sqlite3.connect(self.db_filename) as conn:
+        with sqlite3.connect(self.db_filename, detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES) as conn:
             QtCore.qDebug("DB : %s" % script)
             cursor = conn.cursor()
             cursor.execute(script, attrs)

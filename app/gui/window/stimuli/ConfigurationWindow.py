@@ -25,6 +25,7 @@ class ConfigurationWindow(Window, Ui_TestingSetupDesign):
 
         self.start_button.clicked.connect(self.start_testing)
 
+        self.fetch_data()
         Window.init(self, parent, u"Définition du test")
 
 
@@ -39,6 +40,8 @@ class ConfigurationWindow(Window, Ui_TestingSetupDesign):
         for p in self.patients:
             self.patient_select.addItem(p.full_name())
         self.on_patient_changed()
+        self.patient_select.activated['QString'].connect(self.on_patient_changed)
+
 
         self.testing_select.clear()
         for c in self.configurations:

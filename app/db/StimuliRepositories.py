@@ -1,6 +1,10 @@
 from app.db.Repository import *
-from app.model.stimuli import StimulusValue, StimuliTestingConfiguration
+from app.model.stimuli import StimulusValue, StimuliTestingConfiguration, StimuliTestingSession
+from app.model.base_model import Person
+import datetime
 
+SELECT_SESSION_QUERY = "SELECT s.id, s.configuration_name, s.started_at, p.first_name, p.last_name FROM stimuli_testing_sessions s LEFT JOIN people p on s.person_id = p.id"
+SELECT_SESSION_QUERY_ORDER = " ORDER BY s.started_at DESC"
 
 class ConfigurationRepository(Repository):
     def __init__(self):
@@ -53,3 +57,22 @@ class SessionRepository(Repository):
 
         self.executeMany(query, attrs)
 
+
+    def select_many(self, query, attrs=()):
+        cursor = self.execute(query, attrs)
+        sessions = []
+        for row in cursor.fetchall():
+            session = StimuliTestingSession()
+            session.person = Person()
+            session.id, session.configuration_name, session.start_date, session.person.first_name, session.person.last_name = row
+            sessions.append(session)
+        return sessions
+
+    def list(self):
+        query = SELECT_SESSION_QUERY + SELECT_SESSION_QUERY_ORDER
+        return self.select_many(query)
+
+    def search_by_person(self, q):
+        search_value = "%" + q + "%"
+        query = SELECT_SESSION_QUERY + " WHERE p.first_name like ? or last_name like ?" + SELECT_SESSION_QUERY_ORDER
+        return self.select_many(query, (search_value, search_value))
