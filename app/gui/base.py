@@ -6,7 +6,7 @@ class Window(QWidget):
     def init(self, root_widget, title):
         self.root_widget = root_widget
         self.set_title(title)
-        self.init_ui()
+        self.init_back_button()
 
     def set_title(self, title_text):
         title_widget = QLabel(self)
@@ -16,7 +16,7 @@ class Window(QWidget):
         title_widget.setGeometry(30, 30, 840, 50)
         return title_widget
 
-    def init_ui(self):
+    def init_back_button(self):
         back_button = QPushButton(self)
         back_button.setText("Retour")
         back_button.setGeometry(10, 560, 160, 32)

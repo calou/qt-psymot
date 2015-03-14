@@ -4,7 +4,9 @@ from PyQt5 import QtWidgets
 from app.gui.design.window.HomeDesign import *
 from app.gui.window.HomeSection import *
 from app.model.stimuli import *
-from app.gui.window.stimuli.DetailsWindow import *
+from app.gui.window.stimuli.DetailsWindow import DetailsWindow
+from app.gui.window.patients.ManageWindow import ManagePatientWindow
+from app.gui.window.stimuli.ConfigurationWindow import ConfigurationWindow
 
 class Home(QtWidgets.QWidget, Ui_HomeDesign):
     go_to_testing = QtCore.pyqtSignal()
@@ -29,10 +31,12 @@ class Home(QtWidgets.QWidget, Ui_HomeDesign):
 
 
     def emit_go_to_testing(self):
-        self.go_to_testing.emit()
+        widget = ConfigurationWindow(self.root_widget)
+        self.root_widget.replaceWindow(widget)
 
     def emit_go_to_patients(self):
-        self.go_to_patients.emit()
+        widget = ManagePatientWindow(self.root_widget)
+        self.root_widget.replaceWindow(widget)
 
     def go_to_testing_details(self):
         widget = DetailsWindow(self.root_widget)

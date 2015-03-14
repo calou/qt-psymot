@@ -8,10 +8,10 @@ from app.gui.window.stimuli.design.ConfigurationDesign import Ui_TestingSetupDes
 from app.db.StimuliRepositories import ConfigurationRepository
 from app.db.PersonRepository import PersonRepository
 
-class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
+class ConfigurationWindow(Window, Ui_TestingSetupDesign):
 
     def __init__(self, parent=None):
-        super(ConfigurationWidget, self).__init__(parent)
+        super(ConfigurationWindow, self).__init__(parent)
         self.setupUi(self)
         self.root_widget = parent
         self.configurations = []
@@ -25,10 +25,7 @@ class ConfigurationWidget(QtWidgets.QWidget, Ui_TestingSetupDesign):
 
         self.start_button.clicked.connect(self.start_testing)
 
-        self.init_ui()
-
-    def init_ui(self):
-        self.title.setStyleSheet(BIG_TEXT_STYLESHEET)
+        Window.init(self, parent, u"Définition du test")
 
 
     def fetch_data(self):

@@ -19,9 +19,6 @@ class Ui_TestingSetupDesign(object):
         self.testing_select = QtWidgets.QComboBox(TestingSetupDesign)
         self.testing_select.setGeometry(QtCore.QRect(390, 140, 300, 32))
         self.testing_select.setObjectName("testing_select")
-        self.title = QtWidgets.QLabel(TestingSetupDesign)
-        self.title.setGeometry(QtCore.QRect(40, 20, 471, 51))
-        self.title.setObjectName("title")
         self.label = QtWidgets.QLabel(TestingSetupDesign)
         self.label.setGeometry(QtCore.QRect(40, 100, 191, 31))
         self.label.setObjectName("label")
@@ -70,7 +67,6 @@ class Ui_TestingSetupDesign(object):
     def retranslateUi(self, TestingSetupDesign):
         _translate = QtCore.QCoreApplication.translate
         TestingSetupDesign.setWindowTitle(_translate("TestingSetupDesign", "TestingSetupDesign"))
-        self.title.setText(_translate("TestingSetupDesign", "Choix du test"))
         self.label.setText(_translate("TestingSetupDesign", "Patient"))
         self.label_2.setText(_translate("TestingSetupDesign", "Test"))
         self.label_3.setText(_translate("TestingSetupDesign", "Nombre de stimuli"))

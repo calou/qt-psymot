@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 
+from app.gui.base import Window
 from PyQt5 import QtWidgets, QtCore, Qt
 from PyQt5.QtCore import pyqtSlot
 from app.gui.design.StylesheetHelper import *
@@ -38,7 +39,6 @@ class PersonListWidgetItem(QtWidgets.QWidget):
 class ManagePatientWindow(Window):
     def __init__(self, parent=None):
         super(ManagePatientWindow, self).__init__(None)
-        self.back_button = QtWidgets.QPushButton(self)
 
         self.layout = QtWidgets.QVBoxLayout()
         self.search_input = QtWidgets.QLineEdit(self)
@@ -53,6 +53,7 @@ class ManagePatientWindow(Window):
         self.patients = []
         self.refresh_patients()
         self.init_ui()
+        Window.init(self, parent, u"Gestion des patients")
 
     def init_patient_form(self):
         form_layout = QtWidgets.QFormLayout()
@@ -74,7 +75,6 @@ class ManagePatientWindow(Window):
 
 
     def init_ui(self):
-        self.set_title(u"Gestion des patients")
         new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
         new_patient_button.setGeometry(120, 770, 560, 3)
         new_patient_button.clicked.connect(self.new_patient)
@@ -86,9 +86,6 @@ class ManagePatientWindow(Window):
         self.search_input.setPlaceholderText(u"Rechercher")
         self.search_input.setGeometry(30, 90, 200, 32)
         self.search_input.textChanged.connect(self.search_patients)
-
-        self.back_button.setText(u"Retour")
-        self.back_button.setGeometry(10, 560, 120, 32)
 
 
         form_title = QtWidgets.QLabel(self)
