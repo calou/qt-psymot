@@ -20,8 +20,14 @@ class DetailsWindow(Window):
         self.search_input.setPlaceholderText(u"Rechercher")
         self.search_input.setGeometry(30, 90, 200, 32)
         self.search_input.textChanged.connect(self.search_patients)
+        self.list_widget.setGeometry(30, 130, 300, 420)
 
-        self.list_widget.setGeometry(30, 130, 300, 350)
+        self.summary_tab = SummaryTab()
+        self.stimuli_list_tab = StimuliListTab()
+        self.tab_widget = QTabWidget(self)
+        self.tab_widget.setGeometry(340, 90, 530, 460)
+        self.tab_widget.addTab(self.summary_tab, u"Résumé")
+        self.tab_widget.addTab(self.stimuli_list_tab, u"Liste des stimuli")
 
 
     def search_patients(self):
@@ -37,3 +43,11 @@ class DetailsWindow(Window):
         for s in self.sessions:
             date_str = s.start_date.strftime("%d/%m/%Y - %H:%M")
             self.list_widget.addItem('%s - %s, %s' % (date_str, s.person.last_name, s.person.first_name))
+
+class SummaryTab(QWidget):
+    def __init__(self, parent=None):
+        super(SummaryTab, self).__init__(parent)
+
+class StimuliListTab(QWidget):
+    def __init__(self, parent=None):
+        super(StimuliListTab, self).__init__(parent)

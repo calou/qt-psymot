@@ -4,7 +4,7 @@ QMainWindow, QDialog {
 }
 
 
-QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QDialog, QComboBox, QSpinBox, QTextBrowser, QTextEdit {
+QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox, QTextBrowser, QTextEdit {
     font-family: "Source Sans Pro";
     font-weight: 200;
     font-size: 16px;
@@ -23,11 +23,21 @@ QLineEdit, QDateEdit, QDateTimeEdit, QPushButton, QDialog, QComboBox,QComboBox:e
     background-color: #45494a;
 }
 
-QListWidget, QTextBrowser, QTextEdit {
+QTabWidget {
+    border: none;
+}
+QTabBar::tab {
+    color:#DDDDDD;
+    margin:0px 1px;
+    padding: 8px 15px;
+}
+
+QListWidget, QTextBrowser, QTextEdit, QTabBar::tab {
     background-color: #45494a;
 }
 
-QListWidget::item:selected {
+
+QListWidget::item:selected, QTabBar::tab:selected, QTabWidget {
     background-color: #555a5a;
 }
 
