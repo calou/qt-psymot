@@ -2,16 +2,17 @@
 
 from threading import *
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 
 from app.gui.window.stimuli.ResultsWindow import ResultsWidget
 from app.gui.design.StylesheetHelper import *
-from app.model.stimuli import *
+from app.model.stimuli import StimuliTestingSession, Stimulus, StimulusResponse
 from app.gui.window.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
+import datetime, time
 
 
 class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
-    testing_session_completed = QtCore.pyqtSignal(StimuliTestingSession, name='testingSessionCompleted')
+    testing_session_completed = QtCore.pyqtSignal(object)
 
     def __init__(self, parent=None, configuration=None, patient=None):
         super(TestingWidget, self).__init__(parent)

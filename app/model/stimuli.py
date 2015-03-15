@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from PyQt5 import QtCore
 from app.utils.PercentageCalculator import PercentageCalculator
 import random

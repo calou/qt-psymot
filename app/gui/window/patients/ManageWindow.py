@@ -12,7 +12,7 @@ from app.db.PersonRepository import PersonRepository
 
 
 class PersonListWidgetItem(QtWidgets.QWidget):
-    delete_clicked = QtCore.pyqtSignal(Person, name='deleteClicked')
+    delete_clicked = QtCore.pyqtSignal(object)
 
     def __init__(self, parent=None):
         super(QtWidgets.QWidget, self).__init__(parent)
@@ -134,14 +134,15 @@ class ManagePatientWindow(Window):
         self.refresh_patients()
         self.redraw_person_list()
 
-    @pyqtSlot(Person)
+    @pyqtSlot(object)
     def delete_patient(self, patient):
         message_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Supprimer',
-            "Etes-vous sûr de vouloir supprimer le patient %s\u00A0?" % patient.fullname(), QtWidgets.QMessageBox.Yes |
+            u"Etes-vous sûr de vouloir supprimer le patient %s\u00A0?" % patient.fullname(), QtWidgets.QMessageBox.Yes |
             QtWidgets.QMessageBox.No,self, QtCore.Qt.FramelessWindowHint)
         message_box.setInformativeText("Cette opération est irréversible.")
         message_box.show()
-        if message_box.exec() == QMessageBox.Yes:
+        user_response = message_box.exec_()
+        if user_response == QMessageBox.Yes:
             self.person_repository.delete(patient)
             self.refresh_patients()
             self.redraw_person_list()

@@ -44,7 +44,7 @@ class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
             colored_stylesheet += RED_COLOR
         text.setStyleSheet(colored_stylesheet)
 
-    @pyqtSlot(StimuliTestingSession)
+#    @pyqtSlot(StimuliTestingSession)
     def set_testing_session(self, ts):
         ts.compute_results()
         repository = SessionRepository()
