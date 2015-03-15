@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from PyQt5 import QtWidgets
 from app.model.stimuli import *
 from app.gui.button import *
 from app.gui.base import *
@@ -24,7 +25,7 @@ class DetailsWindow(Window):
 
         self.summary_tab = SummaryTab()
         self.stimuli_list_tab = StimuliListTab()
-        self.tab_widget = QTabWidget(self)
+        self.tab_widget = QtWidgets.QTabWidget(self)
         self.tab_widget.setGeometry(340, 90, 530, 460)
         self.tab_widget.addTab(self.summary_tab, u"Résumé")
         self.tab_widget.addTab(self.stimuli_list_tab, u"Liste des stimuli")
@@ -44,10 +45,10 @@ class DetailsWindow(Window):
             date_str = s.start_date.strftime("%d/%m/%Y - %H:%M")
             self.list_widget.addItem('%s - %s, %s' % (date_str, s.person.last_name, s.person.first_name))
 
-class SummaryTab(QWidget):
+class SummaryTab(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(SummaryTab, self).__init__(parent)
 
-class StimuliListTab(QWidget):
+class StimuliListTab(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(StimuliListTab, self).__init__(parent)

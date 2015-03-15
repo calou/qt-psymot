@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtGui import QFontDatabase
+from PyQt5 import QtGui, QtCore
 
 
 class FontManager():
@@ -8,13 +8,13 @@ class FontManager():
         font_files = os.listdir("assets/fonts")
         for font_file in font_files:
             file = "assets/fonts/" + font_file
-            QFontDatabase.addApplicationFont(file)
+            QtGui.QFontDatabase.addApplicationFont(file)
 
     @staticmethod
     def get_font(ttf, family, size):
         QtCore.qDebug("Ajout de la police %s" % ttf)
-        QFontDatabase.addApplicationFont(ttf)
-        font_database = QFontDatabase()
+        QtGui.QFontDatabase.addApplicationFont(ttf)
+        font_database = QtGui.QFontDatabase()
         return font_database.font(family, "normal", size)
 
     @staticmethod

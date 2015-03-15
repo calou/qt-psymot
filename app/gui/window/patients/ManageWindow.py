@@ -2,7 +2,6 @@
 
 from app.gui.base import Window
 from PyQt5 import QtWidgets, QtCore, Qt
-from PyQt5.QtCore import pyqtSlot
 from app.gui.design.StylesheetHelper import *
 
 from app.gui.button import *
@@ -134,7 +133,7 @@ class ManagePatientWindow(Window):
         self.refresh_patients()
         self.redraw_person_list()
 
-    @pyqtSlot(object)
+    @QtCore.pyqtSlot(object)
     def delete_patient(self, patient):
         message_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Supprimer',
             u"Etes-vous sûr de vouloir supprimer le patient %s\u00A0?" % patient.fullname(), QtWidgets.QMessageBox.Yes |
@@ -142,7 +141,7 @@ class ManagePatientWindow(Window):
         message_box.setInformativeText("Cette opération est irréversible.")
         message_box.show()
         user_response = message_box.exec_()
-        if user_response == QMessageBox.Yes:
+        if user_response == QtWidgets.QMessageBox.Yes:
             self.person_repository.delete(patient)
             self.refresh_patients()
             self.redraw_person_list()

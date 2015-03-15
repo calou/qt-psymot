@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from PyQt5.QtCore import pyqtSlot
+from PyQt5 import QtCore
 
 from app.model.stimuli import *
 from app.gui.button import *
@@ -44,7 +44,7 @@ class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
             colored_stylesheet += RED_COLOR
         text.setStyleSheet(colored_stylesheet)
 
-#    @pyqtSlot(StimuliTestingSession)
+    @QtCore.pyqtSlot(object)
     def set_testing_session(self, ts):
         ts.compute_results()
         repository = SessionRepository()

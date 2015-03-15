@@ -1,7 +1,5 @@
 # -*- coding: utf8 -*-
-from PyQt5 import QtWidgets
-from PyQt5 import QtSvg
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtSvg, QtWidgets
 from app.gui.design.StylesheetHelper import *
 
 class HomeSection(QtWidgets.QWidget):

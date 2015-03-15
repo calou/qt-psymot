@@ -8,7 +8,8 @@ from app.gui.window.stimuli.ResultsWindow import ResultsWidget
 from app.gui.design.StylesheetHelper import *
 from app.model.stimuli import StimuliTestingSession, Stimulus, StimulusResponse
 from app.gui.window.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
-import datetime, time
+import datetime
+import time
 
 
 class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
@@ -43,7 +44,7 @@ class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
 
         Timer(self.testing_session.stimuli[-1].time + 3, self.display_testing_end).start()
 
-        self.testing_session.start_date = datetime.now()
+        self.testing_session.start_date = datetime.datetime.now()
 
         # Initialisation d'un premier stimulus "vide"
         self.current_stimulus = Stimulus()

@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import *
+from PyQt5 import QtWidgets
 from app.gui.design.StylesheetHelper import *
 
-class Window(QWidget):
+class Window(QtWidgets.QWidget):
 
     def init(self, root_widget, title):
         self.root_widget = root_widget
@@ -9,7 +9,7 @@ class Window(QWidget):
         self.init_back_button()
 
     def set_title(self, title_text):
-        title_widget = QLabel(self)
+        title_widget = QtWidgets.QLabel(self)
         title_widget.setText(title_text)
         title_widget.setStyleSheet(BIG_TEXT_STYLESHEET+DARK_COLOR)
         title_widget.setContentsMargins(0, 0, 0, 10)
@@ -17,7 +17,7 @@ class Window(QWidget):
         return title_widget
 
     def init_back_button(self):
-        back_button = QPushButton(self)
+        back_button = QtWidgets.QPushButton(self)
         back_button.setText("Retour")
         back_button.setGeometry(10, 560, 160, 32)
         back_button.clicked.connect(self.back_button_clicked)
@@ -25,6 +25,6 @@ class Window(QWidget):
     def back_button_clicked(self):
         self.root_widget.display()
 
-class DummyWidget(QWidget):
+class DummyWidget(QtWidgets.QWidget):
     def __init__(self, parent=None):
-        super(QWidget, self).__init__(parent)
+        super(QtWidgets.QWidget, self).__init__(parent)

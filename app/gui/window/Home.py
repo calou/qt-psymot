@@ -1,12 +1,13 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from app.gui.design.window.HomeDesign import *
 from app.gui.window.HomeSection import *
 from app.model.stimuli import *
 from app.gui.window.stimuli.DetailsWindow import DetailsWindow
 from app.gui.window.patients.ManageWindow import ManagePatientWindow
 from app.gui.window.stimuli.ConfigurationWindow import ConfigurationWindow
+
 
 class Home(QtWidgets.QWidget, Ui_HomeDesign):
     go_to_testing = QtCore.pyqtSignal()
