@@ -1,9 +1,9 @@
 # -*- coding: utf8 -*-
 from PyQt5 import QtWidgets
-from app.model.stimuli import *
-from app.gui.button import *
-from app.gui.base import *
-from app.db.StimuliRepositories import SessionRepository
+from model.stimuli import *
+from gui.button import *
+from gui.base import *
+from db.StimuliRepositories import SessionRepository
 
 class DetailsWindow(Window):
     def __init__(self, parent):

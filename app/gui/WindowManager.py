@@ -1,6 +1,6 @@
-from app.gui.window.stimuli.ConfigurationWindow import *
-from app.gui.window.Home import Home
-from app.gui.font import FontManager
+from gui.window.stimuli.ConfigurationWindow import *
+from gui.window.Home import Home
+from gui.font import FontManager
 
 
 

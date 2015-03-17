@@ -2,11 +2,11 @@
 
 from PyQt5 import QtCore
 
-from app.model.stimuli import *
-from app.gui.button import *
-from app.gui.design.StylesheetHelper import *
-from app.gui.window.stimuli.design.ResultsDesign import Ui_ResultWidget
-from app.db.StimuliRepositories import *
+from model.stimuli import *
+from gui.button import *
+from gui.design.StylesheetHelper import *
+from gui.window.stimuli.design.ResultsDesign import Ui_ResultWidget
+from db.StimuliRepositories import *
 
 
 class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):

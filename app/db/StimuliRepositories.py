@@ -1,6 +1,6 @@
-from app.db.Repository import *
-from app.model.stimuli import StimulusValue, StimuliTestingConfiguration, StimuliTestingSession
-from app.model.base_model import Person
+from db.Repository import *
+from model.stimuli import StimulusValue, StimuliTestingConfiguration, StimuliTestingSession
+from model.base_model import Person
 import datetime
 
 SELECT_SESSION_QUERY = "SELECT s.id, s.configuration_name, s.started_at, p.first_name, p.last_name FROM stimuli_testing_sessions s LEFT JOIN people p on s.person_id = p.id"

@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from app.gui.design.StylesheetHelper import *
+from gui.design.StylesheetHelper import *
 
 class Window(QtWidgets.QWidget):
 

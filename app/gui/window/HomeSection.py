@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from PyQt5 import QtSvg, QtWidgets
-from app.gui.design.StylesheetHelper import *
+from gui.design.StylesheetHelper import *
 
 class HomeSection(QtWidgets.QWidget):
     def __init__(self, button_texts, background_image):

@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from PyQt5 import QtCore
-from app.utils.PercentageCalculator import PercentageCalculator
+from utils.PercentageCalculator import PercentageCalculator
 import random
 import time
 from datetime import datetime

@@ -4,10 +4,10 @@ from threading import *
 
 from PyQt5 import QtWidgets, QtCore
 
-from app.gui.window.stimuli.ResultsWindow import ResultsWidget
-from app.gui.design.StylesheetHelper import *
-from app.model.stimuli import StimuliTestingSession, Stimulus, StimulusResponse
-from app.gui.window.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
+from gui.window.stimuli.ResultsWindow import ResultsWidget
+from gui.design.StylesheetHelper import *
+from model.stimuli import StimuliTestingSession, Stimulus, StimulusResponse
+from gui.window.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
 import datetime
 import time
 

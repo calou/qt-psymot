@@ -1,5 +1,5 @@
-from app.db.Repository import *
-from app.model.base_model import Person
+from db.Repository import *
+from model.base_model import Person
 import datetime
 
 

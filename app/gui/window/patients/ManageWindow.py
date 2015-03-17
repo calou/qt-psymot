@@ -1,13 +1,13 @@
 # -*- coding: utf8 -*-
 
-from app.gui.base import Window
+from gui.base import Window
 from PyQt5 import QtWidgets, QtCore, Qt
-from app.gui.design.StylesheetHelper import *
+from gui.design.StylesheetHelper import *
 
-from app.gui.button import *
-from app.gui.base import *
-from app.model.base_model import *
-from app.db.PersonRepository import PersonRepository
+from gui.button import *
+from gui.base import *
+from model.base_model import *
+from db.PersonRepository import PersonRepository
 
 
 class PersonListWidgetItem(QtWidgets.QWidget):
