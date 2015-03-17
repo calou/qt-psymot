@@ -1,5 +1,5 @@
 from db.Repository import *
-from model.stimuli import StimulusValue, StimuliTestingConfiguration, StimuliTestingSession
+from model.stimuli import StimulusValue, StimuliTestingConfiguration, StimuliTestingSession, Stimulus
 from model.base_model import Person
 import datetime
 
@@ -76,3 +76,20 @@ class SessionRepository(Repository):
         search_value = "%" + q + "%"
         query = SELECT_SESSION_QUERY + " WHERE p.first_name like ? or last_name like ?" + SELECT_SESSION_QUERY_ORDER
         return self.select_many(query, (search_value, search_value))
+
+class StimuliRepository(Repository):
+    def __init__(self):
+        Repository.__init__(self)
+
+    def select_many(self, query):
+        cursor = self.execute(query)
+        stimuli = []
+        for row in cursor.fetchall():
+            s = Stimulus()
+            s.effective_time, s.action_time, s.string_value, s.action_count, s.valid = row
+            stimuli.append(s)
+        return stimuli
+
+    def get_by_session_id(self, session_id):
+        query = "SELECT display_time, action_time, string_value, action_count, valid FROM stimuli WHERE session_id=? ORDER BY display_time"
+        return self.select_many(query, (session_id,))

@@ -5,6 +5,7 @@ import random
 import time
 from datetime import datetime
 
+
 class StimulusValue():
     def __init__(self, name="", value="", content=""):
         self.id = -1
@@ -25,6 +26,8 @@ class Stimulus():
         self.effective_time = None
         self.stimulus_responses = []
         self.valid = valid
+        self.action_time
+        self.action_count = 0
 
     def get_duration(self):
         return self.duration
@@ -88,16 +91,18 @@ class StimuliTestingSession():
                                               self.get_number_of_forbidden_stimuli())
 
     def get_forbidden_responses_clicked_percentage(self):
-        return PercentageCalculator.calculate(self.get_number_of_forbidden_stimuli() - len(self.correct_forbidden_responses),
-                                              self.get_number_of_forbidden_stimuli())
+        return PercentageCalculator.calculate(
+            self.get_number_of_forbidden_stimuli() - len(self.correct_forbidden_responses),
+            self.get_number_of_forbidden_stimuli())
 
     def get_correct_authorized_responses_percentage(self):
         return PercentageCalculator.calculate(len(self.correct_authorized_responses),
                                               self.get_number_of_valid_stimuli())
 
     def get_authorized_responses_not_clicked_percentage(self):
-        return PercentageCalculator.calculate(self.get_number_of_valid_stimuli() - len(self.correct_authorized_responses),
-                                              self.get_number_of_valid_stimuli())
+        return PercentageCalculator.calculate(
+            self.get_number_of_valid_stimuli() - len(self.correct_authorized_responses),
+            self.get_number_of_valid_stimuli())
 
     def compute_results(self):
         response_time_sum = 0
