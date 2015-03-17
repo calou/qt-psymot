@@ -1,25 +1,31 @@
 # -*- mode: python -*-
-
-block_cipher = None
-
-
 a = Analysis(['application.py'],
-             pathex=['/home/calou/work/python/projects/psychomot'],
+             pathex=['C:\\work\\qt-psymot'],
              hiddenimports=[],
              hookspath=None,
-             runtime_hooks=None,
-             excludes=None,
-             cipher=block_cipher)
-pyz = PYZ(a.pure,
-             cipher=block_cipher)
+             runtime_hooks=['hook/rthook_pyqt5.py'])
+plugins = [("qt5_plugins/platforms/qwindows.dll",
+             "C:\\Qt\\Qt5.4.1\\5.4\\msvc2013_64\\plugins\\platforms\\qwindows.dll", "BINARY")]
+"""
+data = [
+  ("qt.conf", "qt.conf", "DATA")
+]
+"""
+
+pyz = PYZ(a.pure)
+
 exe = EXE(pyz,
           a.scripts,
-          exclude_binaries=True,
-          name='application',
-          debug=False,
+          a.binaries + plugins,
+          a.zipfiles,
+          #a.datas + data,
+          a.datas,
+          name='application.exe',
+          debug=True,
           strip=None,
           upx=True,
           console=True )
+
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
