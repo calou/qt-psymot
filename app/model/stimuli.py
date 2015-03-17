@@ -26,7 +26,7 @@ class Stimulus():
         self.effective_time = None
         self.stimulus_responses = []
         self.valid = valid
-        self.action_time
+        self.action_time = None
         self.action_count = 0
 
     def get_duration(self):

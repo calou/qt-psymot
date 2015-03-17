@@ -8,6 +8,10 @@ from gui.WindowManager import *
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
+
+    """
+    Migration de base de données
+    """
     database_manager = Repository.DatabaseManager()
     database_manager.migrate()
     widget = WindowManager()
