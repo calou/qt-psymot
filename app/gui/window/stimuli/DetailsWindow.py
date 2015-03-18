@@ -84,6 +84,7 @@ class StimuliListTab(QtWidgets.QWidget):
         self.table.setGeometry(0, 0, 530, 460)
         self.table.setAlternatingRowColors(True)
         self.table.setSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
         self.repository = StimuliRepository()
@@ -92,7 +93,7 @@ class StimuliListTab(QtWidgets.QWidget):
         stimuli = self.repository.get_by_session_id(session.id)
         self.table.clear()
         self.table.setColumnCount(4)
-        self.table.setHorizontalHeaderLabels([u"Temps", u"Valeur", u"Réaction", u"Nombre d'actions"])
+        self.table.setHorizontalHeaderLabels([u"Temps", u"Valeur", u"Réaction", u"Actions"])
 
         self.table.setRowCount(len(stimuli))
         session_start_time = time.mktime(session.start_date.timetuple())
@@ -117,11 +118,13 @@ class StimuliListTab(QtWidgets.QWidget):
             self.table.setItem(index, 0, time_ti)
             self.table.setItem(index, 1, value_ti)
 
+            reaction_str = ""
             if stimulus.action_time:
                 reaction = 1000 * (stimulus.action_time - stimulus.effective_time)
-                reaction_ti = QtWidgets.QTableWidgetItem("%d ms" % reaction)
-                reaction_ti.setBackground(brush)
-                self.table.setItem(index, 2, reaction_ti)
+                reaction_str = "%d ms" % reaction
+            reaction_ti = QtWidgets.QTableWidgetItem(reaction_str)
+            reaction_ti.setBackground(brush)
+            self.table.setItem(index, 2, reaction_ti)
             count_ti = QtWidgets.QTableWidgetItem("%d" % stimulus.action_count)
             count_ti.setBackground(brush)
             self.table.setItem(index, 3, count_ti)

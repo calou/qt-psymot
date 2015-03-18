@@ -4,10 +4,10 @@ QMainWindow, QDialog {
 }
 
 QTableWidget {
-    background-color: #3c3f41;
+    background-color: #45494a;
 }
 
-QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox, QTextBrowser, QTextEdit {
+QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox, QTextBrowser, QTextEdit, QHeaderView {
     font-family: "Source Sans Pro";
     font-weight: 200;
     font-size: 16px;
@@ -18,7 +18,8 @@ QLineEdit, QDateEdit, QDateTimeEdit {
 	padding:5px 8px;
 }
 
-QLineEdit, QDateEdit, QDateTimeEdit, QPushButton, QDialog, QComboBox,QComboBox:editable, QSpinBox {
+QLineEdit, QDateEdit, QDateTimeEdit, QPushButton, QDialog, QComboBox,QComboBox:editable,
+QSpinBox, QHeaderView, QTableWidgetItem {
 	border-radius: 0px;
     border-width: 1px;
     border-style: solid;
@@ -26,9 +27,67 @@ QLineEdit, QDateEdit, QDateTimeEdit, QPushButton, QDialog, QComboBox,QComboBox:e
     background-color: #45494a;
 }
 
+QHeaderView {
+    border-width:0px;
+    border:none;
+}
+
+QTableView QTableCornerButton::section {
+    background-color: #45494a;
+}
+QScrollBar:horizontal, QScrollBar:vertical {
+ border: 2px solid #606161;
+ background: #45494a;
+ margin: 0px 20px 0 20px;
+}
+QScrollBar:horizontal{
+    height:10px;
+}
+QScrollBar:vertical{
+    width: 10px;
+}
+
+QScrollBar:vertical {
+  border: 2px solid #45494a;
+  background: #45494a;
+  width: 15px;
+  margin: 22px 0 22px 0;
+}
+QScrollBar::handle:vertical {
+  background: #3c3f41;
+  min-height: 20px
+}
+QScrollBar::add-line:vertical {
+  border: 2px solid #45494a;
+  background: #32CC99;
+  height: 20px;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+  border: 2px solid #45494a;
+  background: #45494a;
+  height: 20px;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+  border: 2px solid #45494a;
+  width: 3px;
+  height: 3px;
+  background: #3c3f41;
+}
+
+  QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+      background: none;
+  }
+
+
 QTabWidget {
     border: none;
 }
+
 QTabBar::tab {
     color:#DDDDDD;
     margin:0px 1px;
