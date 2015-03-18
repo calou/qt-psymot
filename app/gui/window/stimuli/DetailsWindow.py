@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, Qt
 from model.stimuli import *
 from gui.button import *
 from gui.base import *
@@ -82,52 +82,50 @@ class StimuliListTab(QtWidgets.QWidget):
         super(StimuliListTab, self).__init__(parent)
         self.table = QtWidgets.QTableWidget(self)
         self.table.setGeometry(0, 0, 530, 460)
-        self.table.setAlternatingRowColors(True)
-        self.table.setSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
         self.repository = StimuliRepository()
+
+    def create_table_widget_item(self, row, column, value, background_brush, foreground_brush, alignment=1):
+        table_widget_item = QtWidgets.QTableWidgetItem(value)
+        if background_brush:
+            table_widget_item.setBackground(background_brush)
+        if foreground_brush:
+            table_widget_item.setForeground(foreground_brush)
+        table_widget_item.setTextAlignment(alignment)
+        self.table.setItem(row, column, table_widget_item)
+
 
     def update_tab(self, session):
         stimuli = self.repository.get_by_session_id(session.id)
         self.table.clear()
         self.table.setColumnCount(4)
         self.table.setHorizontalHeaderLabels([u"Temps", u"Valeur", u"Réaction", u"Actions"])
-
         self.table.setRowCount(len(stimuli))
+        self.table.setShowGrid(False)
         session_start_time = time.mktime(session.start_date.timetuple())
         index = 0
-        green_color = QtGui.QColor("#00CC66")
-        red_color = QtGui.QColor("#FF4D4D")
-        green_brush = QtGui.QBrush(green_color)
-        red_brush = QtGui.QBrush(red_color)
+        green_bg_brush = QtGui.QBrush(QtGui.QColor("#80E680"))
+        red_bg_brush = QtGui.QBrush(QtGui.QColor("#FF9999"))
+        green_fg_brush = QtGui.QBrush(QtGui.QColor("#142D21"))
+        red_fg_brush = QtGui.QBrush(QtGui.QColor("#4C0000"))
         for stimulus in stimuli:
-            brush = red_brush
+            bg_brush = red_bg_brush
+            fg_brush = red_fg_brush
             if stimulus.correct:
-                brush = green_brush
+                bg_brush = green_bg_brush
+                fg_brush = green_fg_brush
             self.table.setItem(index, 0, QtWidgets.QTableWidgetItem(stimulus.valid))
             relative_time = 0
-
             if stimulus.effective_time:
                 relative_time = 1000 * (stimulus.effective_time - session_start_time)
-            value_ti = QtWidgets.QTableWidgetItem(stimulus.string_value)
-            value_ti.setBackground(brush)
-            time_ti = QtWidgets.QTableWidgetItem("%d ms" % relative_time)
-            time_ti.setBackground(brush)
-            self.table.setItem(index, 0, time_ti)
-            self.table.setItem(index, 1, value_ti)
-
             reaction_str = ""
             if stimulus.action_time:
                 reaction = 1000 * (stimulus.action_time - stimulus.effective_time)
                 reaction_str = "%d ms" % reaction
-            reaction_ti = QtWidgets.QTableWidgetItem(reaction_str)
-            reaction_ti.setBackground(brush)
-            self.table.setItem(index, 2, reaction_ti)
-            count_ti = QtWidgets.QTableWidgetItem("%d" % stimulus.action_count)
-            count_ti.setBackground(brush)
-            self.table.setItem(index, 3, count_ti)
-
-            self.table.row
+            self.create_table_widget_item(index, 0, "%d ms" % relative_time, bg_brush, fg_brush, 0x82)
+            self.create_table_widget_item(index, 1, stimulus.string_value, bg_brush, fg_brush, 0x84)
+            self.create_table_widget_item(index, 2, reaction_str, bg_brush, fg_brush, 0x82)
+            self.create_table_widget_item(index, 3, "%d" % stimulus.action_count, bg_brush, fg_brush, 0x84)
             index += 1

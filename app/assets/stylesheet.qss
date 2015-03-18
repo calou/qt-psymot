@@ -5,9 +5,11 @@ QMainWindow, QDialog {
 
 QTableWidget {
     background-color: #45494a;
+    border: none;
 }
 
-QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox, QTextBrowser, QTextEdit, QHeaderView {
+QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox,
+QTextBrowser, QTextEdit, QHeaderView, QTableWidgetItem {
     font-family: "Source Sans Pro";
     font-weight: 200;
     font-size: 16px;
@@ -54,7 +56,7 @@ QScrollBar:vertical {
   margin: 22px 0 22px 0;
 }
 QScrollBar::handle:vertical {
-  background: #3c3f41;
+  background: #606161;
   min-height: 20px
 }
 QScrollBar::add-line:vertical {
@@ -79,13 +81,18 @@ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
   background: #3c3f41;
 }
 
-  QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-      background: none;
-  }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+  background: none;
+}
 
 
 QTabWidget {
     border: none;
+}
+
+QTabWidget::pane {
+    border: none;
+    border: 1px solid #3c3f41;
 }
 
 QTabBar::tab {
@@ -94,10 +101,9 @@ QTabBar::tab {
     padding: 8px 15px;
 }
 
-QListWidget, QTextBrowser, QTextEdit, QTabBar::tab {
+QListWidget, QTextBrowser, QTextEdit, QTabBar::tab, QTabWidget::pane {
     background-color: #45494a;
 }
-
 
 QListWidget::item:selected, QTabBar::tab:selected, QTabWidget {
     background-color: #555a5a;
