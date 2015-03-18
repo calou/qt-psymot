@@ -48,12 +48,15 @@ class SessionRepository(Repository):
         sid = cursor.lastrowid
         session.id = sid
 
-        query = "INSERT INTO stimuli (session_id, string_value, valid, display_time, action_time, action_count) " \
-                "VALUES (?, ?, ?, ?, ?,? )"
+        query = "INSERT INTO stimuli (session_id, string_value, valid, correct, display_time, action_time, action_count) " \
+                "VALUES (?, ?, ?, ?, ?, ?, ? )"
         attrs = []
         for s in session.stimuli:
             str_value = s.stimulus_value.value
-            attrs.append((sid, str_value, s.valid, s.effective_time, s.effective_time, len(s.stimulus_responses)))
+            action_time = None
+            if s.stimulus_responses:
+                action_time = s.stimulus_responses[0].time
+            attrs.append((sid, str_value, s.valid, s.is_correct(), s.effective_time, action_time, len(s.stimulus_responses)))
 
         self.executeMany(query, attrs)
 
@@ -81,15 +84,15 @@ class StimuliRepository(Repository):
     def __init__(self):
         Repository.__init__(self)
 
-    def select_many(self, query):
-        cursor = self.execute(query)
+    def select_many(self, query, attrs):
+        cursor = self.execute(query, attrs)
         stimuli = []
         for row in cursor.fetchall():
             s = Stimulus()
-            s.effective_time, s.action_time, s.string_value, s.action_count, s.valid = row
+            s.effective_time, s.action_time, s.string_value, s.action_count, s.valid, s.correct = row
             stimuli.append(s)
         return stimuli
 
     def get_by_session_id(self, session_id):
-        query = "SELECT display_time, action_time, string_value, action_count, valid FROM stimuli WHERE session_id=? ORDER BY display_time"
+        query = "SELECT display_time, action_time, string_value, action_count, valid, correct FROM stimuli WHERE session_id=? ORDER BY display_time"
         return self.select_many(query, (session_id,))

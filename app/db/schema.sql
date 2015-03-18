@@ -79,6 +79,7 @@ create table stimuli (
     session_id                  integer,
     string_value                text,
     valid                       boolean,
+    correct                     boolean,
     display_time                time,
     action_time                 time,
     action_count                integer,

@@ -28,6 +28,7 @@ class Stimulus():
         self.valid = valid
         self.action_time = None
         self.action_count = 0
+        self.correct = False
 
     def get_duration(self):
         return self.duration

@@ -3,6 +3,9 @@ QMainWindow, QDialog {
     padding: 10px 35px;
 }
 
+QTableWidget {
+    background-color: #3c3f41;
+}
 
 QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox, QTextBrowser, QTextEdit {
     font-family: "Source Sans Pro";

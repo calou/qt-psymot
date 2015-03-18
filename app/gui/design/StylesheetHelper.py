@@ -8,6 +8,7 @@ DARK_COLOR = "color:#7A7E7E;"
 GREEN_COLOR = "color:#00CC66;"
 ORANGE_COLOR = "color:#E68A2E;"
 RED_COLOR = "color:#FF4D4D;"
+
 GREY_BACKGROUND = "background-color: #606161;"
 NO_BORDER = "border: none;"
 DARK_GREY_BACKGROUND = "background-color: #36393A;"

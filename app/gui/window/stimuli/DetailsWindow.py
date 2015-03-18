@@ -1,9 +1,11 @@
 # -*- coding: utf8 -*-
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from model.stimuli import *
 from gui.button import *
 from gui.base import *
-from db.StimuliRepositories import SessionRepository
+from db.StimuliRepositories import SessionRepository, StimuliRepository
+import time
+
 
 class DetailsWindow(Window):
     def __init__(self, parent):
@@ -31,7 +33,7 @@ class DetailsWindow(Window):
         self.list_widget.setGeometry(30, 130, 300, 420)
         self.list_widget.itemClicked.connect(self.update_tabs)
 
-        self.update_tabs()
+        # self.update_tabs()
 
 
     def update_tabs(self):
@@ -42,7 +44,7 @@ class DetailsWindow(Window):
 
     def search_patients(self):
         search_value = self.search_input.text()
-        if(search_value == ''):
+        if '' == search_value:
             self.sessions = self.repository.list()
         else:
             self.sessions = self.repository.search_by_person(search_value)
@@ -63,10 +65,10 @@ class SummaryTab(QtWidgets.QWidget):
         self.date.setGeometry(10, 50, 200, 40)
 
         self.configuration_name = QtWidgets.QLabel(self)
-        self.configuration_name.setGeometry(10,10, 200, 40)
+        self.configuration_name.setGeometry(10, 10, 200, 40)
 
         self.percentage = QtWidgets.QLabel(self)
-        self.percentage.setGeometry(10,90, 200, 40)
+        self.percentage.setGeometry(10, 90, 200, 40)
 
 
     def update_tab(self, session):
@@ -78,6 +80,51 @@ class SummaryTab(QtWidgets.QWidget):
 class StimuliListTab(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(StimuliListTab, self).__init__(parent)
+        self.table = QtWidgets.QTableWidget(self)
+        self.table.setGeometry(0, 0, 530, 460)
+        self.table.setAlternatingRowColors(True)
+        self.table.setSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+
+        self.repository = StimuliRepository()
 
     def update_tab(self, session):
-        self.stimuli = session.stimuli
+        stimuli = self.repository.get_by_session_id(session.id)
+        self.table.clear()
+        self.table.setColumnCount(4)
+        self.table.setHorizontalHeaderLabels([u"Temps", u"Valeur", u"Réaction", u"Nombre d'actions"])
+
+        self.table.setRowCount(len(stimuli))
+        session_start_time = time.mktime(session.start_date.timetuple())
+        index = 0
+        green_color = QtGui.QColor("#00CC66")
+        red_color = QtGui.QColor("#FF4D4D")
+        green_brush = QtGui.QBrush(green_color)
+        red_brush = QtGui.QBrush(red_color)
+        for stimulus in stimuli:
+            brush = red_brush
+            if stimulus.correct:
+                brush = green_brush
+            self.table.setItem(index, 0, QtWidgets.QTableWidgetItem(stimulus.valid))
+            relative_time = 0
+
+            if stimulus.effective_time:
+                relative_time = 1000 * (stimulus.effective_time - session_start_time)
+            value_ti = QtWidgets.QTableWidgetItem(stimulus.string_value)
+            value_ti.setBackground(brush)
+            time_ti = QtWidgets.QTableWidgetItem("%d ms" % relative_time)
+            time_ti.setBackground(brush)
+            self.table.setItem(index, 0, time_ti)
+            self.table.setItem(index, 1, value_ti)
+
+            if stimulus.action_time:
+                reaction = 1000 * (stimulus.action_time - stimulus.effective_time)
+                reaction_ti = QtWidgets.QTableWidgetItem("%d ms" % reaction)
+                reaction_ti.setBackground(brush)
+                self.table.setItem(index, 2, reaction_ti)
+            count_ti = QtWidgets.QTableWidgetItem("%d" % stimulus.action_count)
+            count_ti.setBackground(brush)
+            self.table.setItem(index, 3, count_ti)
+
+            self.table.row
+            index += 1
