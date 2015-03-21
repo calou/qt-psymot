@@ -3,7 +3,6 @@ from gui.design.StylesheetHelper import *
 
 
 class Window(QtGui.QWidget):
-
     def init(self, root_widget, title):
         self.root_widget = root_widget
         self.set_title(title)
@@ -25,7 +24,6 @@ class Window(QtGui.QWidget):
 
     def back_button_clicked(self):
         self.root_widget.display()
-
 
 class DummyWidget(QtGui.QWidget):
     def __init__(self, parent=None):
