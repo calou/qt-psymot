@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt4 import QtGui, QtCore
 from gui.design.window.HomeDesign import *
 from gui.window.HomeSection import *
 from model.stimuli import *
@@ -9,14 +9,14 @@ from gui.window.patients.ManageWindow import ManagePatientWindow
 from gui.window.stimuli.ConfigurationWindow import ConfigurationWindow
 
 
-class Home(QtWidgets.QWidget, Ui_HomeDesign):
+class Home(QtGui.QWidget):
     go_to_testing = QtCore.pyqtSignal()
     go_to_patients = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
         super(Home, self).__init__(parent)
         self.root_widget = parent
-        self.setupUi(self)
+        self.gridLayout = QtGui.QGridLayout()
         self.init_ui()
 
     def init_ui(self):
@@ -29,6 +29,7 @@ class Home(QtWidgets.QWidget, Ui_HomeDesign):
         patients_section = HomeSection(["Gérer les patients"], "assets/images/people.svg")
         patients_section.push_buttons[0].clicked.connect(self.emit_go_to_patients)
         self.gridLayout.addWidget(patients_section, 0, 1)
+        self.setLayout(self.gridLayout)
 
 
     def emit_go_to_testing(self):

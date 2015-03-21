@@ -1,14 +1,13 @@
-from gui.window.stimuli.ConfigurationWindow import *
+from PyQt4 import QtGui
 from gui.window.Home import Home
 from gui.font import FontManager
 
 
-
-class WindowManager(QtWidgets.QMainWindow):
+class WindowManager(QtGui.QMainWindow):
     def __init__(self):
         super(WindowManager, self).__init__()
         FontManager.install_fonts()
-        self.stacked_widget = QtWidgets.QStackedWidget()
+        self.stacked_widget = QtGui.QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
         self.home_window = Home(self)

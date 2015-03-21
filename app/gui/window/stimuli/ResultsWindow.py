@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from PyQt5 import QtCore
+from PyQt4 import QtCore
 
 from model.stimuli import *
 from gui.button import *
@@ -9,7 +9,7 @@ from gui.window.stimuli.design.ResultsDesign import Ui_ResultWidget
 from db.StimuliRepositories import *
 
 
-class ResultsWidget(QtWidgets.QWidget, Ui_ResultWidget):
+class ResultsWidget(QtGui.QWidget, Ui_ResultWidget):
     def __init__(self, parent, testing_session):
         super(ResultsWidget, self).__init__(parent)
         self.root_widget = parent

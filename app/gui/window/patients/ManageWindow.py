@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 from gui.base import Window
-from PyQt5 import QtWidgets, QtCore, Qt
+from PyQt4 import QtGui, QtCore, Qt
 from gui.design.StylesheetHelper import *
 
 from gui.button import *
@@ -10,17 +10,17 @@ from model.base_model import *
 from db.PersonRepository import PersonRepository
 
 
-class PersonListWidgetItem(QtWidgets.QWidget):
+class PersonListWidgetItem(QtGui.QWidget):
     delete_clicked = QtCore.pyqtSignal(object)
 
     def __init__(self, parent=None):
-        super(QtWidgets.QWidget, self).__init__(parent)
+        super(QtGui.QWidget, self).__init__(parent)
         self.person = None
-        self.item_name_label = QtWidgets.QLabel("")
+        self.item_name_label = QtGui.QLabel("")
         self.delete_button = DeleteImageButton()
         self.delete_button.setFixedWidth(16)
         self.delete_button.setToolTip(u"Supprimer le patient")
-        self.hbox = QtWidgets.QHBoxLayout()
+        self.hbox = QtGui.QHBoxLayout()
         self.hbox.addWidget(self.item_name_label)
         self.hbox.addWidget(self.delete_button)
         self.setLayout(self.hbox)
@@ -39,13 +39,13 @@ class ManagePatientWindow(Window):
     def __init__(self, parent=None):
         super(ManagePatientWindow, self).__init__(None)
 
-        self.layout = QtWidgets.QVBoxLayout()
-        self.search_input = QtWidgets.QLineEdit(self)
-        self.list_widget = QtWidgets.QListWidget(self)
+        self.layout = QtGui.QVBoxLayout()
+        self.search_input = QtGui.QLineEdit(self)
+        self.list_widget = QtGui.QListWidget(self)
 
-        self.first_name_widget = QtWidgets.QLineEdit()
-        self.last_name_widget = QtWidgets.QLineEdit()
-        self.birth_date_widget = QtWidgets.QDateEdit()
+        self.first_name_widget = QtGui.QLineEdit()
+        self.last_name_widget = QtGui.QLineEdit()
+        self.birth_date_widget = QtGui.QDateEdit()
 
         self.person_repository = PersonRepository()
         self.current_patient = Person()
@@ -55,7 +55,7 @@ class ManagePatientWindow(Window):
         Window.init(self, parent, u"Gestion des patients")
 
     def init_patient_form(self):
-        form_layout = QtWidgets.QFormLayout()
+        form_layout = QtGui.QFormLayout()
 
         form_layout.setContentsMargins(20, 10, 0, 0)
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
@@ -63,7 +63,7 @@ class ManagePatientWindow(Window):
         form_layout.addRow(u"Prénom", self.first_name_widget)
         form_layout.addRow(u"Nom", self.last_name_widget)
         form_layout.addRow(u"Date de naissance", self.birth_date_widget)
-        save_button = QtWidgets.QPushButton(u"Enregistrer")
+        save_button = QtGui.QPushButton(u"Enregistrer")
         save_button.setFixedWidth(120)
         save_button.clicked.connect(self.save_patient)
         form_layout.addWidget(save_button)
@@ -74,7 +74,7 @@ class ManagePatientWindow(Window):
 
 
     def init_ui(self):
-        new_patient_button = QtWidgets.QPushButton(u"Nouveau patient")
+        new_patient_button = QtGui.QPushButton(u"Nouveau patient")
         new_patient_button.setGeometry(120, 770, 560, 3)
         new_patient_button.clicked.connect(self.new_patient)
 
@@ -86,8 +86,7 @@ class ManagePatientWindow(Window):
         self.search_input.setGeometry(30, 90, 200, 32)
         self.search_input.textChanged.connect(self.search_patients)
 
-
-        form_title = QtWidgets.QLabel(self)
+        form_title = QtGui.QLabel(self)
         form_title.setText(u"Informations sur le patients")
         form_title.setGeometry(240, 90, 630, 41)
         form_title.setStyleSheet(MEDIUM_TEXT_STYLESHEET+DARK_COLOR)
@@ -107,7 +106,7 @@ class ManagePatientWindow(Window):
     def redraw_person_list(self):
         self.list_widget.clear()
         for patient in self.patients:
-            item = QtWidgets.QListWidgetItem(self.list_widget)
+            item = QtGui.QListWidgetItem(self.list_widget)
             item_widget = PersonListWidgetItem()
             item_widget.delete_clicked.connect(self.delete_patient)
             item_widget.set_person(patient)
@@ -135,13 +134,14 @@ class ManagePatientWindow(Window):
 
     @QtCore.pyqtSlot(object)
     def delete_patient(self, patient):
-        message_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.NoIcon, 'Supprimer',
-            u"Etes-vous sûr de vouloir supprimer le patient %s\u00A0?" % patient.fullname(), QtWidgets.QMessageBox.Yes |
-            QtWidgets.QMessageBox.No,self, QtCore.Qt.FramelessWindowHint)
+        message_box = QtGui.QMessageBox(QtGui.QMessageBox.NoIcon, 'Supprimer',
+                                        u"Etes-vous sûr de vouloir supprimer le patient %s\u00A0?" % patient.fullname(),
+                                        QtGui.QMessageBox.Yes |
+                                        QtGui.QMessageBox.No, self, QtCore.Qt.FramelessWindowHint)
         message_box.setInformativeText("Cette opération est irréversible.")
         message_box.show()
         user_response = message_box.exec_()
-        if user_response == QtWidgets.QMessageBox.Yes:
+        if user_response == QtGui.QMessageBox.Yes:
             self.person_repository.delete(patient)
             self.refresh_patients()
             self.redraw_person_list()

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from PyQt5 import QtCore
+from PyQt4 import QtCore
 from utils.PercentageCalculator import PercentageCalculator
 import random
 import time

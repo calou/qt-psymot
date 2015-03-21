@@ -1,6 +1,7 @@
-from PyQt5 import QtWidgets, QtGui
+from PyQt4 import QtGui
 
-class ImageButton(QtWidgets.QAbstractButton):
+
+class ImageButton(QtGui.QAbstractButton):
     def __init__(self, pixmap, parent=None):
         super(ImageButton, self).__init__(parent)
         self.pixmap = pixmap

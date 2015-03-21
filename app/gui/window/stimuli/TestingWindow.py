@@ -2,7 +2,7 @@
 
 from threading import *
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt4 import QtGui, QtCore
 
 from gui.window.stimuli.ResultsWindow import ResultsWidget
 from gui.design.StylesheetHelper import *
@@ -12,7 +12,7 @@ import datetime
 import time
 
 
-class TestingWidget(QtWidgets.QWidget, Ui_TextStimuliTestingDesignWidget):
+class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
     testing_session_completed = QtCore.pyqtSignal(object)
 
     def __init__(self, parent=None, configuration=None, patient=None):

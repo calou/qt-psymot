@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from PyQt5 import QtWidgets, QtGui, Qt
+from PyQt4 import QtGui, Qt
 from model.stimuli import *
 from gui.button import *
 from gui.base import *
@@ -11,8 +11,8 @@ class DetailsWindow(Window):
     def __init__(self, parent):
         super(DetailsWindow, self).__init__(parent)
 
-        self.search_input = QtWidgets.QLineEdit(self)
-        self.list_widget = QtWidgets.QListWidget(self)
+        self.search_input = QtGui.QLineEdit(self)
+        self.list_widget = QtGui.QListWidget(self)
         self.repository = SessionRepository()
         self.sessions = []
         self.search_patients()
@@ -22,7 +22,7 @@ class DetailsWindow(Window):
     def init_ui(self):
         self.summary_tab = SummaryTab()
         self.stimuli_list_tab = StimuliListTab()
-        self.tab_widget = QtWidgets.QTabWidget(self)
+        self.tab_widget = QtGui.QTabWidget(self)
         self.tab_widget.setGeometry(340, 90, 530, 460)
         self.tab_widget.addTab(self.summary_tab, u"Résumé")
         self.tab_widget.addTab(self.stimuli_list_tab, u"Liste des stimuli")
@@ -57,17 +57,17 @@ class DetailsWindow(Window):
             self.list_widget.addItem('%s - %s, %s' % (date_str, s.person.last_name, s.person.first_name))
 
 
-class SummaryTab(QtWidgets.QWidget):
+class SummaryTab(QtGui.QWidget):
     def __init__(self, parent=None):
         super(SummaryTab, self).__init__(parent)
 
-        self.date = QtWidgets.QLabel(self)
+        self.date = QtGui.QLabel(self)
         self.date.setGeometry(10, 50, 200, 40)
 
-        self.configuration_name = QtWidgets.QLabel(self)
+        self.configuration_name = QtGui.QLabel(self)
         self.configuration_name.setGeometry(10, 10, 200, 40)
 
-        self.percentage = QtWidgets.QLabel(self)
+        self.percentage = QtGui.QLabel(self)
         self.percentage.setGeometry(10, 90, 200, 40)
 
 
@@ -77,18 +77,18 @@ class SummaryTab(QtWidgets.QWidget):
         self.percentage.setText("%d%%" % (session.get_correct_responses_percentage()))
 
 
-class StimuliListTab(QtWidgets.QWidget):
+class StimuliListTab(QtGui.QWidget):
     def __init__(self, parent=None):
         super(StimuliListTab, self).__init__(parent)
-        self.table = QtWidgets.QTableWidget(self)
+        self.table = QtGui.QTableWidget(self)
         self.table.setGeometry(0, 0, 530, 460)
-        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-        self.table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.table.horizontalHeader().setSectionResizeMode(QtGui.QHeaderView.Stretch)
+        self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
 
         self.repository = StimuliRepository()
 
     def create_table_widget_item(self, row, column, value, background_brush, foreground_brush, alignment=1):
-        table_widget_item = QtWidgets.QTableWidgetItem(value)
+        table_widget_item = QtGui.QTableWidgetItem(value)
         if background_brush:
             table_widget_item.setBackground(background_brush)
         if foreground_brush:
@@ -116,7 +116,7 @@ class StimuliListTab(QtWidgets.QWidget):
             if stimulus.correct:
                 bg_brush = green_bg_brush
                 fg_brush = green_fg_brush
-            self.table.setItem(index, 0, QtWidgets.QTableWidgetItem(stimulus.valid))
+            self.table.setItem(index, 0, QtGui.QTableWidgetItem(stimulus.valid))
             relative_time = 0
             if stimulus.effective_time:
                 relative_time = 1000 * (stimulus.effective_time - session_start_time)

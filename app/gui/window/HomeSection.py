@@ -1,13 +1,14 @@
 # -*- coding: utf8 -*-
-from PyQt5 import QtSvg, QtWidgets
+from PyQt4 import QtSvg, QtGui
 from gui.design.StylesheetHelper import *
 
-class HomeSection(QtWidgets.QWidget):
+
+class HomeSection(QtGui.QWidget):
     def __init__(self, button_texts, background_image):
         super(HomeSection, self).__init__()
         self.background_image = background_image
 
-        frame = QtWidgets.QFrame(self)
+        frame = QtGui.QFrame(self)
         frame.setGeometry(0, 0, 440, 250)
         frame.setStyleSheet(DARK_GREY_BACKGROUND + NO_BORDER)
         self.background_widget = QtSvg.QSvgWidget(self)
@@ -16,7 +17,7 @@ class HomeSection(QtWidgets.QWidget):
 
         self.push_buttons = []
         for i in range(len(button_texts)):
-            button = QtWidgets.QPushButton(self)
+            button = QtGui.QPushButton(self)
             button.setText(button_texts[i])
             button.setGeometry(210, (208 - 40 * i), 220, 32)
             self.push_buttons.append(button)

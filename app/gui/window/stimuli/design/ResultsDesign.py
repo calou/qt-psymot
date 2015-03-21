@@ -3,17 +3,18 @@
 # Form implementation generated from reading ui file 'app/gui/design/window/StimuliResultsDesign.ui'
 #
 # Created: Fri Mar 13 21:49:14 2015
-#      by: PyQt5 UI code generator 5.3.2
+# by: PyQt4 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt4 import QtCore, QtGui
+
 
 class Ui_ResultWidget(object):
     def setupUi(self, ResultWidget):
         ResultWidget.setObjectName("ResultWidget")
         ResultWidget.resize(900, 600)
-        self.correct_responses_percentage_text = QtWidgets.QLabel(ResultWidget)
+        self.correct_responses_percentage_text = QtGui.QLabel(ResultWidget)
         self.correct_responses_percentage_text.setGeometry(QtCore.QRect(50, 20, 271, 61))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -24,7 +25,7 @@ class Ui_ResultWidget(object):
         self.correct_responses_percentage_text.setFont(font)
         self.correct_responses_percentage_text.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.correct_responses_percentage_text.setObjectName("correct_responses_percentage_text")
-        self.correct_response_percentage = QtWidgets.QLabel(ResultWidget)
+        self.correct_response_percentage = QtGui.QLabel(ResultWidget)
         self.correct_response_percentage.setGeometry(QtCore.QRect(50, 70, 521, 161))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -35,7 +36,7 @@ class Ui_ResultWidget(object):
         self.correct_response_percentage.setFont(font)
         self.correct_response_percentage.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.correct_response_percentage.setObjectName("correct_response_percentage")
-        self.correct_authorized_response_percentage = QtWidgets.QLabel(ResultWidget)
+        self.correct_authorized_response_percentage = QtGui.QLabel(ResultWidget)
         self.correct_authorized_response_percentage.setGeometry(QtCore.QRect(670, 50, 161, 75))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -46,7 +47,7 @@ class Ui_ResultWidget(object):
         self.correct_authorized_response_percentage.setFont(font)
         self.correct_authorized_response_percentage.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_authorized_response_percentage.setObjectName("correct_authorized_response_percentage")
-        self.correct_authorized_responses_percentage_text = QtWidgets.QLabel(ResultWidget)
+        self.correct_authorized_responses_percentage_text = QtGui.QLabel(ResultWidget)
         self.correct_authorized_responses_percentage_text.setGeometry(QtCore.QRect(570, 20, 261, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -57,7 +58,7 @@ class Ui_ResultWidget(object):
         self.correct_authorized_responses_percentage_text.setFont(font)
         self.correct_authorized_responses_percentage_text.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_authorized_responses_percentage_text.setObjectName("correct_authorized_responses_percentage_text")
-        self.correct_forbidden_response_percentage = QtWidgets.QLabel(ResultWidget)
+        self.correct_forbidden_response_percentage = QtGui.QLabel(ResultWidget)
         self.correct_forbidden_response_percentage.setGeometry(QtCore.QRect(670, 170, 161, 75))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -68,7 +69,7 @@ class Ui_ResultWidget(object):
         self.correct_forbidden_response_percentage.setFont(font)
         self.correct_forbidden_response_percentage.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_forbidden_response_percentage.setObjectName("correct_forbidden_response_percentage")
-        self.correct_forbidden_responses_percentage_text = QtWidgets.QLabel(ResultWidget)
+        self.correct_forbidden_responses_percentage_text = QtGui.QLabel(ResultWidget)
         self.correct_forbidden_responses_percentage_text.setGeometry(QtCore.QRect(580, 140, 251, 50))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -79,7 +80,7 @@ class Ui_ResultWidget(object):
         self.correct_forbidden_responses_percentage_text.setFont(font)
         self.correct_forbidden_responses_percentage_text.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_forbidden_responses_percentage_text.setObjectName("correct_forbidden_responses_percentage_text")
-        self.response_time_text = QtWidgets.QLabel(ResultWidget)
+        self.response_time_text = QtGui.QLabel(ResultWidget)
         self.response_time_text.setGeometry(QtCore.QRect(50, 270, 511, 61))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -90,7 +91,7 @@ class Ui_ResultWidget(object):
         self.response_time_text.setFont(font)
         self.response_time_text.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.response_time_text.setObjectName("response_time_text")
-        self.response_time = QtWidgets.QLabel(ResultWidget)
+        self.response_time = QtGui.QLabel(ResultWidget)
         self.response_time.setGeometry(QtCore.QRect(50, 320, 431, 201))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -101,7 +102,7 @@ class Ui_ResultWidget(object):
         self.response_time.setFont(font)
         self.response_time.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.response_time.setObjectName("response_time")
-        self.max_response_time_text = QtWidgets.QLabel(ResultWidget)
+        self.max_response_time_text = QtGui.QLabel(ResultWidget)
         self.max_response_time_text.setGeometry(QtCore.QRect(580, 390, 251, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -112,7 +113,7 @@ class Ui_ResultWidget(object):
         self.max_response_time_text.setFont(font)
         self.max_response_time_text.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.max_response_time_text.setObjectName("max_response_time_text")
-        self.max_response_time = QtWidgets.QLabel(ResultWidget)
+        self.max_response_time = QtGui.QLabel(ResultWidget)
         self.max_response_time.setGeometry(QtCore.QRect(550, 420, 281, 81))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -123,7 +124,7 @@ class Ui_ResultWidget(object):
         self.max_response_time.setFont(font)
         self.max_response_time.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.max_response_time.setObjectName("max_response_time")
-        self.min_response_time = QtWidgets.QLabel(ResultWidget)
+        self.min_response_time = QtGui.QLabel(ResultWidget)
         self.min_response_time.setGeometry(QtCore.QRect(550, 300, 281, 81))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -134,7 +135,7 @@ class Ui_ResultWidget(object):
         self.min_response_time.setFont(font)
         self.min_response_time.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.min_response_time.setObjectName("min_response_time")
-        self.min_response_time_text = QtWidgets.QLabel(ResultWidget)
+        self.min_response_time_text = QtGui.QLabel(ResultWidget)
         self.min_response_time_text.setGeometry(QtCore.QRect(570, 270, 261, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -145,10 +146,10 @@ class Ui_ResultWidget(object):
         self.min_response_time_text.setFont(font)
         self.min_response_time_text.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.min_response_time_text.setObjectName("min_response_time_text")
-        self.back_button = QtWidgets.QPushButton(ResultWidget)
+        self.back_button = QtGui.QPushButton(ResultWidget)
         self.back_button.setGeometry(QtCore.QRect(10, 560, 160, 32))
         self.back_button.setObjectName("back_button")
-        self.correct_authorized_response_number = QtWidgets.QLabel(ResultWidget)
+        self.correct_authorized_response_number = QtGui.QLabel(ResultWidget)
         self.correct_authorized_response_number.setGeometry(QtCore.QRect(515, 77, 161, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -159,7 +160,7 @@ class Ui_ResultWidget(object):
         self.correct_authorized_response_number.setFont(font)
         self.correct_authorized_response_number.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTop|QtCore.Qt.AlignTrailing)
         self.correct_authorized_response_number.setObjectName("correct_authorized_response_number")
-        self.correct_forbidden_response_number = QtWidgets.QLabel(ResultWidget)
+        self.correct_forbidden_response_number = QtGui.QLabel(ResultWidget)
         self.correct_forbidden_response_number.setGeometry(QtCore.QRect(515, 197, 161, 51))
         font = QtGui.QFont()
         font.setFamily("Arial")

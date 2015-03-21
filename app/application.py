@@ -1,13 +1,13 @@
 # -*- coding: utf8 -*-
 import sys
-from PyQt5 import QtWidgets
+from PyQt4 import QtGui
 from db import Repository
 from gui.WindowManager import *
 
 
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)
+    app = QtGui.QApplication(sys.argv)
 
     """
     Migration de base de données
