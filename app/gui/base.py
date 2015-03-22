@@ -6,6 +6,7 @@ class Window(QtGui.QWidget):
     def init(self, root_widget, title):
         self.root_widget = root_widget
         self.set_title(title)
+        self.setMinimumSize(900, 500)
         self.back_button = QtGui.QPushButton(self)
         self.init_back_button()
 

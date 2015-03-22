@@ -39,9 +39,10 @@ class ManagePatientWindow(Window):
     def __init__(self, parent=None):
         super(ManagePatientWindow, self).__init__(None)
 
-        self.layout = QtGui.QVBoxLayout()
         self.search_input = QtGui.QLineEdit(self)
         self.list_widget = QtGui.QListWidget(self)
+        self.form_widget = QtGui.QWidget(self)
+        self.form_title = QtGui.QLabel(self)
 
         self.first_name_widget = QtGui.QLineEdit()
         self.last_name_widget = QtGui.QLineEdit()
@@ -55,8 +56,7 @@ class ManagePatientWindow(Window):
         Window.init(self, parent, u"Gestion des patients")
 
     def init_patient_form(self):
-        form_layout = QtGui.QFormLayout()
-
+        form_layout = QtGui.QFormLayout(self)
         form_layout.setContentsMargins(20, 10, 0, 0)
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
         form_layout.setLabelAlignment(QtCore.Qt.AlignRight)
@@ -67,10 +67,7 @@ class ManagePatientWindow(Window):
         save_button.setFixedWidth(120)
         save_button.clicked.connect(self.save_patient)
         form_layout.addWidget(save_button)
-
-        form_widget = DummyWidget(self)
-        form_widget.setLayout(form_layout)
-        form_widget.setGeometry(240, 140, 630, 410)
+        self.form_widget.setLayout(form_layout)
 
 
     def init_ui(self):
@@ -79,17 +76,13 @@ class ManagePatientWindow(Window):
         new_patient_button.clicked.connect(self.new_patient)
 
         self.list_widget.itemClicked.connect(self.item_clicked)
-        self.list_widget.setGeometry(30, 130, 200, 350)
         self.redraw_person_list()
 
         self.search_input.setPlaceholderText(u"Rechercher")
-        self.search_input.setGeometry(30, 90, 200, 32)
         self.search_input.textChanged.connect(self.search_patients)
 
-        form_title = QtGui.QLabel(self)
-        form_title.setText(u"Informations sur le patients")
-        form_title.setGeometry(240, 90, 630, 41)
-        form_title.setStyleSheet(MEDIUM_TEXT_STYLESHEET+DARK_COLOR)
+        self.form_title.setText(u"Informations sur le patients")
+        self.form_title.setStyleSheet(MEDIUM_TEXT_STYLESHEET + DARK_COLOR)
 
         self.init_patient_form()
 
@@ -154,8 +147,16 @@ class ManagePatientWindow(Window):
 
     def search_patients(self):
         search_value = self.search_input.text()
-        if(search_value == ''):
+        if not search_value:
             self.refresh_patients()
         else:
             self.patients = self.person_repository.search(search_value)
         self.redraw_person_list()
+
+    def resizeEvent(self, ev):
+        Window.on_resize(self)
+        qrect = Window.get_central_geometry(self)
+        self.form_title.setGeometry(qrect.x() + 310, qrect.y(), qrect.width() - 310, 42)
+        self.form_widget.setGeometry(qrect.x() + 310, qrect.y() + 42, qrect.width() - 310, qrect.height() - 42)
+        self.list_widget.setGeometry(qrect.x(), qrect.y() + 40, 300, qrect.height() - 40)
+        self.search_input.setGeometry(qrect.x(), qrect.y(), 300, 32)
