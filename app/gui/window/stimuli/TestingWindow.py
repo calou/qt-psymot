@@ -13,15 +13,15 @@ import time
 
 
 class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
-    testing_session_completed = QtCore.pyqtSignal(object)
+    completed = QtCore.pyqtSignal()
 
     def __init__(self, parent=None, configuration=None, patient=None):
         super(TestingWidget, self).__init__(parent)
         self.root_widget = parent
         self.setupUi(self)
 
-        self.testing_session = configuration.generate_testing_session()
-        self.testing_session.person = patient
+        self.session = configuration.generate_testing_session()
+        self.session.person = patient
         self.consigne.setText("Consigne:\n%s" % configuration.consigne)
         self.current_stimulus = None
         self.init_ui()
@@ -36,19 +36,20 @@ class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.begin_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.begin_text.setWordWrap(True)
         self.display_result_button.clicked.connect(self.display_result)
+        self.completed.connect(self.on_completion)
 
     def start(self):
-        for stimulus in self.testing_session.stimuli:
+        for stimulus in self.session.stimuli:
             Timer(stimulus.time, self.print_value, [stimulus]).start()
             Timer(stimulus.time + stimulus.get_duration(), self.hide_value).start()
 
-        Timer(self.testing_session.stimuli[-1].time + 3, self.display_testing_end).start()
+        Timer(self.session.stimuli[-1].time + 3, self.emit_completed).start()
 
-        self.testing_session.start_date = datetime.datetime.now()
+        self.session.start_date = datetime.datetime.now()
 
         # Initialisation d'un premier stimulus "vide"
         self.current_stimulus = Stimulus()
-        self.testing_session.stimuli.insert(0, self.current_stimulus)
+        self.session.stimuli.insert(0, self.current_stimulus)
 
     def hide_value(self):
         self.text_widget.setText("")
@@ -61,9 +62,9 @@ class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
         QtCore.qDebug("%f - Set text %s" % (stimulus.effective_time, text))
 
     def mousePressEvent(self, event):
-        self.on_click()
+        self.on_action()
 
-    def on_click(self):
+    def on_action(self):
         if not self.started:
             self.started = True
             self.start()
@@ -73,10 +74,13 @@ class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
             self.current_stimulus.stimulus_responses.append(StimulusResponse())
             QtCore.qDebug("%f - click" % (time.time()))
 
-    def display_testing_end(self):
+    def emit_completed(self):
+        self.completed.emit()
+
+    def on_completion(self):
         self.display_result_button.show()
 
     def display_result(self):
-        widget = ResultsWidget(self.root_widget, self.testing_session)
+        widget = ResultsWidget(self.root_widget, self.session)
         self.root_widget.replaceAndRemoveWindow(widget)
 
