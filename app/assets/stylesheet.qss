@@ -9,7 +9,7 @@ QTableWidget {
 }
 
 QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox,
-QTextBrowser, QTextEdit, QHeaderView, QTableWidgetItem {
+QTextBrowser, QTextEdit, QHeaderView, QHeaderView::section, QTableWidgetItem {
     font-family: "Source Sans Pro";
     font-weight: 200;
     font-size: 16px;
@@ -21,7 +21,7 @@ QLineEdit, QDateEdit, QDateTimeEdit {
 }
 
 QLineEdit, QDateEdit, QDateTimeEdit, QPushButton, QDialog, QComboBox,QComboBox:editable,
-QSpinBox, QHeaderView, QTableWidgetItem {
+QSpinBox, QHeaderView, QHeaderView::section, QTableWidgetItem {
 	border-radius: 0px;
     border-width: 1px;
     border-style: solid;

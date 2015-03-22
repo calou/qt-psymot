@@ -82,7 +82,7 @@ class StimuliListTab(QtGui.QWidget):
         super(StimuliListTab, self).__init__(parent)
         self.table = QtGui.QTableWidget(self)
         self.table.setGeometry(0, 0, 530, 460)
-        self.table.horizontalHeader().setSectionResizeMode(QtGui.QHeaderView.Stretch)
+        self.table.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
 
         self.repository = StimuliRepository()
