@@ -147,14 +147,8 @@ class HistogramTab(QtGui.QWidget):
         self.setLayout(layout)
 
     def update_tab(self, session):
-        reaction_times = []
-        for stimulus in session.stimuli:
-            if stimulus.action_time:
-                reaction = 1000 * (stimulus.action_time - stimulus.effective_time)
-                reaction_times.append(reaction)
+        reaction_times = [1000 * (stimulus.action_time - stimulus.effective_time) for stimulus in session.stimuli if
+                          stimulus.action_time]
         ax = self.figure.add_subplot(111)
-        ax.hold(False)
-        numBins = 10
-        ax.hist(reaction_times, numBins, alpha=0.8)
-
+        ax.hist(reaction_times)
         self.canvas.draw()
