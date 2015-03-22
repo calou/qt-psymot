@@ -2,6 +2,8 @@
 from PyQt4 import QtGui, Qt
 from model.stimuli import *
 from gui.button import *
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
 from gui.base import *
 from db.StimuliRepositories import SessionRepository, StimuliRepository
 import time
@@ -14,6 +16,9 @@ class DetailsWindow(Window):
         self.search_input = QtGui.QLineEdit(self)
         self.list_widget = QtGui.QListWidget(self)
         self.repository = SessionRepository()
+
+        self.stimuli_repository = StimuliRepository()
+
         self.sessions = []
         self.search_patients()
         self.init_ui()
@@ -22,10 +27,12 @@ class DetailsWindow(Window):
     def init_ui(self):
         self.summary_tab = SummaryTab()
         self.stimuli_list_tab = StimuliListTab()
+        self.histogram_tab = HistogramTab()
         self.tab_widget = QtGui.QTabWidget(self)
         self.tab_widget.setGeometry(340, 90, 530, 460)
         self.tab_widget.addTab(self.summary_tab, u"Résumé")
         self.tab_widget.addTab(self.stimuli_list_tab, u"Liste des stimuli")
+        self.tab_widget.addTab(self.histogram_tab, u"Histogramme")
 
         self.search_input.setPlaceholderText(u"Rechercher")
         self.search_input.setGeometry(30, 90, 200, 32)
@@ -33,13 +40,14 @@ class DetailsWindow(Window):
         self.list_widget.setGeometry(30, 130, 300, 420)
         self.list_widget.itemClicked.connect(self.update_tabs)
 
-        # self.update_tabs()
 
 
     def update_tabs(self):
         session = self.sessions[self.list_widget.currentIndex().row()]
+        session.stimuli = self.stimuli_repository.get_by_session_id(session.id)
         self.summary_tab.update_tab(session)
         self.stimuli_list_tab.update_tab(session)
+        self.histogram_tab.update_tab(session)
 
 
     def search_patients(self):
@@ -85,8 +93,6 @@ class StimuliListTab(QtGui.QWidget):
         self.table.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
         self.table.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
 
-        self.repository = StimuliRepository()
-
     def create_table_widget_item(self, row, column, value, background_brush, foreground_brush, alignment=1):
         table_widget_item = QtGui.QTableWidgetItem(value)
         if background_brush:
@@ -98,11 +104,10 @@ class StimuliListTab(QtGui.QWidget):
 
 
     def update_tab(self, session):
-        stimuli = self.repository.get_by_session_id(session.id)
         self.table.clear()
         self.table.setColumnCount(4)
         self.table.setHorizontalHeaderLabels([u"Temps", u"Valeur", u"Réaction", u"Actions"])
-        self.table.setRowCount(len(stimuli))
+        self.table.setRowCount(len(session.stimuli))
         self.table.setShowGrid(False)
         session_start_time = time.mktime(session.start_date.timetuple())
         index = 0
@@ -110,7 +115,7 @@ class StimuliListTab(QtGui.QWidget):
         red_bg_brush = QtGui.QBrush(QtGui.QColor("#FF9999"))
         green_fg_brush = QtGui.QBrush(QtGui.QColor("#142D21"))
         red_fg_brush = QtGui.QBrush(QtGui.QColor("#4C0000"))
-        for stimulus in stimuli:
+        for stimulus in session.stimuli:
             bg_brush = red_bg_brush
             fg_brush = red_fg_brush
             if stimulus.correct:
@@ -129,3 +134,25 @@ class StimuliListTab(QtGui.QWidget):
             self.create_table_widget_item(index, 2, reaction_str, bg_brush, fg_brush, 0x82)
             self.create_table_widget_item(index, 3, "%d" % stimulus.action_count, bg_brush, fg_brush, 0x84)
             index += 1
+
+
+class HistogramTab(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(HistogramTab, self).__init__(parent)
+        self.figure = plt.figure()
+        self.canvas = FigureCanvas(self.figure)
+        layout = QtGui.QVBoxLayout()
+        layout.addWidget(self.canvas)
+        self.setLayout(layout)
+
+    def update_tab(self, session):
+        reaction_times = []
+        for stimulus in session.stimuli:
+            if stimulus.action_time:
+                reaction = 1000 * (stimulus.action_time - stimulus.effective_time)
+                reaction_times.append(reaction)
+        plt.hist(reaction_times)
+        plt.title(u"Temps de réaction")
+        plt.xlabel("Temps")
+        plt.ylabel("Occurrence")
+        self.canvas.draw()
