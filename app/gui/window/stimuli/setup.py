@@ -8,9 +8,7 @@ from gui.button import *
 from db.StimuliRepositories import ConfigurationRepository
 from db.PersonRepository import PersonRepository
 
-
 class ConfigurationWindow(Window):
-
     def __init__(self, parent=None):
         super(ConfigurationWindow, self).__init__(parent)
         self.root_widget = parent
@@ -21,7 +19,6 @@ class ConfigurationWindow(Window):
         self.spinBox = QtGui.QSpinBox(self)
         self.label_3 = QtGui.QLabel(self)
         self.start_button = QtGui.QPushButton(self)
-        self.back_button = QtGui.QPushButton(self)
         self.label_4 = QtGui.QLabel(self)
         self.label_6 = QtGui.QLabel(self)
         self.consigne = QtGui.QLabel(self)
@@ -55,7 +52,6 @@ class ConfigurationWindow(Window):
         self.label_2.setText(u"Test")
         self.label_3.setText(u"Nombre de stimuli")
         self.start_button.setText(u"Démarrer")
-        self.back_button.setText(u"Retour")
         self.label_4.setText(u"Valeurs")
         self.label_6.setText(u"Consigne :")
         self.consigne.setText(u"consigne_text")
@@ -119,14 +115,16 @@ class ConfigurationWindow(Window):
         self.root_widget.replaceWindow(widget)
 
     def resizeEvent(self, ev):
+        Window.on_resize(self)
+        self.start_button.setGeometry(Window.get_right_button_geometry(self))
+
         self.patient_select.setGeometry(QtCore.QRect(40, 140, 300, 32))
         self.testing_select.setGeometry(QtCore.QRect(390, 140, 300, 32))
         self.label.setGeometry(QtCore.QRect(40, 100, 191, 31))
         self.label_2.setGeometry(QtCore.QRect(390, 100, 191, 31))
         self.spinBox.setGeometry(QtCore.QRect(220, 250, 71, 32))
         self.label_3.setGeometry(QtCore.QRect(50, 250, 151, 32))
-        self.start_button.setGeometry(QtCore.QRect(730, 560, 160, 32))
-        self.back_button.setGeometry(QtCore.QRect(10, 560, 160, 32))
+
         self.label_4.setGeometry(QtCore.QRect(50, 300, 151, 32))
         self.label_6.setGeometry(QtCore.QRect(50, 200, 151, 32))
         self.consigne.setGeometry(QtCore.QRect(220, 200, 591, 41))
