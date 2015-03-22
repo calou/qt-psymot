@@ -30,15 +30,13 @@ class DetailsWindow(Window):
         self.stimuli_list_tab = StimuliListTab()
         self.histogram_tab = HistogramTab()
         self.tab_widget = QtGui.QTabWidget(self)
-        # self.tab_widget.setGeometry(340, 90, 530, 460)
         self.tab_widget.addTab(self.summary_tab, u"Résumé")
         self.tab_widget.addTab(self.stimuli_list_tab, u"Liste des stimuli")
         self.tab_widget.addTab(self.histogram_tab, u"Histogramme")
 
         self.search_input.setPlaceholderText(u"Rechercher")
-        self.search_input.setGeometry(30, 90, 200, 32)
+
         self.search_input.textChanged.connect(self.search_patients)
-        #self.list_widget.setGeometry(30, 130, 300, 420)
         self.list_widget.itemClicked.connect(self.update_tabs)
 
 
@@ -66,8 +64,10 @@ class DetailsWindow(Window):
     def resizeEvent(self, ev):
         Window.on_resize(self)
         qrect = Window.get_central_geometry(self)
-        self.tab_widget.setGeometry(qrect.x() + 310, qrect.y(), qrect.width() - 330, qrect.height())
-        self.list_widget.setGeometry(30, 130, 300, qrect.height() - 40)
+        self.tab_widget.setGeometry(qrect.x() + 310, qrect.y(), qrect.width() - 310, qrect.height())
+        self.list_widget.setGeometry(qrect.x(), qrect.y() + 40, 300, qrect.height() - 40)
+        self.search_input.setGeometry(qrect.x(), qrect.y(), 300, 32)
+
 
 class SummaryTab(QtGui.QWidget):
     def __init__(self, parent=None):
