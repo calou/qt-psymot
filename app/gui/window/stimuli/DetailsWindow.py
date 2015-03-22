@@ -4,6 +4,7 @@ from model.stimuli import *
 from gui.button import *
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
+
 from gui.base import *
 from db.StimuliRepositories import SessionRepository, StimuliRepository
 import time
@@ -39,7 +40,6 @@ class DetailsWindow(Window):
         self.search_input.textChanged.connect(self.search_patients)
         self.list_widget.setGeometry(30, 130, 300, 420)
         self.list_widget.itemClicked.connect(self.update_tabs)
-
 
 
     def update_tabs(self):
@@ -143,6 +143,7 @@ class HistogramTab(QtGui.QWidget):
         self.canvas = FigureCanvas(self.figure)
         layout = QtGui.QVBoxLayout()
         layout.addWidget(self.canvas)
+
         self.setLayout(layout)
 
     def update_tab(self, session):
@@ -151,8 +152,9 @@ class HistogramTab(QtGui.QWidget):
             if stimulus.action_time:
                 reaction = 1000 * (stimulus.action_time - stimulus.effective_time)
                 reaction_times.append(reaction)
-        plt.hist(reaction_times)
-        plt.title(u"Temps de réaction")
-        plt.xlabel("Temps")
-        plt.ylabel("Occurrence")
+        ax = self.figure.add_subplot(111)
+        ax.hold(False)
+        numBins = 10
+        ax.hist(reaction_times, numBins, alpha=0.8)
+
         self.canvas.draw()
