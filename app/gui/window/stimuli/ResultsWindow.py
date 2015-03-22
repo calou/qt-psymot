@@ -1,24 +1,107 @@
 # -*- coding: utf8 -*-
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 from model.stimuli import *
-from gui.button import *
+from gui.base import Window
 from gui.design.StylesheetHelper import *
-from gui.window.stimuli.design.ResultsDesign import Ui_ResultWidget
 from db.StimuliRepositories import *
 
 
-class ResultsWidget(QtGui.QWidget, Ui_ResultWidget):
-    def __init__(self, parent, testing_session):
+class ResultsWidget(Window):
+    def __init__(self, parent, session):
         super(ResultsWidget, self).__init__(parent)
         self.root_widget = parent
-        self.setupUi(self)
-        self.set_testing_session(testing_session)
+
+        self.correct_responses_percentage_text = QtGui.QLabel(self)
+        self.correct_response_percentage = QtGui.QLabel(self)
+        self.correct_authorized_response_percentage = QtGui.QLabel(self)
+        self.correct_authorized_responses_percentage_text = QtGui.QLabel(self)
+        self.correct_forbidden_response_percentage = QtGui.QLabel(self)
+        self.correct_forbidden_responses_percentage_text = QtGui.QLabel(self)
+        self.response_time_text = QtGui.QLabel(self)
+        self.response_time = QtGui.QLabel(self)
+        self.max_response_time_text = QtGui.QLabel(self)
+        self.max_response_time = QtGui.QLabel(self)
+        self.min_response_time = QtGui.QLabel(self)
+        self.min_response_time_text = QtGui.QLabel(self)
+        self.correct_authorized_response_number = QtGui.QLabel(self)
+        self.correct_forbidden_response_number = QtGui.QLabel(self)
+        self.set_testing_session(session)
+
+
         self.init_ui()
+        Window.init(self, self.root_widget)
 
     def init_ui(self):
-        self.back_button.clicked.connect(self.back_button_clicked)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(16)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.correct_responses_percentage_text.setFont(font)
+        self.correct_responses_percentage_text.setText(u"Taux de réussite")
+        self.correct_responses_percentage_text.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+
+        self.correct_response_percentage.setFont(font)
+        self.correct_response_percentage.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+
+        self.response_time.setFont(font)
+        self.response_time.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+
+        self.correct_authorized_responses_percentage_text.setFont(font)
+        self.correct_authorized_responses_percentage_text.setText(u"Valeurs autorisées")
+        self.correct_authorized_responses_percentage_text.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.correct_forbidden_responses_percentage_text.setFont(font)
+        self.correct_forbidden_responses_percentage_text.setText("Valeurs interdites")
+        self.correct_forbidden_responses_percentage_text.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.response_time_text.setFont(font)
+        self.response_time_text.setText(u"Réaction moyenne")
+        self.response_time_text.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+
+        self.min_response_time_text.setFont(font)
+        self.min_response_time_text.setText(u"Min.")
+        self.min_response_time_text.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.max_response_time_text.setFont(font)
+        self.max_response_time_text.setText(u"Max.")
+        self.max_response_time_text.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.correct_authorized_response_percentage.setFont(font)
+        self.correct_authorized_response_percentage.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.correct_forbidden_response_percentage.setFont(font)
+        self.correct_forbidden_response_percentage.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.correct_forbidden_response_number.setFont(font)
+        self.correct_forbidden_response_number.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.correct_authorized_response_number.setFont(font)
+        self.correct_authorized_response_number.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.max_response_time.setFont(font)
+        self.max_response_time.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+        self.min_response_time.setFont(font)
+        self.min_response_time.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+
+
         self.correct_responses_percentage_text.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
         self.response_time_text.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
         self.correct_forbidden_responses_percentage_text.setStyleSheet(MEDIUM_TEXT_STYLESHEET + DARK_COLOR)
@@ -71,5 +154,25 @@ class ResultsWidget(QtGui.QWidget, Ui_ResultWidget):
         max_rt = "%d ms" % ts.max_response_time if ts.max_response_time > 0 else "N.D."
         self.max_response_time.setText(max_rt)
 
-    def back_button_clicked(self):
-        self.root_widget.display()
+    def resizeEvent(self, ev):
+        Window.on_resize(self)
+        self.correct_responses_percentage_text.setGeometry(QtCore.QRect(10, 20, 500, 61))
+        self.correct_response_percentage.setGeometry(QtCore.QRect(10, 70, 700, 161))
+
+        self.response_time_text.setGeometry(QtCore.QRect(10, 270, 511, 61))
+        self.response_time.setGeometry(QtCore.QRect(10, 320, 431, 201))
+
+        self.correct_authorized_response_number.setGeometry(QtCore.QRect(515, 77, 161, 51))
+        self.correct_authorized_responses_percentage_text.setGeometry(QtCore.QRect(570, 20, 261, 51))
+        self.max_response_time.setGeometry(QtCore.QRect(550, 420, 281, 81))
+
+        self.max_response_time_text.setGeometry(QtCore.QRect(580, 390, 251, 51))
+
+        self.correct_forbidden_response_number.setGeometry(QtCore.QRect(515, 197, 161, 51))
+        self.correct_authorized_response_percentage.setGeometry(QtCore.QRect(670, 50, 161, 75))
+        self.correct_forbidden_responses_percentage_text.setGeometry(QtCore.QRect(580, 140, 251, 50))
+
+        self.min_response_time_text.setGeometry(QtCore.QRect(570, 270, 261, 51))
+        self.min_response_time.setGeometry(QtCore.QRect(550, 300, 281, 81))
+
+        self.correct_forbidden_response_percentage.setGeometry(QtCore.QRect(670, 170, 161, 75))

@@ -3,7 +3,7 @@ from gui.design.StylesheetHelper import *
 
 
 class Window(QtGui.QWidget):
-    def init(self, root_widget, title):
+    def init(self, root_widget, title=""):
         self.root_widget = root_widget
         self.set_title(title)
         self.setMinimumSize(900, 500)

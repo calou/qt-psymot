@@ -28,11 +28,15 @@ class TestingWidget(Window):
         self.text_widget = QtGui.QLabel(self)
         self.text_widget.setAlignment(QtCore.Qt.AlignCenter)
         self.text_widget.setObjectName("text_widget")
-        self.display_result_button = QtGui.QPushButton(self)
-        self.display_result_button.setObjectName("display_result_button")
+        self.result_button = QtGui.QPushButton(self)
+        self.result_button.setObjectName("display_result_button")
 
         self.begin_text = QtGui.QLabel(self)
         self.begin_text.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.end_text = QtGui.QLabel(self)
+        self.end_text.setAlignment(QtCore.Qt.AlignCenter)
+
         self.init_ui()
         self.current_stimulus = None
         self.started = False
@@ -40,13 +44,18 @@ class TestingWidget(Window):
     def init_ui(self):
         self.text_widget.setText("")
         self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;" + DARK_COLOR)
-        self.display_result_button.hide()
+        self.result_button.setText("Terminer")
+        self.result_button.hide()
+        self.end_text.setText("Le test est terminé, merci.")
+        self.end_text.hide()
+        self.end_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
+        self.end_text.setWordWrap(True)
         self.consigne.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET)
         self.consigne.setWordWrap(True)
         self.begin_text.setText(u"Cliquer pour commencer")
         self.begin_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.begin_text.setWordWrap(True)
-        self.display_result_button.clicked.connect(self.display_result)
+        self.result_button.clicked.connect(self.display_result)
         self.completed.connect(self.on_completion)
 
     def start(self):
@@ -89,7 +98,8 @@ class TestingWidget(Window):
         self.completed.emit()
 
     def on_completion(self):
-        self.display_result_button.show()
+        self.result_button.show()
+        self.end_text.show()
 
     def display_result(self):
         widget = ResultsWidget(self.root_widget, self.session)
@@ -99,6 +109,7 @@ class TestingWidget(Window):
         w = self.width()
         h = self.height()
         self.text_widget.setGeometry(QtCore.QRect(0, 0, w, h - 100))
+        self.end_text.setGeometry(QtCore.QRect(10, 0, w, h - 100))
         self.begin_text.setGeometry(QtCore.QRect(10, 0, w, h - 100))
         self.consigne.setGeometry(QtCore.QRect(50, 50, w, 200))
-        self.display_result_button.setGeometry(Window.get_right_button_geometry(self))
+        self.result_button.setGeometry(Window.get_right_button_geometry(self))
