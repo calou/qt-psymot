@@ -4,7 +4,7 @@ from threading import *
 
 from PyQt4 import QtGui, QtCore
 
-from gui.window.stimuli.ResultsWindow import ResultsWidget
+from gui.window.stimuli.results import ResultsWidget
 from gui.design.StylesheetHelper import *
 from model.stimuli import StimuliTestingSession, Stimulus, StimulusResponse
 from gui.base import Window

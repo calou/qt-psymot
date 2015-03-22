@@ -2,7 +2,7 @@
 
 from gui.base import Window
 from gui.design.StylesheetHelper import *
-from gui.window.stimuli.TestingWindow import TestingWidget
+from gui.window.stimuli.testing import TestingWidget
 from gui.button import *
 from gui.window.stimuli.design.ConfigurationDesign import Ui_TestingSetupDesign
 from db.StimuliRepositories import ConfigurationRepository

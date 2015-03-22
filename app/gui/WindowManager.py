@@ -1,5 +1,5 @@
 from PyQt4 import QtGui
-from gui.window.Home import Home
+from gui.window.home import Home
 from gui.font import FontManager
 
 
