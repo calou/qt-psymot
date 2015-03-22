@@ -30,7 +30,7 @@ class DetailsWindow(Window):
         self.stimuli_list_tab = StimuliListTab()
         self.histogram_tab = HistogramTab()
         self.tab_widget = QtGui.QTabWidget(self)
-        self.tab_widget.setGeometry(340, 90, 530, 460)
+        # self.tab_widget.setGeometry(340, 90, 530, 460)
         self.tab_widget.addTab(self.summary_tab, u"Résumé")
         self.tab_widget.addTab(self.stimuli_list_tab, u"Liste des stimuli")
         self.tab_widget.addTab(self.histogram_tab, u"Histogramme")
@@ -38,7 +38,7 @@ class DetailsWindow(Window):
         self.search_input.setPlaceholderText(u"Rechercher")
         self.search_input.setGeometry(30, 90, 200, 32)
         self.search_input.textChanged.connect(self.search_patients)
-        self.list_widget.setGeometry(30, 130, 300, 420)
+        #self.list_widget.setGeometry(30, 130, 300, 420)
         self.list_widget.itemClicked.connect(self.update_tabs)
 
 
@@ -48,7 +48,6 @@ class DetailsWindow(Window):
         self.summary_tab.update_tab(session)
         self.stimuli_list_tab.update_tab(session)
         self.histogram_tab.update_tab(session)
-
 
     def search_patients(self):
         search_value = self.search_input.text()
@@ -64,6 +63,11 @@ class DetailsWindow(Window):
             date_str = s.start_date.strftime("%d/%m/%Y - %H:%M")
             self.list_widget.addItem('%s - %s, %s' % (date_str, s.person.last_name, s.person.first_name))
 
+    def resizeEvent(self, ev):
+        Window.on_resize(self)
+        qrect = Window.get_central_geometry(self)
+        self.tab_widget.setGeometry(qrect.x() + 310, qrect.y(), qrect.width() - 330, qrect.height())
+        self.list_widget.setGeometry(30, 130, 300, qrect.height() - 40)
 
 class SummaryTab(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -135,6 +139,8 @@ class StimuliListTab(QtGui.QWidget):
             self.create_table_widget_item(index, 3, "%d" % stimulus.action_count, bg_brush, fg_brush, 0x84)
             index += 1
 
+    def resizeEvent(self, ev):
+        self.table.setGeometry(0, 0, self.width(), self.height())
 
 class HistogramTab(QtGui.QWidget):
     def __init__(self, parent=None):

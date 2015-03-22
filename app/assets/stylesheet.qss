@@ -29,7 +29,7 @@ QSpinBox, QHeaderView, QHeaderView::section, QTableWidgetItem {
     background-color: #45494a;
 }
 
-QHeaderView {
+QHeaderView, QListWidget {
     border-width:0px;
     border:none;
 }
