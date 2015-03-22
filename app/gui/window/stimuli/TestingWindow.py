@@ -7,24 +7,34 @@ from PyQt4 import QtGui, QtCore
 from gui.window.stimuli.ResultsWindow import ResultsWidget
 from gui.design.StylesheetHelper import *
 from model.stimuli import StimuliTestingSession, Stimulus, StimulusResponse
-from gui.window.stimuli.design.TestingDesign import Ui_TextStimuliTestingDesignWidget
+from gui.base import Window
 import datetime
 import time
 
 
-class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
+class TestingWidget(Window):
     completed = QtCore.pyqtSignal()
 
     def __init__(self, parent=None, configuration=None, patient=None):
         super(TestingWidget, self).__init__(parent)
         self.root_widget = parent
-        self.setupUi(self)
 
         self.session = configuration.generate_testing_session()
         self.session.person = patient
+        self.consigne = QtGui.QLabel(self)
         self.consigne.setText("Consigne:\n%s" % configuration.consigne)
-        self.current_stimulus = None
+        self.consigne.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+
+        self.text_widget = QtGui.QLabel(self)
+        self.text_widget.setAlignment(QtCore.Qt.AlignCenter)
+        self.text_widget.setObjectName("text_widget")
+        self.display_result_button = QtGui.QPushButton(self)
+        self.display_result_button.setObjectName("display_result_button")
+
+        self.begin_text = QtGui.QLabel(self)
+        self.begin_text.setAlignment(QtCore.Qt.AlignCenter)
         self.init_ui()
+        self.current_stimulus = None
         self.started = False
 
     def init_ui(self):
@@ -33,6 +43,7 @@ class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
         self.display_result_button.hide()
         self.consigne.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET)
         self.consigne.setWordWrap(True)
+        self.begin_text.setText(u"Cliquer pour commencer")
         self.begin_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.begin_text.setWordWrap(True)
         self.display_result_button.clicked.connect(self.display_result)
@@ -84,3 +95,10 @@ class TestingWidget(QtGui.QWidget, Ui_TextStimuliTestingDesignWidget):
         widget = ResultsWidget(self.root_widget, self.session)
         self.root_widget.replaceAndRemoveWindow(widget)
 
+    def resizeEvent(self, ev):
+        w = self.width()
+        h = self.height()
+        self.text_widget.setGeometry(QtCore.QRect(0, 0, w, h - 100))
+        self.begin_text.setGeometry(QtCore.QRect(10, 0, w, h - 100))
+        self.consigne.setGeometry(QtCore.QRect(50, 50, w, 200))
+        self.display_result_button.setGeometry(Window.get_right_button_geometry(self))
