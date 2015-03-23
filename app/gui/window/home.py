@@ -4,7 +4,7 @@ from PyQt4 import QtGui, QtSvg, Qt
 from model.stimuli import *
 from gui.window.stimuli.details import DetailsWindow
 from gui.window.patients.ManageWindow import ManagePatientWindow
-from gui.window.stimuli.setup import ConfigurationWindow
+from gui.window.stimuli.setup import SetUpWindow
 
 
 class Home(QtGui.QWidget):
@@ -30,7 +30,7 @@ class Home(QtGui.QWidget):
         self.setLayout(self.gridLayout)
 
     def go_to_testing(self):
-        widget = ConfigurationWindow(self.root_widget)
+        widget = SetUpWindow(self.root_widget)
         self.root_widget.replaceWindow(widget)
 
     def go_to_patients(self):

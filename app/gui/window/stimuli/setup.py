@@ -8,21 +8,22 @@ from gui.button import *
 from db.StimuliRepositories import ConfigurationRepository
 from db.PersonRepository import PersonRepository
 
-class ConfigurationWindow(Window):
+
+class SetUpWindow(Window):
     def __init__(self, parent=None):
-        super(ConfigurationWindow, self).__init__(parent)
+        super(SetUpWindow, self).__init__(parent)
         self.root_widget = parent
         self.patient_select = QtGui.QComboBox(self)
         self.testing_select = QtGui.QComboBox(self)
-        self.label = QtGui.QLabel(self)
-        self.label_2 = QtGui.QLabel(self)
+        self.patient_text = QtGui.QLabel(self)
+        self.session_text = QtGui.QLabel(self)
         self.spinBox = QtGui.QSpinBox(self)
-        self.label_3 = QtGui.QLabel(self)
+        self.numbers_of_stimuli_text = QtGui.QLabel(self)
         self.start_button = QtGui.QPushButton(self)
-        self.label_4 = QtGui.QLabel(self)
-        self.label_6 = QtGui.QLabel(self)
+        self.values_text = QtGui.QLabel(self)
+        self.consigne_text = QtGui.QLabel(self)
         self.consigne = QtGui.QLabel(self)
-        self.label_5 = QtGui.QLabel(self)
+        self.valid_values_text = QtGui.QLabel(self)
         self.all_values = QtGui.QTextEdit(self)
         self.valid_values = QtGui.QTextEdit(self)
 
@@ -42,21 +43,21 @@ class ConfigurationWindow(Window):
         Window.init(self, parent, u"Définition du test")
 
     def init_ui(self):
-        self.label_3.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
-        self.label_4.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
-        self.label_6.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+        self.numbers_of_stimuli_text.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter)
+        self.values_text.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+        self.consigne_text.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
         self.consigne.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
-        self.label_5.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
+        self.valid_values_text.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing)
 
-        self.label.setText(u"Patient")
-        self.label_2.setText(u"Test")
-        self.label_3.setText(u"Nombre de stimuli")
+        self.patient_text.setText(u"Patient")
+        self.session_text.setText(u"Test")
+        self.numbers_of_stimuli_text.setText(u"Nombre de stimuli")
         self.start_button.setText(u"Démarrer")
-        self.label_4.setText(u"Valeurs")
-        self.label_6.setText(u"Consigne :")
+        self.values_text.setText(u"Valeurs")
+        self.consigne_text.setText(u"Consigne :")
         self.consigne.setText(u"consigne_text")
-        self.label_5.setText(u"Valeurs valides")
-
+        self.valid_values_text.setText(u"Valeurs valides")
 
 
     def fetch_data(self):
@@ -120,14 +121,14 @@ class ConfigurationWindow(Window):
 
         self.patient_select.setGeometry(QtCore.QRect(40, 140, 300, 32))
         self.testing_select.setGeometry(QtCore.QRect(390, 140, 300, 32))
-        self.label.setGeometry(QtCore.QRect(40, 100, 191, 31))
-        self.label_2.setGeometry(QtCore.QRect(390, 100, 191, 31))
+        self.patient_text.setGeometry(QtCore.QRect(40, 110, 191, 31))
+        self.session_text.setGeometry(QtCore.QRect(390, 110, 191, 31))
         self.spinBox.setGeometry(QtCore.QRect(220, 250, 71, 32))
-        self.label_3.setGeometry(QtCore.QRect(50, 250, 151, 32))
+        self.numbers_of_stimuli_text.setGeometry(QtCore.QRect(50, 250, 151, 32))
 
-        self.label_4.setGeometry(QtCore.QRect(50, 300, 151, 32))
-        self.label_6.setGeometry(QtCore.QRect(50, 200, 151, 32))
+        self.values_text.setGeometry(QtCore.QRect(50, 300, 151, 32))
+        self.consigne_text.setGeometry(QtCore.QRect(50, 200, 151, 32))
         self.consigne.setGeometry(QtCore.QRect(220, 200, 591, 41))
-        self.label_5.setGeometry(QtCore.QRect(470, 300, 171, 32))
+        self.valid_values_text.setGeometry(QtCore.QRect(470, 300, 171, 32))
         self.all_values.setGeometry(QtCore.QRect(220, 290, 231, 211))
         self.valid_values.setGeometry(QtCore.QRect(660, 290, 231, 211))
