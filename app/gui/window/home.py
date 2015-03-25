@@ -3,6 +3,7 @@ from PyQt4 import QtGui, QtSvg, Qt
 
 from model.stimuli import *
 from gui.window.stimuli.details import DetailsWindow
+from gui.window.stimuli.configuration import ConfigurationWindow
 from gui.window.patients.ManageWindow import ManagePatientWindow
 from gui.window.stimuli.setup import SetUpWindow
 
@@ -18,9 +19,11 @@ class Home(QtGui.QWidget):
         self.init_ui()
 
     def init_ui(self):
-        testing_section = HomeSection(["Démarrer un test", "Consulter un test"], "assets/images/checklist.svg")
+        testing_section = HomeSection(["Démarrer un test", "Consulter un test", "Configurer"],
+                                      "assets/images/checklist.svg")
         testing_section.push_buttons[0].clicked.connect(self.go_to_testing)
         testing_section.push_buttons[1].clicked.connect(self.go_to_testing_details)
+        testing_section.push_buttons[2].clicked.connect(self.go_to_configuration)
 
         self.gridLayout.addWidget(testing_section, 0, 0)
 
@@ -36,6 +39,11 @@ class Home(QtGui.QWidget):
     def go_to_patients(self):
         widget = ManagePatientWindow(self.root_widget)
         self.root_widget.replaceWindow(widget)
+
+    def go_to_configuration(self):
+        widget = ConfigurationWindow(self.root_widget)
+        self.root_widget.replaceWindow(widget)
+
 
     def go_to_testing_details(self):
         widget = DetailsWindow(self.root_widget)

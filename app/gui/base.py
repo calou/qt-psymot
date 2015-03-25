@@ -14,7 +14,7 @@ class Window(QtGui.QWidget):
         title_widget = QtGui.QLabel(self)
         title_widget.setText(title_text)
         title_widget.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
-        title_widget.setGeometry(10, 10, 840, 50)
+        title_widget.setGeometry(10, 10, 840, 60)
         return title_widget
 
     def init_back_button(self):
@@ -36,7 +36,7 @@ class Window(QtGui.QWidget):
     def get_central_geometry(self):
         h = self.height()
         w = self.width()
-        return Qt.QRect(10, 70, w - 20, h - 122)
+        return Qt.QRect(10, 80, w - 20, h - 132)
 
 
 class DummyWidget(QtGui.QWidget):

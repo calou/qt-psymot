@@ -3,6 +3,8 @@ from model.stimuli import StimulusValue, StimuliTestingConfiguration, StimuliTes
 from model.base_model import Person
 import datetime
 
+CONFIGURATION_QUERY = 'SELECT id, name, consigne, number_of_stimuli, average_interval_time, random_interval_time_delta, display_duration from stimuli_testing_configurations'
+
 SELECT_SESSION_QUERY = "SELECT s.id, s.configuration_name, s.started_at, p.first_name, p.last_name FROM stimuli_testing_sessions s LEFT JOIN people p on s.person_id = p.id"
 SELECT_SESSION_QUERY_ORDER = " ORDER BY s.started_at DESC"
 
@@ -10,8 +12,8 @@ class ConfigurationRepository(Repository):
     def __init__(self):
         Repository.__init__(self)
 
-    def select_many(self, query):
-        cursor = self.execute(query)
+    def select_many(self, query, attrs=()):
+        cursor = self.execute(query, attrs)
         testing_configurations = []
         for row in cursor.fetchall():
             testing_configuration = StimuliTestingConfiguration()
@@ -20,8 +22,17 @@ class ConfigurationRepository(Repository):
         return testing_configurations
 
     def list(self):
-        query = 'SELECT id, name, consigne, number_of_stimuli, average_interval_time, random_interval_time_delta, display_duration from stimuli_testing_configurations'
+        query = CONFIGURATION_QUERY
         return self.select_many(query)
+
+    def list(self):
+        query = CONFIGURATION_QUERY
+        return self.select_many(query)
+
+    def search(self, q):
+        query = CONFIGURATION_QUERY + " WHERE name like ?"
+        return self.select_many(query, (("%%%s%%" % q),))
+
 
     def fetch_stimuli_values(self, config):
         config.stimuli_values = []
