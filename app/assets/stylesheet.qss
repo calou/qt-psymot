@@ -145,16 +145,16 @@ QSpinBox::up-button, QSpinBox::down-button, QDoubleSpinBox::up-button, QDoubleSp
     border: none;
 }
 QSpinBox::up-button, QDoubleSpinBox::up-button, QDateEdit::up-arrow {
-    image: url('assets/images/arrow-up.svg');
+    image: url('assets/images/arrow-up.png');
     width: 20px;
 }
 QSpinBox::down-button, QDoubleSpinBox::down-button, QComboBox::down-arrow, QDateEdit::down-arrow {
-    image: url('assets/images/arrow-down.svg');
+    image: url('assets/images/arrow-down.png');
     width: 20px;
 }
 QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover, QDateEdit::up-arrow:hover {
-    image: url('assets/images/arrow-up-hover.svg');
+    image: url('assets/images/arrow-up-hover.png');
 }
 QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover, QComboBox::down-arrow:hover, QDateEdit::down-arrow:hover {
-    image: url('assets/images/arrow-down-hover.svg');
+    image: url('assets/images/arrow-down-hover.png');
 }

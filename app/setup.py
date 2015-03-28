@@ -3,11 +3,12 @@ from cx_Freeze import setup, Executable
 
 # Dependencies are automatically detected, but it might need fine tuning.
 
-included_files = [("assets", "assets"), ("db/schema.sql", "db/schema.sql"), ("matplotlibrc","matplotlibrc")]
+included_files = [("assets", "assets"), ("db/schema.sql", "db/schema.sql"), ("matplotlibrc", "matplotlibrc"),
+                  ("../qt.conf", "qt.conf")]
 included_packages = ["os", 'time', "sys", "datetime", 'matplotlib.backends.backend_tkagg', 'tkinter',
                      "tkinter.filedialog"]
-excluded = ["tcl", "tcl.tzdata",  "PyQt4.QtSql", "PyQt4.QtNetwork", "PyQt4.QtTest", "PyQt4.QtXml", "PyQt4.QtScript",
-            "PyQt5", "tk", "tk.demos", "tornado", "tk86", "tk8.6", 'zmq', 'QScintilla']
+excluded = ["tcl", "tcl.tzdata", "PyQt4.QtSql", "PyQt4.QtNetwork", "PyQt4.QtTest", "PyQt4.QtXml", "PyQt4.QtScript",
+            "PyQt5", "tk", "tk.demos", "tornado", "tk86", "tk8.6", 'pyzmq', 'QScintilla']
 
 build_exe_options = {"packages": included_packages,
                      "excludes": excluded,

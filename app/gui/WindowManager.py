@@ -21,7 +21,7 @@ class WindowManager(QtGui.QMainWindow):
         self.setGeometry(100, 100, 900, 600)
         self.setWindowTitle('Psychomotriciel')
 
-        self.setWindowIcon(QtGui.QIcon('assets/images/application-icon.svg'))
+        self.setWindowIcon(QtGui.QIcon('assets/images/application-icon.png'))
 
         self.stacked_widget.addWidget(self.home_window)
 
