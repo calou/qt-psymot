@@ -1,8 +1,8 @@
 # -*- coding: utf8 -*-
 from PyQt4 import QtCore
 from utils.PercentageCalculator import PercentageCalculator
-import random
 import time
+from numpy import random
 from datetime import datetime
 
 
@@ -167,9 +167,12 @@ class StimuliTestingConfiguration():
         current_time = 0
         min = self.min_interval_time()
         delta = 2 * self.random_interval_time_delta
+
+        randomized = random.choice(self.stimuli_values, self.number_of_stimuli)
+
         for i in range(self.number_of_stimuli):
             current_time += min + random.randint(0, 100 * delta) / 100
-            stimulus_value = random.choice(self.stimuli_values)
+            stimulus_value = randomized[i]
             duration = self.get_duration()
             valid = stimulus_value in self.valid_stimuli_values
             stimulus = Stimulus(stimulus_value, current_time, duration, valid)
