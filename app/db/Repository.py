@@ -5,7 +5,7 @@ from PyQt4 import QtCore
 
 class DatabaseManager():
     def __init__(self):
-        self.db_filename = 'database.db'
+        self.db_filename = 'psychomotriciel.db'
         self.schema_filename = 'db/schema.sql'
 
     def get_connection(self):

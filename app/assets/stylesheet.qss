@@ -10,9 +10,9 @@ QTableWidget {
 
 QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox,
 QDoubleSpinBox, QTextBrowser, QTextEdit, QHeaderView, QHeaderView::section, QTableWidgetItem {
-    font-family: "Arial";
-    font-weight: 200;
-    font-size: 16px;
+    font-family: "Source Sans Pro";
+    font-weight: 300;
+    font-size: 18px;
 	color: #DDDDDD;
 }
 
@@ -105,8 +105,14 @@ QListWidget, QTextBrowser, QTextEdit, QTabBar::tab, QTabWidget::pane {
     background-color: #45494a;
 }
 
+QListWidgetItem {
+    padding: 8px 5px;
+    border:none;
+}
+
 QListWidget::item:selected, QTabBar::tab:selected, QTabWidget {
     background-color: #555a5a;
+    border: none;
 }
 
 QPushButton, QComboBox, QSpinBox, QDoubleSpinBox {
@@ -122,7 +128,7 @@ QPushButton:pressed {
 }
 
 QLabel {
-    font-weight: 100;
+    font-weight: 200;
 }
 
 
@@ -139,6 +145,7 @@ QComboBox QAbstractItemView  {
     border: 1px solid #555a5a;
     background-color: #45494a;
     selection-background-color: #555a5a;
+    padding: 8px 5px;
 }
 
 QSpinBox::up-button, QSpinBox::down-button, QDoubleSpinBox::up-button, QDoubleSpinBox::down-button, QDateEdit::up-button, QDateEdit::down-button{

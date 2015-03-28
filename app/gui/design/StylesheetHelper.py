@@ -1,4 +1,4 @@
-BIG_TEXT_STYLESHEET = "font-size:48px;"
+BIG_TEXT_STYLESHEET = "font-size:48px;font-weight:100;"
 MEDIUM_TEXT_STYLESHEET = "font-size:32px;"
 SMALL_TEXT_STYLESHEET = "font-size:24px;"
 BIG_RESULT_STYLESHEET = "font-size:120px; font-weight:500;"
