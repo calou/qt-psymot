@@ -124,3 +124,13 @@ QPushButton:pressed {
 QLabel {
     font-weight: 100;
 }
+
+QSpinBox::up-button, QSpinBox::down-button, QDoubleSpinBox::up-button, QDoubleSpinBox::down-button{
+    border: none;
+}
+QSpinBox::up-button, QDoubleSpinBox::up-button {
+    image: url('assets/images/arrow-up.svg');
+}
+QSpinBox::down-button, QDoubleSpinBox::down-button {
+    image: url('assets/images/arrow-down.svg');
+}
