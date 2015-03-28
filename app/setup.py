@@ -32,5 +32,5 @@ setup(
 
     requires=['pyqt4 (>=4.11)', 'numpy (>=1.9.1)',
               'matplotlib (>=1.4.3)'],
-    executables=[Executable("application.py", base=base, icon="assets/images/application-icon.ico")]
+    executables=[Executable("application.py", base=base, icon="assets/images/application-icon.ico", compress=True)]
 )

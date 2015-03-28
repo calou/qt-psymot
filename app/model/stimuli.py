@@ -138,14 +138,15 @@ class StimuliTestingSession():
             self.average_response_time = response_time_sum / len(self.correct_authorized_responses)
 
 
-class StimuliTestingConfiguration():
+class StimuliConfiguration():
     def __init__(self):
-        self.id = -1
+        self.id = None
         self.name = ""
         self.number_of_stimuli = 50
         self.average_interval_time = 5.0
         self.random_interval_time_delta = 2.0
         self.display_duration = 0.8
+        self.consigne = ""
 
         self.stimuli_values = []
         self.valid_stimuli_values = []

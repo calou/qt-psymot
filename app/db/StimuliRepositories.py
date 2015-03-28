@@ -1,12 +1,13 @@
 from db.Repository import *
-from model.stimuli import StimulusValue, StimuliTestingConfiguration, StimuliTestingSession, Stimulus
+from model.stimuli import StimulusValue, StimuliConfiguration, StimuliTestingSession, Stimulus
 from model.base_model import Person
 import datetime
 
-CONFIGURATION_QUERY = 'SELECT id, name, consigne, number_of_stimuli, average_interval_time, random_interval_time_delta, display_duration from stimuli_testing_configurations'
+SELECT_CONFIGURATION_QUERY = 'SELECT id, name, consigne, number_of_stimuli, average_interval_time, random_interval_time_delta, display_duration from stimuli_configurations'
 
 SELECT_SESSION_QUERY = "SELECT s.id, s.configuration_name, s.started_at, p.first_name, p.last_name FROM stimuli_testing_sessions s LEFT JOIN people p on s.person_id = p.id"
 SELECT_SESSION_QUERY_ORDER = " ORDER BY s.started_at DESC"
+
 
 class ConfigurationRepository(Repository):
     def __init__(self):
@@ -16,21 +17,21 @@ class ConfigurationRepository(Repository):
         cursor = self.execute(query, attrs)
         testing_configurations = []
         for row in cursor.fetchall():
-            testing_configuration = StimuliTestingConfiguration()
-            testing_configuration.id, testing_configuration.name, testing_configuration.consigne, testing_configuration.number_of_stimuli, testing_configuration.average_interval_time, testing_configuration.random_interval_time_delta, testing_configuration.display_duration = row
-            testing_configurations.append(testing_configuration)
+            configuration = StimuliConfiguration()
+            configuration.id, configuration.name, configuration.consigne, configuration.number_of_stimuli, configuration.average_interval_time, configuration.random_interval_time_delta, configuration.display_duration = row
+            testing_configurations.append(configuration)
         return testing_configurations
 
     def list(self):
-        query = CONFIGURATION_QUERY
+        query = SELECT_CONFIGURATION_QUERY
         return self.select_many(query)
 
     def list(self):
-        query = CONFIGURATION_QUERY
+        query = SELECT_CONFIGURATION_QUERY
         return self.select_many(query)
 
     def search(self, q):
-        query = CONFIGURATION_QUERY + " WHERE name like ?"
+        query = SELECT_CONFIGURATION_QUERY + " WHERE name like ?"
         return self.select_many(query, (("%%%s%%" % q),))
 
 
@@ -47,6 +48,21 @@ class ConfigurationRepository(Repository):
             config.stimuli_values.append(sv)
             if authorized:
                 config.valid_stimuli_values.append(sv)
+
+    def save(self, configuration):
+        if configuration.id:
+            query = "UPDATE stimuli_configurations SET  name=?, consigne=?, number_of_stimuli=?, average_interval_time=?, random_interval_time_delta=?, display_duration=? WHERE id=?"
+            attrs = (configuration.name, configuration.consigne, configuration.number_of_stimuli,
+                     configuration.average_interval_time, configuration.random_interval_time_delta,
+                     configuration.display_duration, configuration.id)
+            self.execute(query, attrs)
+        else:
+            query = "INSERT INTO stimuli_configurations (name, consigne, number_of_stimuli, average_interval_time, random_interval_time_delta, display_duration) VALUES (?,?,?,?,?,?)"
+            attrs = (configuration.name, configuration.consigne, configuration.number_of_stimuli,
+                     configuration.average_interval_time, configuration.random_interval_time_delta,
+                     configuration.display_duration)
+        print(attrs)
+        self.execute(query, attrs)
 
 
 class SessionRepository(Repository):
@@ -67,7 +83,8 @@ class SessionRepository(Repository):
             action_time = None
             if s.stimulus_responses:
                 action_time = s.stimulus_responses[0].time
-            attrs.append((sid, str_value, s.valid, s.is_correct(), s.effective_time, action_time, len(s.stimulus_responses)))
+            attrs.append(
+                (sid, str_value, s.valid, s.is_correct(), s.effective_time, action_time, len(s.stimulus_responses)))
 
         self.executeMany(query, attrs)
 
@@ -90,6 +107,7 @@ class SessionRepository(Repository):
         search_value = "%" + q + "%"
         query = SELECT_SESSION_QUERY + " WHERE p.first_name like ? or last_name like ?" + SELECT_SESSION_QUERY_ORDER
         return self.select_many(query, (search_value, search_value))
+
 
 class StimuliRepository(Repository):
     def __init__(self):
