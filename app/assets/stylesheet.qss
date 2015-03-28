@@ -125,18 +125,36 @@ QLabel {
     font-weight: 100;
 }
 
+
+QComboBox::drop-down  {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+
+    border: none;
+}
+
+QComboBox QAbstractItemView  {
+    color: #DDDDDD;
+    border: 1px solid #555a5a;
+    background-color: #45494a;
+    selection-background-color: #555a5a;
+}
+
 QSpinBox::up-button, QSpinBox::down-button, QDoubleSpinBox::up-button, QDoubleSpinBox::down-button{
     border: none;
 }
 QSpinBox::up-button, QDoubleSpinBox::up-button {
     image: url('assets/images/arrow-up.svg');
+    width: 20px;
 }
-QSpinBox::down-button, QDoubleSpinBox::down-button {
+QSpinBox::down-button, QDoubleSpinBox::down-button, QComboBox::down-arrow {
     image: url('assets/images/arrow-down.svg');
+    width: 20px;
 }
 QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover {
     image: url('assets/images/arrow-up-hover.svg');
 }
-QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover {
+QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover, QComboBox::down-arrow {
     image: url('assets/images/arrow-down-hover.svg');
 }
