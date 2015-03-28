@@ -46,7 +46,7 @@ class TestingWidget(Window):
         self.text_widget.setStyleSheet("font-family:'Source Sans Pro'; font-weight: 600; font-size:96px;" + DARK_COLOR)
         self.result_button.setText("Terminer")
         self.result_button.hide()
-        self.end_text.setText("Le test est terminé, merci.")
+        self.end_text.setText(u"Le test est terminé, merci.")
         self.end_text.hide()
         self.end_text.setStyleSheet(THIN_MEDIUM_RESULT_STYLESHEET + DARK_COLOR)
         self.end_text.setWordWrap(True)
