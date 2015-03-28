@@ -10,7 +10,7 @@ QTableWidget {
 
 QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox,
 QDoubleSpinBox, QTextBrowser, QTextEdit, QHeaderView, QHeaderView::section, QTableWidgetItem {
-    font-family: "Source Sans Pro";
+    font-family: "Arial";
     font-weight: 200;
     font-size: 16px;
 	color: #DDDDDD;
@@ -141,20 +141,20 @@ QComboBox QAbstractItemView  {
     selection-background-color: #555a5a;
 }
 
-QSpinBox::up-button, QSpinBox::down-button, QDoubleSpinBox::up-button, QDoubleSpinBox::down-button{
+QSpinBox::up-button, QSpinBox::down-button, QDoubleSpinBox::up-button, QDoubleSpinBox::down-button, QDateEdit::up-button, QDateEdit::down-button{
     border: none;
 }
-QSpinBox::up-button, QDoubleSpinBox::up-button {
+QSpinBox::up-button, QDoubleSpinBox::up-button, QDateEdit::up-arrow {
     image: url('assets/images/arrow-up.svg');
     width: 20px;
 }
-QSpinBox::down-button, QDoubleSpinBox::down-button, QComboBox::down-arrow {
+QSpinBox::down-button, QDoubleSpinBox::down-button, QComboBox::down-arrow, QDateEdit::down-arrow {
     image: url('assets/images/arrow-down.svg');
     width: 20px;
 }
-QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover {
+QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover, QDateEdit::up-arrow:hover {
     image: url('assets/images/arrow-up-hover.svg');
 }
-QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover, QComboBox::down-arrow {
+QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover, QComboBox::down-arrow:hover, QDateEdit::down-arrow:hover {
     image: url('assets/images/arrow-down-hover.svg');
 }
