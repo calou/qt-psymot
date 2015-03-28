@@ -1,8 +1,6 @@
 import sys
 from cx_Freeze import setup, Executable
 
-# Dependencies are automatically detected, but it might need fine tuning.
-
 included_files = [("assets", "assets"), ("db/schema.sql", "db/schema.sql"), ("matplotlibrc", "matplotlibrc"),
                   ("../qt.conf", "qt.conf")]
 included_packages = ["os", 'time', "sys", "datetime", 'matplotlib.backends.backend_tkagg', 'tkinter',
@@ -16,8 +14,6 @@ build_exe_options = {"packages": included_packages,
                      "optimize": 2}
 
 
-# GUI applications require a different base on Windows (the default is for a
-# console application).
 base = None
 if sys.platform == "win32":
     base = "Win32GUI"
@@ -34,8 +30,7 @@ setup(
     description='',
     options={"build_exe": build_exe_options},
 
-    requires=['pyqt4 (>=4.8)', 'numpy (>=1.9.1)',
+    requires=['pyqt4 (>=4.11)', 'numpy (>=1.9.1)',
               'matplotlib (>=1.4.3)'],
-    executables=[
-        Executable("application.py", base=base)]
+    executables=[Executable("application.py", base=base, icon="assets/images/application-icon.ico")]
 )
