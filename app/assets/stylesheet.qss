@@ -134,3 +134,9 @@ QSpinBox::up-button, QDoubleSpinBox::up-button {
 QSpinBox::down-button, QDoubleSpinBox::down-button {
     image: url('assets/images/arrow-down.svg');
 }
+QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover {
+    image: url('assets/images/arrow-up-hover.svg');
+}
+QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover {
+    image: url('assets/images/arrow-down-hover.svg');
+}
