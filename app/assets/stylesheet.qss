@@ -10,7 +10,8 @@ QTableWidget {
 
 QLineEdit, QDateEdit, QDateTimeEdit, QLabel, QPushButton, QListWidget, QTabWidget, QDialog, QComboBox, QSpinBox,
 QDoubleSpinBox, QTextBrowser, QTextEdit, QHeaderView, QHeaderView::section, QTableWidgetItem {
-    font-family: "Source Sans Pro";
+    /*font-family: "Source Sans Pro";*/
+    font-family: "OldSansBlack";
     font-weight: 300;
     font-size: 18px;
 	color: #DDDDDD;
