@@ -28,6 +28,7 @@ QSpinBox, QDoubleSpinBox, QHeaderView, QHeaderView::section, QTableWidgetItem {
     border-style: solid;
     border-color: #606161;
     background-color: #45494a;
+    color: #DFDFDF;
 }
 
 QHeaderView, QListWidget {
@@ -102,18 +103,22 @@ QTabBar::tab {
     padding: 8px 15px;
 }
 
-QListWidget, QTextBrowser, QTextEdit, QTabBar::tab, QTabWidget::pane {
+QListWidget, QTextBrowser, QTextEdit, QTabBar::tab:selected, QTabWidget::pane {
     background-color: #45494a;
+}
+
+QTabBar::tab:selected {
+    border: none;
+}
+
+QListWidget::item:selected, QTabBar::tab, QTabWidget {
+    background-color: #555a5a;
+    border: none;
 }
 
 QListWidgetItem {
     padding: 8px 5px;
     border:none;
-}
-
-QListWidget::item:selected, QTabBar::tab:selected, QTabWidget {
-    background-color: #555a5a;
-    border: none;
 }
 
 QPushButton, QComboBox, QSpinBox, QDoubleSpinBox {
@@ -130,6 +135,7 @@ QPushButton:pressed {
 
 QLabel {
     font-weight: 200;
+    color:#DDDDDD;
 }
 
 
