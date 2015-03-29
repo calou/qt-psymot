@@ -31,6 +31,6 @@ setup(
     options={"build_exe": build_exe_options},
 
     requires=['pyqt4 (>=4.11)', 'numpy (>=1.9.1)',
-              'matplotlib (>=1.4.3)'],
+              'matplotlib (>=1.4.3)','appdirs (>=1.4.0)'],
     executables=[Executable("application.py", base=base, icon="assets/images/application-icon.ico", compress=True)]
 )

@@ -3,11 +3,11 @@ import codecs
 import os
 import sqlite3
 from PyQt4 import QtCore
-
+from filesystem.FileSystemManager import FileSystemManager
 
 class DatabaseManager():
     def __init__(self):
-        self.db_filename = 'psychomotriciel.db'
+        self.db_filename = FileSystemManager.get_application_data_directory() + 'psychomotriciel.db'
         self.schema_filename = 'db/schema.sql'
 
     def get_connection(self):
