@@ -13,3 +13,5 @@ GREY_BACKGROUND = "background-color: #606161;"
 NO_BORDER = "border: none;"
 DARK_GREY_BACKGROUND = "background-color: #36393A;"
 WIDGET_BACKGROUND = "background-color: #45494a;"
+
+TITLE_FONT = "font-family: 'FrancophilSans';"

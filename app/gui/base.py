@@ -13,7 +13,7 @@ class Window(QtGui.QWidget):
     def set_title(self, title_text):
         title_widget = QtGui.QLabel(self)
         title_widget.setText(title_text)
-        title_widget.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR)
+        title_widget.setStyleSheet(BIG_TEXT_STYLESHEET + DARK_COLOR + TITLE_FONT)
         title_widget.setGeometry(10, 10, 840, 60)
         return title_widget
 
