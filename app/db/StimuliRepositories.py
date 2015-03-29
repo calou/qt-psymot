@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from db.Repository import *
 from model.stimuli import StimulusValue, StimuliConfiguration, StimuliTestingSession, Stimulus
 from model.base_model import Person

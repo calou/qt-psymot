@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+import codecs
 import os
 import sqlite3
 from PyQt4 import QtCore
@@ -16,7 +18,7 @@ class DatabaseManager():
         with sqlite3.connect(self.db_filename) as conn:
             if db_is_new:
                 QtCore.qDebug("Creating schema")
-                with open(self.schema_filename, 'rt') as f:
+                with codecs.open(self.schema_filename, encoding='utf8') as f:
                     schema = f.read()
                 conn.executescript(schema)
             else:
