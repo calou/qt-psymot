@@ -1,7 +1,8 @@
+# -*- coding: utf8 -*-
 import sys
 from cx_Freeze import setup, Executable
 
-included_files = [("assets", "assets"), ("db/schema.sql", "db/schema.sql"), ("matplotlibrc", "matplotlibrc"),
+included_files = [("assets", "assets"), ("db/migrations", "db/migrations"), ("matplotlibrc", "matplotlibrc"),
                   ("../qt.conf", "qt.conf")]
 included_packages = ["os", 'time', "sys", "datetime", 'matplotlib.backends.backend_tkagg', 'tkinter',
                      "tkinter.filedialog"]
@@ -25,12 +26,15 @@ setup(
               'utils'],
     url='',
     license='',
-    author='Sébastien Gruchet',
+    author=u"Sébastien Gruchet",
     author_email='gruchet@gmail.com',
     description='',
     options={"build_exe": build_exe_options},
 
     requires=['pyqt4 (>=4.11)', 'numpy (>=1.9.1)',
               'matplotlib (>=1.4.3)','appdirs (>=1.4.0)'],
+    dependency_links=[
+        'hg+http://bitbucket.org/calou/sqlturk#egg=sqlturk'
+    ],
     executables=[Executable("application.py", base=base, icon="assets/images/application-icon.ico", compress=True)]
 )

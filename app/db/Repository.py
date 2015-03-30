@@ -4,25 +4,21 @@ import os
 import sqlite3
 from PyQt4 import QtCore
 from filesystem.FileSystemManager import FileSystemManager
+from sqlturk.migration import MigrationTool
+
 
 class DatabaseManager():
     def __init__(self):
         self.db_filename = FileSystemManager.get_application_data_directory() + 'psychomotriciel.db'
-        self.schema_filename = 'db/schema.sql'
+        self.migration_tool = MigrationTool("sqlite:///" + self.db_filename, "db/migrations")
+        self.migration_tool.install()
 
     def get_connection(self):
         return sqlite3.connect(self.db_filename, detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES)
 
     def migrate(self):
-        db_is_new = not os.path.exists(self.db_filename)
-        with sqlite3.connect(self.db_filename) as conn:
-            if db_is_new:
-                QtCore.qDebug("Creating schema")
-                with codecs.open(self.schema_filename, encoding='utf8') as f:
-                    schema = f.read()
-                conn.executescript(schema)
-            else:
-                QtCore.qDebug("Database exists, assume schema does, too.")
+        self.migration_tool.find_migrations()
+        self.migration_tool.run_migrations()
 
 
 class Repository():
