@@ -58,7 +58,7 @@ class Repository():
 
     def update(self, model):
         session = self.get_session()
-        session.update(model)
+        session.merge(model)
         session.commit()
 
     def save_or_update(self, model):

@@ -5,6 +5,7 @@ from PyQt4.QtGui import QValidator, QRegExpValidator
 from gui.base import Window
 from PyQt4 import QtGui, QtCore, Qt
 from gui.design.StylesheetHelper import *
+import datetime
 
 from gui.button import *
 from gui.base import *
@@ -41,6 +42,7 @@ class ManagePatientWindow(Window):
     def __init__(self, parent=None):
         super(ManagePatientWindow, self).__init__(None)
 
+        self.new_patient_button = QtGui.QPushButton(self)
         self.search_input = QtGui.QLineEdit(self)
         self.list_widget = QtGui.QListWidget(self)
         self.form_widget = QtGui.QWidget(self)
@@ -75,16 +77,16 @@ class ManagePatientWindow(Window):
         form_layout.addRow(u"Date de naissance", self.birth_date_widget)
         save_button = QtGui.QPushButton(u"Enregistrer")
         save_button.setFixedWidth(150)
-
         save_button.clicked.connect(self.save_patient)
         form_layout.addWidget(save_button)
+
         self.form_widget.setLayout(form_layout)
 
 
     def init_ui(self):
-        new_patient_button = QtGui.QPushButton(u"Nouveau patient")
-        new_patient_button.setGeometry(120, 770, 560, 3)
-        new_patient_button.clicked.connect(self.new_patient)
+        self.new_patient_button.setText(u"Nouveau patient")
+        self.new_patient_button.clicked.connect(self.new_patient)
+
 
         self.list_widget.itemClicked.connect(self.item_clicked)
         self.redraw_person_list()
@@ -163,9 +165,9 @@ class ManagePatientWindow(Window):
             self.redraw_person_list()
 
     def new_patient(self):
-        self.hide_all_delete_buttons()
         self.list_widget.clearSelection()
         patient = Person()
+        patient.birth_date = datetime.datetime(2000, 1, 1)
         self.set_patient(patient)
 
     def search_patients(self):
@@ -183,3 +185,4 @@ class ManagePatientWindow(Window):
         self.form_widget.setGeometry(qrect.x() + 310, qrect.y() + 42, qrect.width() - 310, qrect.height() - 42)
         self.list_widget.setGeometry(qrect.x(), qrect.y() + 40, 300, qrect.height() - 40)
         self.search_input.setGeometry(qrect.x(), qrect.y(), 300, 32)
+        self.new_patient_button.setGeometry(self.get_right_button_geometry())
