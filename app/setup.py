@@ -14,7 +14,6 @@ build_exe_options = {"packages": included_packages,
                      'include_files': included_files,
                      "optimize": 2}
 
-
 base = None
 if sys.platform == "win32":
     base = "Win32GUI"
@@ -32,7 +31,7 @@ setup(
     options={"build_exe": build_exe_options},
 
     requires=['pyqt4 (>=4.11)', 'numpy (>=1.9.1)',
-              'matplotlib (>=1.4.3)','appdirs (>=1.4.0)'],
+              'matplotlib (>=1.4.3)', 'appdirs (>=1.4.0)'],
     dependency_links=[
         'hg+http://bitbucket.org/calou/sqlturk#egg=sqlturk'
     ],

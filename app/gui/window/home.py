@@ -30,11 +30,6 @@ class Home(QtGui.QWidget):
         patients_section.push_buttons[0].clicked.connect(self.go_to_patients)
         self.gridLayout.addWidget(patients_section, 0, 1)
 
-        shape_section = HomeSection(["Démarrer un test"], "assets/images/jigsaw.svg")
-        shape_section.push_buttons[0].clicked.connect(self.go_to_patients)
-        self.gridLayout.addWidget(shape_section, 1, 0)
-
-
         self.setLayout(self.gridLayout)
 
     def go_to_testing(self):
@@ -48,7 +43,6 @@ class Home(QtGui.QWidget):
     def go_to_configuration(self):
         widget = ConfigurationWindow(self.root_widget)
         self.root_widget.replaceWindow(widget)
-
 
     def go_to_testing_details(self):
         widget = DetailsWindow(self.root_widget)
