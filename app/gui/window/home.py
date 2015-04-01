@@ -24,12 +24,17 @@ class Home(QtGui.QWidget):
         testing_section.push_buttons[0].clicked.connect(self.go_to_testing)
         testing_section.push_buttons[1].clicked.connect(self.go_to_testing_details)
         testing_section.push_buttons[2].clicked.connect(self.go_to_configuration)
-
         self.gridLayout.addWidget(testing_section, 0, 0)
 
         patients_section = HomeSection(["Gérer les patients"], "assets/images/people.svg")
         patients_section.push_buttons[0].clicked.connect(self.go_to_patients)
         self.gridLayout.addWidget(patients_section, 0, 1)
+
+        shape_section = HomeSection(["Démarrer un test"], "assets/images/jigsaw.svg")
+        shape_section.push_buttons[0].clicked.connect(self.go_to_patients)
+        self.gridLayout.addWidget(shape_section, 1, 0)
+
+
         self.setLayout(self.gridLayout)
 
     def go_to_testing(self):
