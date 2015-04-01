@@ -123,7 +123,7 @@ class SetUpWindow(Window):
         self.testing_select.setGeometry(QtCore.QRect(390, 140, 300, 32))
         self.patient_text.setGeometry(QtCore.QRect(40, 110, 191, 31))
         self.session_text.setGeometry(QtCore.QRect(390, 110, 191, 31))
-        self.spinBox.setGeometry(QtCore.QRect(220, 250, 71, 32))
+        self.spinBox.setGeometry(QtCore.QRect(220, 250, 90, 32))
         self.numbers_of_stimuli_text.setGeometry(QtCore.QRect(50, 250, 151, 32))
 
         self.values_text.setGeometry(QtCore.QRect(50, 300, 151, 32))
