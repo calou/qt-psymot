@@ -4,6 +4,7 @@ from model.stimuli import *
 from gui.button import *
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
+import numpy as np
 
 from gui.base import *
 from db.stimuli_repositories import SessionRepository, StimuliRepository
@@ -18,6 +19,13 @@ class DetailsWindow(Window):
         self.list_widget = QtGui.QListWidget(self)
         self.repository = SessionRepository()
 
+        self.summary_tab = SummaryTab()
+        self.stimuli_list_tab = StimuliListTab()
+        self.histogram_tab = HistogramTab()
+        self.tendency_tab = TendencyTab()
+
+        self.tab_widget = QtGui.QTabWidget(self)
+
         self.stimuli_repository = StimuliRepository()
 
         self.sessions = []
@@ -26,13 +34,10 @@ class DetailsWindow(Window):
         Window.init(self, parent, "Détails des tests")
 
     def init_ui(self):
-        self.summary_tab = SummaryTab()
-        self.stimuli_list_tab = StimuliListTab()
-        self.histogram_tab = HistogramTab()
-        self.tab_widget = QtGui.QTabWidget(self)
         self.tab_widget.addTab(self.summary_tab, u"Résumé")
         self.tab_widget.addTab(self.stimuli_list_tab, u"Liste des stimuli")
         self.tab_widget.addTab(self.histogram_tab, u"Histogramme")
+        self.tab_widget.addTab(self.tendency_tab, u"Tendance")
 
         self.search_input.setPlaceholderText(u"Rechercher")
 
@@ -46,6 +51,7 @@ class DetailsWindow(Window):
         self.summary_tab.update_tab(session)
         self.stimuli_list_tab.update_tab(session)
         self.histogram_tab.update_tab(session)
+        self.tendency_tab.update_tab(session)
 
     def search_patients(self):
         search_value = self.search_input.text()
@@ -142,6 +148,7 @@ class StimuliListTab(QtGui.QWidget):
     def resizeEvent(self, ev):
         self.table.setGeometry(0, 0, self.width(), self.height())
 
+
 class HistogramTab(QtGui.QWidget):
     def __init__(self, parent=None):
         super(HistogramTab, self).__init__(parent)
@@ -157,4 +164,29 @@ class HistogramTab(QtGui.QWidget):
                           stimulus.action_time]
         ax = self.figure.add_subplot(111)
         ax.hist(reaction_times)
+        self.canvas.draw()
+
+
+class TendencyTab(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(TendencyTab, self).__init__(parent)
+        self.figure = plt.figure()
+        self.canvas = FigureCanvas(self.figure)
+        layout = QtGui.QVBoxLayout()
+        layout.addWidget(self.canvas)
+
+        self.setLayout(layout)
+
+    def update_tab(self, session):
+        action_times = [stimulus.action_time % 10000 for stimulus in session.stimuli if stimulus.action_time]
+        reaction_times = [1000 * (stimulus.action_time - stimulus.effective_time) for stimulus in session.stimuli if
+                          stimulus.action_time]
+
+        average = np.average(reaction_times)
+        average_reaction_times = [average for stimulus in session.stimuli if stimulus.action_time]
+        ax = self.figure.add_subplot(111)
+        ax.plot(action_times, reaction_times, "-", action_times, average_reaction_times, '-')
+
+        max_reaction_time = np.amax(reaction_times)
+        ax.set_ylim([0, max_reaction_time + 20])
         self.canvas.draw()
