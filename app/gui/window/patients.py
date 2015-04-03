@@ -1,4 +1,6 @@
 # -*- coding: utf8 -*-
+from PyQt4.QtCore import QRegExp
+from PyQt4.QtGui import QValidator, QRegExpValidator
 
 from gui.base import Window
 from PyQt4 import QtGui, QtCore, Qt
@@ -27,13 +29,13 @@ class PersonListWidgetItem(QtGui.QWidget):
 
         self.delete_button.clicked.connect(self.handle_delete_button_clicked)
 
-
     def set_person(self, person):
         self.person = person
         self.item_name_label.setText(person.fullname())
 
     def handle_delete_button_clicked(self):
         self.delete_clicked.emit(self.person)
+
 
 class ManagePatientWindow(Window):
     def __init__(self, parent=None):
@@ -59,6 +61,14 @@ class ManagePatientWindow(Window):
         form_layout = QtGui.QFormLayout(self)
         form_layout.setContentsMargins(20, 10, 0, 0)
         self.birth_date_widget.setDisplayFormat("dd/MM/yyyy")
+
+        """
+        regexp = QRegExp("([A-Z])+");
+        string_validator= QRegExpValidator(regexp)
+        self.first_name_widget.setValidator(string_validator)
+        self.last_name_widget.setValidator(string_validator)
+        """
+
         form_layout.setLabelAlignment(QtCore.Qt.AlignRight)
         form_layout.addRow(u"Prénom", self.first_name_widget)
         form_layout.addRow(u"Nom", self.last_name_widget)
@@ -116,12 +126,27 @@ class ManagePatientWindow(Window):
         self.birth_date_widget.setDate(q_date)
 
     def save_patient(self):
-        self.current_patient.first_name = self.first_name_widget.text()
-        self.current_patient.last_name = self.last_name_widget.text()
-        self.current_patient.birth_date = self.birth_date_widget.date().toPyDate()
-        self.person_repository.save_or_update(self.current_patient)
-        self.refresh_patients()
-        self.redraw_person_list()
+        if self.validate():
+            self.current_patient.first_name = self.first_name_widget.text()
+            self.current_patient.last_name = self.last_name_widget.text()
+            self.current_patient.birth_date = self.birth_date_widget.date().toPyDate()
+            self.person_repository.save_or_update(self.current_patient)
+            self.refresh_patients()
+            self.redraw_person_list()
+
+    def validate(self):
+        regexp = QRegExp(".+")
+        regexp.setCaseSensitivity(False)
+        string_validator = QRegExpValidator(regexp)
+        state, str, pos = string_validator.validate(self.first_name_widget.text(), 0)
+        state2, str, pos = string_validator.validate(self.last_name_widget.text(), 0)
+
+        valid = (state == QtGui.QValidator.Acceptable and state2 == QtGui.QValidator.Acceptable)
+        if valid:
+            print("Valid", valid)
+        else:
+            print("invalid", valid)
+        return valid
 
     @QtCore.pyqtSlot(object)
     def delete_patient(self, patient):
