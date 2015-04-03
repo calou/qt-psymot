@@ -6,7 +6,7 @@ from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 
 from gui.base import *
-from db.StimuliRepositories import SessionRepository, StimuliRepository
+from db.stimuli_repositories import SessionRepository, StimuliRepository
 import time
 
 

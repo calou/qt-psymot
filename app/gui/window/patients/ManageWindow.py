@@ -7,7 +7,7 @@ from gui.design.StylesheetHelper import *
 from gui.button import *
 from gui.base import *
 from model.base_model import *
-from db.PersonRepository import PersonRepository
+from db.base_model_repository import PersonRepository
 
 
 class PersonListWidgetItem(QtGui.QWidget):
@@ -118,10 +118,7 @@ class ManagePatientWindow(Window):
         self.current_patient.first_name = self.first_name_widget.text()
         self.current_patient.last_name = self.last_name_widget.text()
         self.current_patient.birth_date = self.birth_date_widget.date().toPyDate()
-        if (self.current_patient.id >= 0):
-            self.person_repository.update(self.current_patient)
-        else:
-            self.person_repository.save(self.current_patient)
+        self.person_repository.save_or_update(self.current_patient)
         self.refresh_patients()
         self.redraw_person_list()
 

@@ -1,15 +1,20 @@
 # -*- coding: utf8 -*-
-from datetime import datetime
+from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy.ext.declarative import declarative_base
 
-class Person():
-    def __init__(self):
-        self.id = -1
-        self.first_name = ""
-        self.last_name = ""
-        self.birth_date = datetime(1990, 1, 1)
+Base = declarative_base()
+
+
+
+class Person(Base):
+    __tablename__ = 'people'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String)
+    last_name = Column(String)
+    birth_date = Column(Date)
 
     def fullname(self):
-        return self.last_name.upper() + ", " +self.first_name
+        return self.last_name.upper() + ", " + self.first_name
 
     def full_name(self):
         return self.fullname()

@@ -5,8 +5,8 @@ from gui.base import Window
 from gui.design.StylesheetHelper import *
 from gui.window.stimuli.testing import TestingWidget
 from gui.button import *
-from db.StimuliRepositories import ConfigurationRepository
-from db.PersonRepository import PersonRepository
+from db.stimuli_repositories import ConfigurationRepository
+from db.base_model_repository import PersonRepository
 
 
 class SetUpWindow(Window):

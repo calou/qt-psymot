@@ -4,7 +4,7 @@ from model.stimuli import *
 from gui.button import *
 
 from gui.base import *
-from db.StimuliRepositories import ConfigurationRepository
+from db.stimuli_repositories import ConfigurationRepository
 
 
 class ConfigurationWindow(Window):

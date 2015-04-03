@@ -5,7 +5,7 @@ from PyQt4 import QtCore, QtGui
 from model.stimuli import *
 from gui.base import Window
 from gui.design.StylesheetHelper import *
-from db.StimuliRepositories import *
+from db.stimuli_repositories import *
 
 
 class ResultsWidget(Window):

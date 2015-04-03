@@ -3,8 +3,8 @@ create table people (
     first_name  text,
     last_name   text,
     birth_date  date,
-    created_at                  date,
-    updated_at                  date
+    created_at  date,
+    updated_at  date
 );
 insert into people (id, first_name, last_name, birth_date, created_at) values
                    (1, "John", "Doe", "1985-06-17", date('now')),

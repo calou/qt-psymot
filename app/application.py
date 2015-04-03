@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 import sys
 from PyQt4 import QtGui
-from db import Repository
+from db import repository
 from gui.WindowManager import *
 
 
@@ -12,7 +12,7 @@ def main():
     """
     Migration de base de données
     """
-    database_manager = Repository.DatabaseManager()
+    database_manager = repository.DatabaseManager()
     database_manager.migrate()
     widget = WindowManager()
     widget.show()

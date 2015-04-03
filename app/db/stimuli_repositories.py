@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from db.Repository import *
+from db.repository import *
 from model.stimuli import StimulusValue, StimuliConfiguration, StimuliTestingSession, Stimulus
 from model.base_model import Person
 import datetime
