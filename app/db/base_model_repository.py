@@ -1,8 +1,6 @@
 from sqlalchemy import or_
 from db.repository import *
 from model.base_model import Person
-import datetime
-
 
 class PersonRepository(Repository):
     def __init__(self):

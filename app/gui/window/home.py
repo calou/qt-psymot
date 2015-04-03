@@ -4,7 +4,7 @@ from PyQt4 import QtGui, QtSvg, Qt
 from model.stimuli import *
 from gui.window.stimuli.details import DetailsWindow
 from gui.window.stimuli.configuration import ConfigurationWindow
-from gui.window.patients.ManageWindow import ManagePatientWindow
+from gui.window.patients import ManagePatientWindow
 from gui.window.stimuli.setup import SetUpWindow
 
 

@@ -64,6 +64,7 @@ class ManagePatientWindow(Window):
         form_layout.addRow(u"Nom", self.last_name_widget)
         form_layout.addRow(u"Date de naissance", self.birth_date_widget)
         save_button = QtGui.QPushButton(u"Enregistrer")
+        save_button.setFixedWidth(150)
 
         save_button.clicked.connect(self.save_patient)
         form_layout.addWidget(save_button)
